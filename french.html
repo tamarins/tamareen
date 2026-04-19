@@ -1,5 +1,120 @@
-<h1>تمارين اللغة الفرنسية</h1>
-<ul>
-    <li><a href="conjugaison1.html">اضغط هنا للذهاب لتمرين الصرف</a></li>
-    <li><a href="grammaire1.html">اضغط هنا للذهاب لتمرين القواعد</a></li>
-</ul>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تمارين اللغة الفرنسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2980b9;
+            --bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 40px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        h1 { margin-bottom: 10px; }
+
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .ex-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ex-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .ex-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .ex-desc {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #7f8c8d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>تمارين اللغة الفرنسية</h1>
+    <p>Niveau: 5ème & 6ème Année Primaire</p>
+</header>
+
+<div class="container">
+    <div class="exercises-grid">
+        
+        <a href="conjugaison1.html" class="ex-card">
+            <span class="icon">🔄</span>
+            <span class="ex-title">Conjugaison</span>
+            <span class="ex-desc">تمارين تفاعلية في تصريف الأفعال</span>
+        </a>
+
+        <a href="grammaire1.html" class="ex-card">
+            <span class="icon">📝</span>
+            <span class="ex-title">Grammaire</span>
+            <span class="ex-desc">تمارين تفاعلية في قواعد اللغة</span>
+        </a>
+
+        </div>
+
+    <a href="index.html" class="back-link">← العودة إلى الصفحة الرئيسية</a>
+</div>
+
+</body>
+</html>
