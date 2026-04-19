@@ -3,122 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التمارين التفاعلية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>فضاء الأستاذ محمود العطار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4e73df;
-            --secondary: #1cc88a;
-            --dark: #2e3e4e;
-            --light: #f8f9fc;
+            --main-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: var(--light);
-            margin: 0;
-            padding: 0;
-            color: var(--dark);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
+        /* الهيدر الجديد */
         header {
-            background: linear-gradient(135deg, var(--primary), #224abe);
-            color: white;
-            padding: 60px 20px;
+            background: var(--main-color);
+            color: var(--white);
+            padding: 80px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
         }
 
-        .container {
-            max-width: 1000px;
-            margin: -40px auto 40px;
-            padding: 20px;
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
-        .card {
-            background: white;
+        header p {
+            font-weight: 300;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+
+        /* شبكة الأقسام */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .subject-card {
+            background: var(--white);
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             text-align: center;
-        }
-
-        h1 { margin-bottom: 10px; }
-        p { color: #666; line-height: 1.6; }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .btn-box {
-            background: white;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-dark);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 5px solid transparent;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        .btn-box:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(78,115,223,0.1);
+        .subject-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        .btn-box i {
-            font-size: 40px;
-            display: block;
+        /* ألوان مخصصة لكل مادة */
+        .arabic { border-bottom-color: #e67e22; }
+        .islamic { border-bottom-color: #27ae60; }
+        .french { border-bottom-color: #2980b9; }
+        .math { border-bottom-color: #8e44ad; }
+        .updates { border-bottom-color: #c0392b; }
+
+        .icon {
+            font-size: 45px;
             margin-bottom: 15px;
+            display: block;
         }
 
-        .footer {
+        .subject-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--main-color);
+        }
+
+        .subject-card p {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+        }
+
+        footer {
             text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #888;
+            padding: 40px;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+
+        /* تحسين للهاتف */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .main-container { margin-top: -30px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>مرحباً بك في منصتي التربوية</h1>
-    <p>هنا تجد تمارين تفاعلية، دروساً، وموارد رقمية للمستوى الخامس والسادس</p>
+    <h1>الفضاء الرقمي للأستاذ محمود العطار</h1>
+    <p>موارد تربوية وتمارين تفاعلية للمستويين الخامس والسادس ابتدائي</p>
 </header>
 
-<div class="container">
-    <div class="card">
-        <h2>اختر القسم الذي تريد زيارته</h2>
+<div class="main-container">
+    <div class="subjects-grid">
         
-        <div class="grid">
-            <a href="french.html" class="btn-box">
-                <div style="font-size: 30px;">📚</div>
-                <h3>تمارين اللغة الفرنسية</h3>
-                <p>تمارين تفاعلية تدعم المكتسبات اللغوية.</p>
-            </a>
+        <a href="arabic.html" class="subject-card arabic">
+            <span class="icon">✒️</span>
+            <h3>اللغة العربية</h3>
+            <p>تمارين التراكيب، الصرف والتحويل، والقراءة والمؤلفات.</p>
+        </a>
 
-            <a href="math.html" class="btn-box">
-                <div style="font-size: 30px;">📐</div>
-                <h3>الرياضيات</h3>
-                <p>أنشطة تطبيقية وحلول للمسائل.</p>
-            </a>
+        <a href="islamic.html" class="subject-card islamic">
+            <span class="icon">🕌</span>
+            <h3>التربية الإسلامية</h3>
+            <p>دروس الاستجابة، القسط، الحكمة والتزكية.</p>
+        </a>
 
-            <a href="news.html" class="btn-box">
-                <div style="font-size: 30px;">📰</div>
-                <h3>آخر المستجدات</h3>
-                <p>أخبار وأنشطة الفصل الدراسي.</p>
-            </a>
-        </div>
+        <a href="french.html" class="subject-card french">
+            <span class="icon">🇫🇷</span>
+            <h3>Langue Française</h3>
+            <p>Grammaire, Conjugaison, Lexique et Orthographe.</p>
+        </a>
+
+        <a href="math.html" class="subject-card math">
+            <span class="icon">📐</span>
+            <h3>الرياضيات</h3>
+            <p>أنشطة الحساب الذهني، الهندسة، وحل المسائل.</p>
+        </a>
+
+        <a href="updates.html" class="subject-card updates">
+            <span class="icon">🔔</span>
+            <h3>مستجدات القسم</h3>
+            <p>إعلانات، نتائج التقييمات، وجدول الامتحانات.</p>
+        </a>
+
     </div>
 </div>
 
-<div class="footer">
-    جميع الحقوق محفوظة &copy; 2026 - الأستاذ محمود العطار
-</div>
+<footer>
+    <p>تم التطوير بكل فخر للأغراض التعليمية &copy; 2026</p>
+    <p>الأستاذ محمود العطار - مجموعة مدارس الزعفرون</p>
+</footer>
 
 </body>
 </html>
