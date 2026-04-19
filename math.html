@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تمارين الحساب التفاعلية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-deep: #c2185b;
+    --pink-mid: #e91e8c;
+    --pink-light: #f48fb1;
+    --pink-pale: #fce4ec;
+    --pink-bg: #fff0f6;
+    --pink-card: #ffe8f3;
+    --gold: #ff9800;
+    --green: #2e7d32;
+    --red: #c62828;
+    --shadow: 0 8px 32px rgba(194,24,91,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--pink-bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .bg-shapes {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+
+  header {
+    position: relative; z-index: 2;
+    background: linear-gradient(135deg, #e91e8c, #c2185b, #f06292);
+    padding: 28px 20px 20px;
+    text-align: center;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+    padding-bottom: 50px;
+    box-shadow: 0 4px 24px rgba(194,24,91,0.3);
+  }
+  header h1 {
+    color: white; font-size: 2.2rem; font-weight: 900;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+  }
+  header p { color: #fce4ec; font-size: 1rem; margin-top: 6px; }
+
+  .main-grid {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    padding: 40px 24px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-card {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--pink-light);
+    position: relative;
+    overflow: hidden;
+    animation: fadeSlide .5s ease both;
+  }
+  .section-card:nth-child(2) { animation-delay: .1s; }
+  .section-card:nth-child(3) { animation-delay: .2s; }
+  .section-card:nth-child(4) { animation-delay: .3s; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-card::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 120px; height: 120px;
+    border-radius: 0 0 0 100%;
+    opacity: .12;
+  }
+  .section-add::before    { background: #e91e8c; }
+  .section-add-dec::before { background: #9c27b0; }
+  .section-sub::before    { background: #1976d2; }
+  .section-sub-dec::before { background: #00838f; }
+  .section-mul::before    { background: #e65100; }
+  .section-mul-dec::before { background: #558b2f; }
+
+  .section-title {
+    font-size: 1.2rem; font-weight: 900;
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--pink-light);
+  }
+  .icon-badge {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; color: white; flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+  }
+  .badge-add    { background: linear-gradient(135deg,#e91e8c,#f06292); }
+  .badge-add-dec { background: linear-gradient(135deg,#9c27b0,#ce93d8); }
+  .badge-sub    { background: linear-gradient(135deg,#1976d2,#64b5f6); }
+  .badge-sub-dec { background: linear-gradient(135deg,#00838f,#4dd0e1); }
+  .badge-mul    { background: linear-gradient(135deg,#e65100,#ffb74d); }
+  .badge-mul-dec { background: linear-gradient(135deg,#558b2f,#aed581); }
+
+  .exercise {
+    background: var(--pink-card);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    display: flex; flex-direction: column; gap: 10px;
+    border: 1.5px solid #f8bbd0;
+    transition: box-shadow .2s;
+  }
+  .exercise:hover { box-shadow: 0 4px 18px rgba(233,30,140,.18); }
+
+  .expr-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .expr {
+    font-size: 1.05rem; font-weight: 700; color: #880e4f;
+    background: white; padding: 6px 14px; border-radius: 10px;
+    border: 1.5px solid #f48fb1;
+    white-space: nowrap;
+  }
+  .equals { font-size: 1.2rem; color: #c2185b; font-weight: 900; }
+
+  .answer-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ans-input {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    padding: 7px 14px; border-radius: 10px;
+    border: 2px solid #f48fb1; background: white;
+    color: #880e4f; outline: none; width: 180px;
+    transition: border-color .2s;
+    text-align: center;
+  }
+  .ans-input:focus { border-color: #e91e8c; }
+  .ans-input.correct { border-color: var(--green); background: #e8f5e9; color: var(--green); }
+  .ans-input.wrong   { border-color: var(--red);   background: #ffebee; color: var(--red); }
+
+  .check-btn {
+    font-family: 'Tajawal', sans-serif;
+    font-size: .95rem; font-weight: 700;
+    padding: 7px 18px; border-radius: 10px;
+    border: none; cursor: pointer;
+    background: linear-gradient(135deg,#e91e8c,#c2185b);
+    color: white; transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 3px 10px rgba(194,24,91,.3);
+  }
+  .check-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(194,24,91,.4); }
+  .check-btn:active { transform: scale(.97); }
+
+  .feedback {
+    font-size: .9rem; font-weight: 700; padding: 6px 14px;
+    border-radius: 8px; display: none;
+  }
+  .feedback.correct { display: block; color: var(--green); background: #e8f5e9; border: 1.5px solid #a5d6a7; }
+  .feedback.wrong   { display: block; color: var(--red);   background: #ffebee; border: 1.5px solid #ef9a9a; }
+
+  .score-bar {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto 10px;
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  }
+  .score-label { font-weight: 900; color: #c2185b; font-size: 1.1rem; }
+  .score-track {
+    flex: 1; height: 18px; background: #f8bbd0; border-radius: 20px; overflow: hidden;
+    min-width: 120px;
+  }
+  .score-fill {
+    height: 100%; background: linear-gradient(90deg,#f06292,#e91e8c,#c2185b);
+    border-radius: 20px; transition: width .4s;
+    width: 0%;
+  }
+  .score-num { font-weight: 900; color: #880e4f; font-size: 1.05rem; }
+
+  .reset-btn {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    padding: 10px 28px; border-radius: 14px;
+    border: 2px solid #e91e8c; cursor: pointer;
+    background: white; color: #c2185b;
+    transition: all .2s;
+    position: relative; z-index: 2;
+    margin: 0 auto 30px; display: block;
+  }
+  .reset-btn:hover { background: #e91e8c; color: white; }
+
+  @media (max-width: 700px) {
+    .main-grid { grid-template-columns: 1fr; gap: 18px; padding: 24px 12px; }
+    header h1 { font-size: 1.5rem; }
+    .ans-input { width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Geometric SVG Background -->
+<svg class="bg-shapes" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <circle cx="80" cy="100" r="70" fill="#f48fb1" opacity="0.18"/>
+  <circle cx="1150" cy="200" r="100" fill="#ce93d8" opacity="0.13"/>
+  <rect x="900" y="600" width="120" height="120" rx="18" fill="#f06292" opacity="0.12" transform="rotate(20,960,660)"/>
+  <polygon points="200,700 260,580 320,700" fill="#e91e8c" opacity="0.10"/>
+  <rect x="50" y="400" width="80" height="80" rx="10" fill="#f48fb1" opacity="0.14" transform="rotate(-15,90,440)"/>
+  <circle cx="600" cy="760" r="55" fill="#f8bbd0" opacity="0.22"/>
+  <polygon points="1100,700 1160,620 1220,700" fill="#f48fb1" opacity="0.12"/>
+  <circle cx="300" cy="200" r="35" fill="#e91e8c" opacity="0.09"/>
+  <rect x="500" y="50" width="60" height="60" rx="8" fill="#ce93d8" opacity="0.12" transform="rotate(10,530,80)"/>
+  <polygon points="750,120 800,50 850,120" fill="#f48fb1" opacity="0.13"/>
+  <circle cx="950" cy="400" r="48" fill="#fce4ec" opacity="0.25"/>
+  <rect x="10" y="600" width="50" height="50" rx="6" fill="#e91e8c" opacity="0.11" transform="rotate(25,35,625)"/>
+  <polygon points="680,750 730,680 780,750" fill="#f48fb1" opacity="0.14"/>
+  <polygon points="1050,100 1060,80 1070,100 1090,90 1070,110 1060,130 1050,110 1030,90" fill="#e91e8c" opacity="0.10"/>
+  <polygon points="160,520 170,500 180,520 200,510 180,530 170,550 160,530 140,510" fill="#f48fb1" opacity="0.13"/>
+</svg>
+
+<header>
+  <h1>🌸 تمارين الحساب التفاعلية 🌸</h1>
+  <p>أجب على كل عملية واضغط "تحقق" لمعرفة النتيجة</p>
+</header>
+
+<div class="score-bar">
+  <span class="score-label">🌟 نقاطك:</span>
+  <div class="score-track"><div class="score-fill" id="scoreBar"></div></div>
+  <span class="score-num" id="scoreNum">0 / 0</span>
+</div>
+
+<div class="main-grid" id="mainGrid"></div>
+
+<button class="reset-btn" onclick="resetAll()">🔄 إعادة التهيئة</button>
+
+<script>
+  function rnd(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+  function fmt(n) { return n.toLocaleString('ar-MA'); }
+
+  function bigInt() {
+    const tier = rnd(1, 3);
+    if (tier === 1) return rnd(1000, 999999);
+    if (tier === 2) return rnd(1000000, 999999999);
+    return rnd(1000000000, 9999999999);
+  }
+
+  function bigDecFixed() {
+    const whole = bigInt();
+    const dec = rnd(1, 99) / 100;
+    return +(whole + dec).toFixed(2);
+  }
+
+  function addInt()  { const a=bigInt(),  b=bigInt();  return {a,b,op:'+', ans:a+b}; }
+  function addDec()  { const a=bigDecFixed(), b=bigDecFixed(); return {a,b,op:'+', ans:+(a+b).toFixed(2)}; }
+  function subInt()  { let a=bigInt(),b=bigInt(); if(b>a)[a,b]=[b,a]; return {a,b,op:'−',ans:a-b}; }
+  function subDec()  { let a=bigDecFixed(),b=bigDecFixed(); if(b>a)[a,b]=[b,a]; return {a,b,op:'−',ans:+(a-b).toFixed(2)}; }
+  function mulInt()  { const a=bigInt(), b=rnd(10,999); return {a,b,op:'×',ans:a*b}; }
+  function mulDec()  { const a=bigDecFixed(), b=rnd(10,999); return {a,b,op:'×',ans:+(a*b).toFixed(2)}; }
+
+  const sections = [
+    { id:'add',     cls:'section-add',     badge:'badge-add',     icon:'➕', title:'الجمع – أعداد صحيحة',  gen:()=>Array.from({length:4},addInt)  },
+    { id:'add-dec', cls:'section-add-dec', badge:'badge-add-dec', icon:'➕', title:'الجمع – أعداد عشرية',  gen:()=>Array.from({length:4},addDec)  },
+    { id:'sub',     cls:'section-sub',     badge:'badge-sub',     icon:'➖', title:'الطرح – أعداد صحيحة',  gen:()=>Array.from({length:4},subInt)  },
+    { id:'sub-dec', cls:'section-sub-dec', badge:'badge-sub-dec', icon:'➖', title:'الطرح – أعداد عشرية',  gen:()=>Array.from({length:4},subDec)  },
+    { id:'mul',     cls:'section-mul',     badge:'badge-mul',     icon:'✖️', title:'الضرب – أعداد صحيحة', gen:()=>Array.from({length:4},mulInt)  },
+    { id:'mul-dec', cls:'section-mul-dec', badge:'badge-mul-dec', icon:'✖️', title:'الضرب – أعداد عشرية', gen:()=>Array.from({length:4},mulDec)  }
+  ];
+
+  let exercises = {};
+  let checked   = {};
+
+  function buildUI() {
+    const grid = document.getElementById('mainGrid');
+    grid.innerHTML = '';
+    exercises = {};
+    checked   = {};
+
+    sections.forEach(sec => {
+      const data = sec.gen();
+      exercises[sec.id] = data;
+
+      const card = document.createElement('div');
+      card.className = `section-card ${sec.cls}`;
+      card.innerHTML = `
+        <div class="section-title">
+          <span class="icon-badge ${sec.badge}">${sec.icon}</span>
+          ${sec.title}
+        </div>
+      `;
+
+      data.forEach((ex, i) => {
+        const uid = `${sec.id}-${i}`;
+        const div = document.createElement('div');
+        div.className = 'exercise';
+        div.innerHTML = `
+          <div class="expr-row">
+            <span class="expr">${fmt(ex.a)} ${ex.op} ${fmt(ex.b)}</span>
+            <span class="equals">=</span>
+          </div>
+          <div class="answer-row">
+            <input class="ans-input" id="inp-${uid}" type="number" placeholder="الجواب هنا" step="0.01">
+            <button class="check-btn" onclick="checkOne('${uid}','${sec.id}',${i})">تحقق ✔</button>
+          </div>
+          <div class="feedback" id="fb-${uid}"></div>
+        `;
+        card.appendChild(div);
+      });
+
+      grid.appendChild(card);
+    });
+    updateScore();
+  }
+
+  function checkOne(uid, secId, idx) {
+    const inp  = document.getElementById('inp-' + uid);
+    const fb   = document.getElementById('fb-'  + uid);
+    const ex   = exercises[secId][idx];
+    const user = parseFloat(inp.value.replace(/,/g, '').replace(/\s/g, ''));
+
+    if (isNaN(user)) {
+      fb.className = 'feedback wrong';
+      fb.textContent = '⚠️ أدخل رقماً صحيحاً';
+      return;
+    }
+
+    const tol = (ex.ans % 1 !== 0) ? 0.02 : 0;
+    const ok  = Math.abs(user - ex.ans) <= tol;
+
+    inp.className = 'ans-input ' + (ok ? 'correct' : 'wrong');
+    fb.className  = 'feedback '  + (ok ? 'correct' : 'wrong');
+    fb.textContent = ok
+      ? `✅ ممتاز! الجواب الصحيح هو: ${fmt(ex.ans)}`
+      : `❌ خطأ! الجواب الصحيح هو: ${fmt(ex.ans)}`;
+
+    checked[uid] = ok;
+    updateScore();
+  }
+
+  function updateScore() {
+    const vals  = Object.values(checked);
+    const good  = vals.filter(Boolean).length;
+    const all   = sections.length * 4;
+    document.getElementById('scoreNum').textContent = `${good} / ${all}`;
+    document.getElementById('scoreBar').style.width = (good / all * 100) + '%';
+  }
+
+  function resetAll() { buildUI(); }
+
+  buildUI();
+</script>
+</body>
+</html>
