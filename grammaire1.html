@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 Grammaire - Exercices</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* سأضع هنا التصميم الأساسي المشترك */
+        :root { --c1: #FF6B6B; --bg: #FFF9F0; --card: #ffffff; --shadow: 0 8px 32px rgba(0,0,0,0.10); --radius: 22px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); min-height: 100vh; padding-bottom: 60px; }
+        .hero { background: linear-gradient(135deg, #FF6B6B, #FF8E53); padding: 50px 20px; text-align: center; color: white; box-shadow: 0 8px 30px rgba(255,107,107,0.3); }
+        .hero h1 { font-family: 'Baloo 2', cursive; font-size: clamp(2rem, 6vw, 3rem); }
+        .section-wrap { max-width: 1100px; margin: 0 auto; padding: 20px 15px; }
+        .section-header { display: flex; align-items: center; gap: 15px; margin: 20px 0; padding: 20px; border-radius: var(--radius); color: white; font-family: 'Baloo 2', cursive; background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
+        .topic-title { font-family: 'Baloo 2', cursive; font-size: 1.4rem; margin: 30px 0 15px; color: #333; display: flex; align-items: center; gap: 10px; }
+        .topic-dot { width: 15px; height: 15px; border-radius: 50%; background: var(--c1); }
+        .ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .ex-card { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); border-top: 6px solid var(--c1); transition: 0.2s; }
+        .ex-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: var(--c1); color: white; font-weight: 800; margin-bottom: 10px; }
+        .ex-instruction { font-weight: 700; color: #222; margin-bottom: 14px; }
+        .ex-input { width: 100%; padding: 10px; border-radius: 12px; border: 2.5px solid #e0e0e0; margin-top: 10px; }
+        .check-btn { margin-top: 14px; padding: 10px 24px; border-radius: 50px; border: none; background: var(--c1); color: white; font-weight: 800; cursor: pointer; }
+        .opt-btn { padding: 8px 16px; border-radius: 50px; border: 2.5px solid; background: white; cursor: pointer; margin: 5px; font-weight: 700; }
+        .opt-btn.correct { background: #6BCB77 !important; color: white !important; }
+        .opt-btn.wrong { background: #FF6B6B !important; color: white !important; }
+        .feedback { margin-top: 10px; padding: 10px; border-radius: 12px; font-weight: 800; display: none; }
+        .feedback.show { display: block; }
+        .feedback.ok { background: #d4edda; color: #1a6b30; }
+        .feedback.ko { background: #ffe0e0; color: #b00; }
+        .inline-blank { display: inline-block; min-width: 60px; border-bottom: 3px solid #333; padding: 0 5px; outline: none; }
+        .footer { text-align: center; padding: 40px; color: #888; font-weight: 700; }
+    </style>
+</head>
+<body>
 
+<div class="hero">
+    <h1>📖 Grammaire Française</h1>
+    <p>Maîtrise les règles de la langue !</p>
+</div>
+
+<div class="section-wrap">
+    <div class="section-header"><span>📖</span> Exercices de Grammaire</div>
+
+    <div class="topic-title"><span class="topic-dot"></span>La phrase nominale et la phrase verbale</div>
+    <div class="ex-grid">
+        <div class="ex-card">
+            <div class="ex-num">1</div>
+            <div class="ex-instruction">Choisis : phrase nominale ou verbale ? <br> « Un beau soleil. »</div>
+            <div class="options">
+                <button class="opt-btn" style="color:#FF6B6B" onclick="checkOpt(this,'correct','correct','g1')">Nominale</button>
+                <button class="opt-btn" style="color:#4D96FF" onclick="checkOpt(this,'wrong','correct','g1')">Verbale</button>
+            </div>
+            <div class="feedback" id="fb-g1"></div>
+        </div>
+        </div>
+</div>
+
+<div class="footer">🌟 Bravo ! Continue tes efforts ! 🌟</div>
+
+<script>
+    /* انسخ دوال JavaScript: checkOpt, checkInput, checkInline, checkFree من الكود الأصلي */
+    function checkOpt(btn, answer, correctAnswer, group) {
+        const opts = btn.parentElement.querySelectorAll('.opt-btn');
+        opts.forEach(o => o.style.pointerEvents = 'none');
+        const fb = document.getElementById('fb-' + group);
+        if (answer === 'correct') {
+            btn.classList.add('correct');
+            fb.className = 'feedback show ok'; fb.innerHTML = '🎉 Bravo !';
+        } else {
+            btn.classList.add('wrong');
+            fb.className = 'feedback show ko'; fb.innerHTML = '💪 Essaye encore !';
+        }
+    }
+    function checkInput(inputId, expected, fbId) {
+        const val = document.getElementById(inputId).value.trim().toLowerCase();
+        const fb = document.getElementById(fbId);
+        if (val.includes(expected.toLowerCase())) {
+            fb.className='feedback show ok'; fb.innerHTML='🎉 Super !';
+        } else {
+            fb.className='feedback show ko'; fb.innerHTML='💪 Réponse: ' + expected;
+        }
+    }
+</script>
+</body>
+</html>
