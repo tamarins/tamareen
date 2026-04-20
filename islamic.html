@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تمارين التربية الإسلامية — السادس ابتدائي</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0D7377;--teal-light:#C8ECEC;--teal-dark:#084E52;--gold:#C49A2A;--gold-light:#FDF3D0;--gold-dark:#8A6A10;--cream:#FAFAF5;--cream-dark:#EDEDDF;--text:#1A1A2E;--text-muted:#5A5A6E;--green:#1B6B3A;--green-light:#D4EDDA;--red:#B03030;--red-light:#FDECEA;--shadow:rgba(13,115,119,0.13);--blue:#1A4A7A;--blue-light:#D6E8FA;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Cairo',sans-serif;background:var(--cream);min-height:100vh;color:var(--text);direction:rtl;}
+.header{background:linear-gradient(135deg,#084E52 0%,#0D7377 60%,#1a9a9e 100%);padding:28px 20px 22px;text-align:center;position:relative;overflow:hidden;}
+.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),#f0d060,var(--gold));}
+.header-bismillah{font-family:'Amiri',serif;font-size:1.05rem;color:rgba(240,208,80,0.75);letter-spacing:4px;margin-bottom:6px;}
+.header-title{font-family:'Amiri',serif;font-size:2.1rem;color:#FDF3D0;text-shadow:0 2px 10px rgba(0,0,0,0.3);}
+.header-sub{font-size:0.87rem;color:rgba(200,236,236,0.85);margin-top:6px;}
+.score-bar{background:white;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px var(--shadow);border-bottom:3px solid var(--gold);flex-wrap:wrap;gap:10px;}
+.score-item{display:flex;align-items:center;gap:7px;font-size:0.87rem;color:var(--text-muted);}
+.score-num{font-size:1.3rem;font-weight:700;color:var(--teal);}
+.progress-wrap{flex:1;min-width:130px;background:var(--cream-dark);border-radius:20px;height:9px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:20px;transition:width 0.5s ease;width:0%;}
+.tabs{display:flex;overflow-x:auto;background:#F5F5ED;border-bottom:2px solid var(--gold);padding:0 10px;gap:2px;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;padding:10px 14px;font-family:'Cairo',sans-serif;font-size:0.8rem;font-weight:600;border:none;background:transparent;cursor:pointer;color:var(--text-muted);border-bottom:3px solid transparent;transition:all 0.2s;margin-bottom:-2px;}
+.tab-btn.active{color:var(--teal);border-bottom-color:var(--teal);background:var(--cream);}
+.tab-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.6);}
+.section{display:none;padding:20px 16px;max-width:920px;margin:0 auto;}
+.section.active{display:block;}
+.sec-title{font-family:'Amiri',serif;font-size:1.5rem;color:var(--teal-dark);margin-bottom:16px;padding-bottom:9px;border-bottom:2px dashed var(--gold);display:flex;align-items:center;gap:10px;}
+.sec-icon{width:34px;height:34px;background:var(--teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.tip{background:var(--blue-light);border-right:4px solid var(--blue);border-radius:8px;padding:11px 14px;margin-bottom:16px;font-size:0.87rem;color:var(--blue);display:flex;align-items:flex-start;gap:8px;line-height:1.65;}
+.ayah{background:var(--gold-light);border:1px solid var(--gold);border-radius:10px;padding:13px 16px;margin-bottom:14px;text-align:center;font-family:'Amiri',serif;font-size:1.25rem;color:var(--gold-dark);line-height:2;}
+.card{background:white;border-radius:13px;padding:20px;margin-bottom:16px;border:1px solid var(--cream-dark);box-shadow:0 4px 16px var(--shadow);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;right:0;width:5px;height:100%;background:var(--teal);}
+.label{font-size:0.75rem;color:white;background:var(--teal);padding:3px 11px;border-radius:20px;display:inline-block;margin-bottom:11px;font-weight:600;}
+.question{font-family:'Amiri',serif;font-size:1.18rem;color:var(--text);margin-bottom:14px;line-height:1.85;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.opt{padding:10px 13px;font-family:'Cairo',sans-serif;font-size:0.95rem;font-weight:600;border:2px solid var(--cream-dark);border-radius:9px;background:var(--cream);cursor:pointer;transition:all 0.2s;text-align:center;color:var(--text);}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-light);transform:translateY(-1px);}
+.opt.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.opt.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.opt:disabled{cursor:not-allowed;}
+.fb{display:none;padding:10px 14px;border-radius:8px;font-size:0.92rem;font-weight:600;margin-bottom:10px;align-items:flex-start;gap:7px;line-height:1.6;}
+.fb.show{display:flex;}
+.fb.ok{background:var(--green-light);color:var(--green);border:1px solid #6dbf88;}
+.fb.err{background:var(--red-light);color:var(--red);border:1px solid #e8aaaa;}
+.nxt{background:var(--teal);color:white;border:none;padding:9px 24px;border-radius:8px;font-family:'Cairo',sans-serif;font-size:0.92rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:none;}
+.nxt:hover{background:var(--teal-dark);}
+.nxt.show{display:inline-block;}
+.fill{width:100%;font-family:'Cairo',sans-serif;font-size:1.03rem;padding:10px 13px;border:2px solid var(--cream-dark);border-radius:9px;color:var(--text);background:var(--cream);margin-bottom:10px;direction:rtl;transition:border-color 0.2s;}
+.fill:focus{outline:none;border-color:var(--gold);}
+.fill.correct{border-color:var(--green);background:var(--green-light);}
+.fill.wrong{border-color:var(--red);background:var(--red-light);}
+.chk{background:var(--gold-dark);color:white;border:none;padding:9px 24px;border-radius:8px;font-family:'Cairo',sans-serif;font-size:0.92rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.chk:hover{background:var(--gold);}
+.pool{border:2px dashed var(--gold);border-radius:9px;padding:11px;min-height:50px;background:var(--gold-light);display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:11px;}
+.pool.over{background:#fdf0b0;}
+.dword{background:white;border:2px solid var(--gold);border-radius:7px;padding:6px 14px;font-size:0.95rem;font-family:'Cairo',sans-serif;font-weight:600;cursor:grab;user-select:none;transition:transform 0.15s;color:var(--gold-dark);}
+.dword:hover{transform:translateY(-2px);}
+.dword.dragging{opacity:0.35;}
+.cls-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.cls-box{border:2px solid var(--cream-dark);border-radius:10px;overflow:hidden;}
+.cls-head{padding:8px 12px;font-weight:700;font-size:0.9rem;text-align:center;}
+.cls-drop{min-height:70px;padding:8px;display:flex;flex-wrap:wrap;gap:7px;align-items:flex-start;transition:background 0.2s;}
+.cls-drop.over{background:var(--gold-light);}
+.tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.tf{padding:12px;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:700;border:2px solid var(--cream-dark);border-radius:9px;background:var(--cream);cursor:pointer;transition:all 0.2s;color:var(--text);}
+.tf.tb:hover:not(:disabled){border-color:var(--green);background:var(--green-light);}
+.tf.fb2:hover:not(:disabled){border-color:var(--red);background:var(--red-light);}
+.tf.correct{border-color:var(--green);background:var(--green-light);color:var(--green);}
+.tf.wrong{border-color:var(--red);background:var(--red-light);color:var(--red);}
+.tf:disabled{cursor:not-allowed;}
+.order-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+.order-item{background:var(--cream);border:2px solid var(--cream-dark);border-radius:9px;padding:10px 13px;font-family:'Cairo',sans-serif;font-size:0.95rem;font-weight:600;cursor:grab;display:flex;align-items:center;gap:9px;user-select:none;transition:box-shadow 0.2s;}
+.order-item:hover{box-shadow:0 3px 10px var(--shadow);}
+.order-item.drag-on{opacity:0.35;}
+.onum{width:26px;height:26px;background:var(--teal);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:700;flex-shrink:0;}
+.modal-ov{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:999;align-items:center;justify-content:center;}
+.modal-ov.show{display:flex;}
+.modal-box{background:white;border-radius:20px;padding:34px;text-align:center;max-width:370px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.25);border-top:6px solid var(--teal);}
+.m-emoji{font-size:3rem;margin-bottom:12px;}
+.m-title{font-family:'Amiri',serif;font-size:1.7rem;color:var(--teal);margin-bottom:7px;}
+.m-score{font-size:2.7rem;font-weight:700;color:var(--gold-dark);margin:12px 0;}
+.m-msg{color:var(--text-muted);margin-bottom:20px;font-size:0.96rem;line-height:1.7;}
+.m-restart{background:var(--teal);color:white;border:none;padding:12px 28px;border-radius:10px;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;}
+.m-restart:hover{background:var(--teal-dark);}
+@media(max-width:600px){.opts,.cls-grid,.tf-grid{grid-template-columns:1fr;}.header-title{font-size:1.55rem;}.section{padding:12px 9px;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+  <div class="header-title">☽ تمارين التربية الإسلامية ☽</div>
+  <div class="header-sub">المستوى السادس ابتدائي — تقويم تفاعلي شامل</div>
+</div>
+
+<div class="score-bar">
+  <div class="score-item">النقاط <span class="score-num" id="sc">0</span> / <span id="tot">0</span></div>
+  <div class="progress-wrap"><div class="progress-fill" id="pf"></div></div>
+  <div class="score-item" id="sw" style="display:none">⭐ <span id="sn">0</span> متتالية</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="go(0)">📖 القرآن الكريم</button>
+  <button class="tab-btn" onclick="go(1)">🕌 العقيدة</button>
+  <button class="tab-btn" onclick="go(2)">🤲 الفقه</button>
+  <button class="tab-btn" onclick="go(3)">🌟 السيرة والأخلاق</button>
+  <button class="tab-btn" onclick="go(4)">📝 تقييم شامل</button>
+</div>
+
+<!-- TAB 0: القرآن -->
+<div class="section active" id="t0">
+  <div class="sec-title"><div class="sec-icon">١</div>القرآن الكريم والسور</div>
+  <div class="tip">💡 سورة الحاقة مكية تتحدث عن يوم القيامة. سورة الملك مكية تُبيّن عظمة ملك الله. سورة المدثر من أوائل السور النازلة.</div>
+
+  <div class="card">
+    <div class="label">تمرين ١ — اختر الصحيح</div>
+    <div class="question">ما الموضوع الرئيسي لسورة <strong>الحاقة</strong>؟</div>
+    <div class="opts" id="qr1o">
+      <button class="opt" onclick="mc('qr1',0,2,this)">أحكام الصيام</button>
+      <button class="opt" onclick="mc('qr1',1,2,this)">قصة سيدنا إبراهيم</button>
+      <button class="opt" onclick="mc('qr1',2,2,this)">يوم القيامة وأهواله</button>
+      <button class="opt" onclick="mc('qr1',3,2,this)">الجهاد في سبيل الله</button>
+    </div>
+    <div class="fb" id="qr1f"></div>
+    <button class="nxt" id="qr1n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="qr2c" style="display:none">
+    <div class="label">تمرين ٢ — صواب أو خطأ</div>
+    <div class="question">سورة <strong>المدثر</strong> من أوائل السور التي نزلت على النبي ﷺ.</div>
+    <div class="tf-grid" id="qr2tf">
+      <button class="tf tb" onclick="tf('qr2',true,true,this)">✅ صواب</button>
+      <button class="tf fb2" onclick="tf('qr2',false,true,this)">❌ خطأ</button>
+    </div>
+    <div class="fb" id="qr2f"></div>
+    <button class="nxt" id="qr2n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="qr3c" style="display:none">
+    <div class="label">تمرين ٣ — أكمل الآية</div>
+    <div class="ayah">﴿ تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَى كُلِّ شَيْءٍ ________ ﴾</div>
+    <input class="fill" id="qr3i" placeholder="اكتب الكلمة الناقصة...">
+    <div style="display:flex;gap:8px">
+      <button class="chk" onclick="fi('qr3',['قدير','قَدِير'],'✅ صحيح! الكلمة «قَدِير» من سورة الملك.','❌ الكلمة الناقصة هي «قَدِير».')">تحقق ✓</button>
+    </div>
+    <div class="fb" id="qr3f" style="margin-top:9px"></div>
+    <button class="nxt" id="qr3n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="qr4c" style="display:none">
+    <div class="label">تمرين ٤ — صنّف السور: مكية أو مدنية</div>
+    <div class="pool" id="sp">
+      <span class="dword" draggable="true" data-cor="مكية">الملك</span>
+      <span class="dword" draggable="true" data-cor="مكية">المدثر</span>
+      <span class="dword" draggable="true" data-cor="مكية">الجن</span>
+      <span class="dword" draggable="true" data-cor="مكية">الحاقة</span>
+      <span class="dword" draggable="true" data-cor="مدنية">المرسلات</span>
+      <span class="dword" draggable="true" data-cor="مدنية">البقرة</span>
+    </div>
+    <div class="cls-grid">
+      <div class="cls-box"><div class="cls-head" style="background:#D4EDDA;color:#1B6B3A">مكية</div><div class="cls-drop" id="d-مكية" data-cat="مكية"></div></div>
+      <div class="cls-box"><div class="cls-head" style="background:#D6E8FA;color:#1A4A7A">مدنية</div><div class="cls-drop" id="d-مدنية" data-cat="مدنية"></div></div>
+    </div>
+    <button class="chk" onclick="cls('qr4','qr4f','qr4n',6)">تحقق ✓</button>
+    <div class="fb" id="qr4f" style="margin-top:9px"></div>
+    <button class="nxt" id="qr4n" onclick="go(1)">انتقل للعقيدة ←</button>
+  </div>
+</div>
+
+<!-- TAB 1: العقيدة -->
+<div class="section" id="t1">
+  <div class="sec-title"><div class="sec-icon">٢</div>العقيدة الإسلامية</div>
+  <div class="tip">💡 مراتب الدين: الإسلام (أركان خمسة) ← الإيمان (أركان ستة) ← الإحسان. الإيمان بالقدر لا يعني الاتكال بل يجمع التوكل مع العمل.</div>
+
+  <div class="card">
+    <div class="label">تمرين ١ — رتّب مراتب الدين</div>
+    <div class="question">رتّب مراتب الدين من الأدنى إلى الأعلى (اسحب وأفلت):</div>
+    <ul class="order-list" id="dord">
+      <li class="order-item" draggable="true" data-v="islam"><span class="onum">؟</span>الإسلام</li>
+      <li class="order-item" draggable="true" data-v="ihsan"><span class="onum">؟</span>الإحسان</li>
+      <li class="order-item" draggable="true" data-v="iman"><span class="onum">؟</span>الإيمان</li>
+    </ul>
+    <button class="chk" onclick="chkOrd('dord',['islam','iman','ihsan'],'dordf','dordn')">تحقق ✓</button>
+    <div class="fb" id="dordf" style="margin-top:9px"></div>
+    <button class="nxt" id="dordn">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="aq2c" style="display:none">
+    <div class="label">تمرين ٢ — أركان الإيمان</div>
+    <div class="question">كم عدد أركان <strong>الإيمان</strong>؟</div>
+    <div class="opts" id="aq2o">
+      <button class="opt" onclick="mc('aq2',0,2,this)">أربعة</button>
+      <button class="opt" onclick="mc('aq2',1,2,this)">خمسة</button>
+      <button class="opt" onclick="mc('aq2',2,2,this)">ستة</button>
+      <button class="opt" onclick="mc('aq2',3,2,this)">سبعة</button>
+    </div>
+    <div class="fb" id="aq2f"></div>
+    <button class="nxt" id="aq2n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="aq3c" style="display:none">
+    <div class="label">تمرين ٣ — صواب أو خطأ</div>
+    <div class="question">الإيمان بالقضاء والقدر يعني ترك العمل لأن كل شيء مقدَّر.</div>
+    <div class="tf-grid" id="aq3tf">
+      <button class="tf tb" onclick="tf('aq3',true,false,this)">✅ صواب</button>
+      <button class="tf fb2" onclick="tf('aq3',false,false,this)">❌ خطأ</button>
+    </div>
+    <div class="fb" id="aq3f"></div>
+    <button class="nxt" id="aq3n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="aq4c" style="display:none">
+    <div class="label">تمرين ٤ — تعريف الإحسان</div>
+    <div class="question">ما تعريف <strong>الإحسان</strong> الوارد في حديث جبريل؟</div>
+    <div class="opts" id="aq4o">
+      <button class="opt" onclick="mc('aq4',0,1,this)">أن تصوم وتصلي وتتصدق</button>
+      <button class="opt" onclick="mc('aq4',1,1,this)">أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك</button>
+      <button class="opt" onclick="mc('aq4',2,1,this)">أن تُحسن إلى الجار والفقير</button>
+      <button class="opt" onclick="mc('aq4',3,1,this)">أن تُكثر من الذكر والدعاء</button>
+    </div>
+    <div class="fb" id="aq4f"></div>
+    <button class="nxt" id="aq4n" onclick="go(2)">انتقل للفقه ←</button>
+  </div>
+</div>
+
+<!-- TAB 2: الفقه -->
+<div class="section" id="t2">
+  <div class="sec-title"><div class="sec-icon">٣</div>الفقه والعبادات</div>
+  <div class="tip">💡 فرائض الصيام: النية + الإمساك من الفجر حتى المغرب. صلاة التراويح: سنة مؤكدة تُصلى جماعة في رمضان. أذكر أن الأكل والشرب ناسياً لا يُفطران.</div>
+
+  <div class="card">
+    <div class="label">تمرين ١ — الصيام</div>
+    <div class="question">ما الذي <strong>لا يُفطر</strong> الصائمَ؟</div>
+    <div class="opts" id="fq1o">
+      <button class="opt" onclick="mc('fq1',0,3,this)">الأكل والشرب عمداً</button>
+      <button class="opt" onclick="mc('fq1',1,3,this)">التقيؤ المتعمد</button>
+      <button class="opt" onclick="mc('fq1',2,3,this)">الحجامة</button>
+      <button class="opt" onclick="mc('fq1',3,3,this)">الأكل والشرب ناسياً</button>
+    </div>
+    <div class="fb" id="fq1f"></div>
+    <button class="nxt" id="fq1n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="fq2c" style="display:none">
+    <div class="label">تمرين ٢ — صنّف مفسدات الصيام والمبيحات</div>
+    <div class="pool" id="swp">
+      <span class="dword" draggable="true" data-cor="مفسد">الأكل عمداً</span>
+      <span class="dword" draggable="true" data-cor="مبيح">المرض الشديد</span>
+      <span class="dword" draggable="true" data-cor="مفسد">التقيؤ عمداً</span>
+      <span class="dword" draggable="true" data-cor="مبيح">السفر الطويل</span>
+      <span class="dword" draggable="true" data-cor="مفسد">الشرب عمداً</span>
+      <span class="dword" draggable="true" data-cor="مبيح">الحمل والرضاعة</span>
+    </div>
+    <div class="cls-grid">
+      <div class="cls-box"><div class="cls-head" style="background:#FDECEA;color:#B03030">مُفسِد للصيام</div><div class="cls-drop" id="d-مفسد" data-cat="مفسد"></div></div>
+      <div class="cls-box"><div class="cls-head" style="background:#D4EDDA;color:#1B6B3A">مُبيح للفطر</div><div class="cls-drop" id="d-مبيح" data-cat="مبيح"></div></div>
+    </div>
+    <button class="chk" onclick="cls('fq2','fq2f','fq2n',6)">تحقق ✓</button>
+    <div class="fb" id="fq2f" style="margin-top:9px"></div>
+    <button class="nxt" id="fq2n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="fq3c" style="display:none">
+    <div class="label">تمرين ٣ — صلاة التراويح</div>
+    <div class="question">صلاة التراويح فريضة واجبة على كل مسلم في رمضان.</div>
+    <div class="tf-grid" id="fq3tf">
+      <button class="tf tb" onclick="tf('fq3',true,false,this)">✅ صواب</button>
+      <button class="tf fb2" onclick="tf('fq3',false,false,this)">❌ خطأ</button>
+    </div>
+    <div class="fb" id="fq3f"></div>
+    <button class="nxt" id="fq3n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="fq4c" style="display:none">
+    <div class="label">تمرين ٤ — أكمل</div>
+    <div class="question">يبدأ وقت الإمساك في الصيام من _______ ويمتد حتى _______.</div>
+    <input class="fill" id="fq4i" placeholder="مثال: من الفجر حتى المغرب...">
+    <div style="display:flex;gap:8px">
+      <button class="chk" onclick="fi('fq4',['الفجر','طلوع الفجر','أذان الفجر'],'✅ صحيح! من طلوع الفجر إلى غروب الشمس.','❌ الصحيح: من طلوع الفجر حتى غروب الشمس.')">تحقق ✓</button>
+    </div>
+    <div class="fb" id="fq4f" style="margin-top:9px"></div>
+    <button class="nxt" id="fq4n" onclick="go(3)">انتقل للسيرة ←</button>
+  </div>
+</div>
+
+<!-- TAB 3: السيرة والأخلاق -->
+<div class="section" id="t3">
+  <div class="sec-title"><div class="sec-icon">٤</div>السيرة النبوية والأخلاق</div>
+  <div class="tip">💡 الدعوة السرية: أول مرحلة، دامت 3 سنوات. سمية رضي الله عنها أول شهيدة في الإسلام. النبي ﷺ قدوة في الصبر والعفو.</div>
+
+  <div class="card">
+    <div class="label">تمرين ١ — الدعوة السرية</div>
+    <div class="question">كم استمرت مرحلة <strong>الدعوة السرية</strong> للنبي ﷺ؟</div>
+    <div class="opts" id="sr1o">
+      <button class="opt" onclick="mc('sr1',0,1,this)">سنة واحدة</button>
+      <button class="opt" onclick="mc('sr1',1,1,this)">ثلاث سنوات</button>
+      <button class="opt" onclick="mc('sr1',2,1,this)">خمس سنوات</button>
+      <button class="opt" onclick="mc('sr1',3,1,this)">عشر سنوات</button>
+    </div>
+    <div class="fb" id="sr1f"></div>
+    <button class="nxt" id="sr1n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="sr2c" style="display:none">
+    <div class="label">تمرين ٢ — قصة آل ياسر</div>
+    <div class="question">كانت <strong>سمية</strong> رضي الله عنها أول شهيدة في الإسلام.</div>
+    <div class="tf-grid" id="sr2tf">
+      <button class="tf tb" onclick="tf('sr2',true,true,this)">✅ صواب</button>
+      <button class="tf fb2" onclick="tf('sr2',false,true,this)">❌ خطأ</button>
+    </div>
+    <div class="fb" id="sr2f"></div>
+    <button class="nxt" id="sr2n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="sr3c" style="display:none">
+    <div class="label">تمرين ٣ — صنّف الأخلاق</div>
+    <div class="pool" id="ep">
+      <span class="dword" draggable="true" data-cor="حميدة">الصدق</span>
+      <span class="dword" draggable="true" data-cor="ذميمة">الكذب</span>
+      <span class="dword" draggable="true" data-cor="حميدة">الأمانة</span>
+      <span class="dword" draggable="true" data-cor="ذميمة">الغيبة</span>
+      <span class="dword" draggable="true" data-cor="حميدة">التواضع</span>
+      <span class="dword" draggable="true" data-cor="ذميمة">الغش</span>
+    </div>
+    <div class="cls-grid">
+      <div class="cls-box"><div class="cls-head" style="background:#D4EDDA;color:#1B6B3A">أخلاق حميدة</div><div class="cls-drop" id="d-حميدة" data-cat="حميدة"></div></div>
+      <div class="cls-box"><div class="cls-head" style="background:#FDECEA;color:#B03030">أخلاق ذميمة</div><div class="cls-drop" id="d-ذميمة" data-cat="ذميمة"></div></div>
+    </div>
+    <button class="chk" onclick="cls('sr3','sr3f','sr3n',6)">تحقق ✓</button>
+    <div class="fb" id="sr3f" style="margin-top:9px"></div>
+    <button class="nxt" id="sr3n">التمرين التالي ←</button>
+  </div>
+
+  <div class="card" id="sr4c" style="display:none">
+    <div class="label">تمرين ٤ — قصة مريم عليها السلام</div>
+    <div class="question">ما الدرس المستفاد الرئيسي من قصة <strong>مريم عليها السلام</strong>؟</div>
+    <div class="opts" id="sr4o">
+      <button class="opt" onclick="mc('sr4',0,2,this)">وجوب الصيام دائماً</button>
+      <button class="opt" onclick="mc('sr4',1,2,this)">أهمية السفر والترحال</button>
+      <button class="opt" onclick="mc('sr4',2,2,this)">صون الكرامة والتقوى والثبات أمام الاتهام الباطل</button>
+      <button class="opt" onclick="mc('sr4',3,2,this)">فضل الصدقة والزكاة</button>
+    </div>
+    <div class="fb" id="sr4f"></div>
+    <button class="nxt" id="sr4n" onclick="go(4)">انتقل للتقييم ←</button>
+  </div>
+</div>
+
+<!-- TAB 4: التقييم الشامل -->
+<div class="section" id="t4">
+  <div class="sec-title"><div class="sec-icon">٥</div>التقييم الشامل</div>
+
+  <div class="card">
+    <div class="label">السؤال ١ — أركان الإسلام</div>
+    <div class="question">ما الترتيب الصحيح لأركان الإسلام الخمسة؟</div>
+    <div class="opts" id="ev1o">
+      <button class="opt" onclick="mc('ev1',0,0,this)">الشهادة، الصلاة، الزكاة، الصوم، الحج</button>
+      <button class="opt" onclick="mc('ev1',1,0,this)">الصلاة، الشهادة، الصوم، الزكاة، الحج</button>
+      <button class="opt" onclick="mc('ev1',2,0,this)">الصوم، الصلاة، الشهادة، الحج، الزكاة</button>
+      <button class="opt" onclick="mc('ev1',3,0,this)">الحج، الزكاة، الصوم، الشهادة، الصلاة</button>
+    </div>
+    <div class="fb" id="ev1f"></div>
+    <button class="nxt" id="ev1n">السؤال التالي ←</button>
+  </div>
+
+  <div class="card" id="ev2c" style="display:none">
+    <div class="label">السؤال ٢ — فضل السور</div>
+    <div class="question">ما السورة التي تعادل ثلث القرآن الكريم في الأجر؟</div>
+    <div class="opts" id="ev2o">
+      <button class="opt" onclick="mc('ev2',0,3,this)">سورة الفاتحة</button>
+      <button class="opt" onclick="mc('ev2',1,3,this)">سورة الملك</button>
+      <button class="opt" onclick="mc('ev2',2,3,this)">سورة الكافرون</button>
+      <button class="opt" onclick="mc('ev2',3,3,this)">سورة الإخلاص</button>
+    </div>
+    <div class="fb" id="ev2f"></div>
+    <button class="nxt" id="ev2n">السؤال التالي ←</button>
+  </div>
+
+  <div class="card" id="ev3c" style="display:none">
+    <div class="label">السؤال ٣ — فرض الصيام</div>
+    <div class="question">فُرض صيام رمضان في السنة _______ من الهجرة.</div>
+    <div class="opts" id="ev3o">
+      <button class="opt" onclick="mc('ev3',0,1,this)">الأولى</button>
+      <button class="opt" onclick="mc('ev3',1,1,this)">الثانية</button>
+      <button class="opt" onclick="mc('ev3',2,1,this)">الثالثة</button>
+      <button class="opt" onclick="mc('ev3',3,1,this)">الخامسة</button>
+    </div>
+    <div class="fb" id="ev3f"></div>
+    <button class="nxt" id="ev3n">السؤال التالي ←</button>
+  </div>
+
+  <div class="card" id="ev4c" style="display:none">
+    <div class="label">السؤال ٤ — أركان الإيمان</div>
+    <div class="question">الإيمان بالقدر خيره وشره ركنٌ من أركان _______.</div>
+    <div class="opts" id="ev4o">
+      <button class="opt" onclick="mc('ev4',0,0,this)">الإيمان</button>
+      <button class="opt" onclick="mc('ev4',1,0,this)">الإسلام</button>
+      <button class="opt" onclick="mc('ev4',2,0,this)">الإحسان</button>
+      <button class="opt" onclick="mc('ev4',3,0,this)">العبادة</button>
+    </div>
+    <div class="fb" id="ev4f"></div>
+    <button class="nxt" id="ev4n">السؤال التالي ←</button>
+  </div>
+
+  <div class="card" id="ev5c" style="display:none">
+    <div class="label">السؤال ٥ — السيرة النبوية</div>
+    <div class="question">ما الخلق الذي نتعلمه من صبر النبي ﷺ على أذى المشركين؟</div>
+    <div class="opts" id="ev5o">
+      <button class="opt" onclick="mc('ev5',0,2,this)">الثأر والانتقام</button>
+      <button class="opt" onclick="mc('ev5',1,2,this)">الابتعاد عن الناس</button>
+      <button class="opt" onclick="mc('ev5',2,2,this)">الصبر والعفو والمضي في الدعوة</button>
+      <button class="opt" onclick="mc('ev5',3,2,this)">الصمت التام وعدم الرد</button>
+    </div>
+    <div class="fb" id="ev5f"></div>
+    <button class="nxt" id="ev5n" onclick="showRes()">🏆 عرض النتيجة النهائية</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-ov" id="rm">
+  <div class="modal-box">
+    <div class="m-emoji" id="re">🌟</div>
+    <div class="m-title">نتيجتك النهائية</div>
+    <div class="m-score" id="rs">0</div>
+    <div class="m-msg" id="rmsg"></div>
+    <button class="m-restart" onclick="location.reload()">إعادة التمارين 🔄</button>
+  </div>
+</div>
+
+<script>
+let score=0,tot=0,streak=0;
+const MAX=20,ans={};
+const MFB={
+  qr1:['❌ الصيام ليس موضوعها الرئيسي.','❌ قصة إبراهيم في سور أخرى.','✅ سورة الحاقة تتحدث عن يوم القيامة وأهواله وجزاء الأمم.','❌ الجهاد ليس موضوعها.'],
+  aq2:['❌ أربعة ليس العدد الصحيح.','❌ خمسة هي أركان الإسلام.','✅ أركان الإيمان ستة: الله، ملائكته، كتبه، رسله، اليوم الآخر، القدر.','❌ سبعة ليس صحيحاً.'],
+  aq4:['❌ هذه بعض أركان الإسلام.','✅ هذا تعريف الإحسان كما ورد في حديث جبريل عليه السلام.','❌ هذا إحسان للخلق وليس تعريف المرتبة.','❌ ليس تعريف الإحسان.'],
+  fq1:['❌ الأكل والشرب عمداً يُفطران.','❌ التقيؤ المتعمد مُفطِر.','❌ الحجامة مُفطِرة عند الجمهور.','✅ الأكل والشرب ناسياً لا يُفطران. قال ﷺ: من نسي وهو صائم فأكل وشرب فليتم صومه.'],
+  sr1:['❌ أقل من المدة الفعلية.','✅ استمرت الدعوة السرية ثلاث سنوات قبل الجهر بها.','❌ أكثر من المدة.','❌ هذه مدة الدعوة المكية كلها تقريباً.'],
+  sr4:['❌ الصيام لم يكن محور القصة.','❌ ليس الدرس الرئيسي.','✅ قصة مريم تُعلمنا صون الكرامة والتقوى والثبات أمام الاتهام الباطل.','❌ الزكاة لم تُذكر في القصة.'],
+  ev1:['✅ هذا هو الترتيب الصحيح لأركان الإسلام الخمسة.','❌ الشهادة تأتي أولاً.','❌ الصوم ليس الأول.','❌ الترتيب مقلوب.'],
+  ev2:['❌ الفاتحة أم القرآن لكن ليست التي تعادل الثلث.','❌ الملك تحفظ من عذاب القبر.','❌ الكافرون لها فضل آخر.','✅ سورة الإخلاص تعادل ثلث القرآن الكريم في الأجر.'],
+  ev3:['❌ لم يُفرض في السنة الأولى.','✅ فُرض صيام رمضان في السنة الثانية من الهجرة.','❌ متأخر عن الصحيح.','❌ متأخر جداً.'],
+  ev4:['✅ الإيمان بالقدر هو الركن السادس من أركان الإيمان.','❌ أركان الإسلام خمسة معروفة.','❌ الإحسان مرتبة لا أركان بهذا المعنى.','❌ العبادة أعم.'],
+  ev5:['❌ الثأر لم يكن خلق النبي ﷺ.','❌ الابتعاد ليس الدرس المستفاد.','✅ الصبر والعفو هما الخلق الأسمى من سيرته ﷺ.','❌ الصمت المطلق لم يكن هديه ﷺ.'],
+};
+const TFB={
+  qr2:{t:'✅ صواب! سورة المدثر من أوائل السور النازلة على النبي ﷺ.',f:'❌ خطأ! سورة المدثر فعلاً من أوائل السور المنزَّلة.'},
+  aq3:{t:'❌ خطأ! الإيمان بالقدر لا يعني الاتكال؛ بل يجمع الإيمان مع العمل والسعي.',f:'✅ صواب! الإيمان بالقدر يجامع العمل والاجتهاد. اعمل فكلٌّ ميسَّر.'},
+  fq3:{t:'❌ خطأ! صلاة التراويح سنة مؤكدة لا فريضة واجبة.',f:'✅ صواب! التراويح سنة مؤكدة وليست فريضة.'},
+  sr2:{t:'✅ صواب! سمية رضي الله عنها هي أول شهيدة في الإسلام، استشهدت على يد أبي جهل.',f:'❌ خطأ! سمية رضي الله عنها هي أول شهيدة في الإسلام.'},
+};
+
+function upd(){document.getElementById('sc').textContent=score;document.getElementById('tot').textContent=tot;document.getElementById('pf').style.width=(score/MAX*100)+'%';if(streak>0){document.getElementById('sw').style.display='flex';document.getElementById('sn').textContent=streak;}}
+
+function mc(id,ch,cor,btn){
+  if(ans[id]!==undefined)return;ans[id]=ch;
+  document.querySelectorAll('#'+id+'o .opt').forEach((b,i)=>{b.disabled=true;if(i===cor)b.classList.add('correct');else if(i===ch)b.classList.add('wrong');});
+  const ok=ch===cor,fb=document.getElementById(id+'f');
+  fb.textContent=MFB[id]?MFB[id][ch]:(ok?'✅ إجابة صحيحة!':'❌ الإجابة غير صحيحة.');
+  fb.className='fb show '+(ok?'ok':'err');
+  if(ok){score++;streak++;}else{streak=0;}tot++;upd();
+  const n=document.getElementById(id+'n');if(n)n.classList.add('show');
+}
+
+function tf(id,ch,cor,btn){
+  if(ans[id]!==undefined)return;ans[id]=ch;
+  const bs=document.querySelectorAll('#'+id+'tf .tf');bs.forEach(b=>b.disabled=true);
+  const ok=ch===cor;btn.classList.add(ok?'correct':'wrong');
+  if(!ok)bs.forEach(b=>{if((cor&&b.classList.contains('tb'))||(!cor&&b.classList.contains('fb2')))b.classList.add('correct');});
+  const k=ch?'t':'f',fb=document.getElementById(id+'f');
+  fb.textContent=TFB[id]?TFB[id][k]:(ok?'✅ صواب!':'❌ خطأ!');
+  fb.className='fb show '+(ok?'ok':'err');
+  if(ok){score++;streak++;}else{streak=0;}tot++;upd();
+  const n=document.getElementById(id+'n');if(n)n.classList.add('show');
+}
+
+function fi(id,acc,yesMsg,noMsg){
+  if(ans[id]!==undefined)return;
+  const inp=document.getElementById(id+'i'),v=inp.value.trim();if(!v)return;
+  const ok=acc.some(a=>v.includes(a)||a.includes(v));
+  ans[id]=v;inp.disabled=true;inp.classList.add(ok?'correct':'wrong');
+  const fb=document.getElementById(id+'f');fb.textContent=ok?yesMsg:noMsg;fb.className='fb show '+(ok?'ok':'err');
+  if(ok){score++;streak++;}else{streak=0;}tot++;upd();
+  const n=document.getElementById(id+'n');if(n)n.classList.add('show');
+}
+
+let dEl=null;
+document.querySelectorAll('.dword').forEach(w=>{w.addEventListener('dragstart',()=>{dEl=w;w.classList.add('dragging');});w.addEventListener('dragend',()=>w.classList.remove('dragging'));});
+document.querySelectorAll('.cls-drop,.pool').forEach(z=>{
+  z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('over');});
+  z.addEventListener('dragleave',()=>z.classList.remove('over'));
+  z.addEventListener('drop',e=>{e.preventDefault();z.classList.remove('over');if(dEl)z.appendChild(dEl);});
+});
+
+function cls(key,fbId,nId,total){
+  if(ans[key]!==undefined)return;ans[key]=1;
+  let c=0;
+  document.querySelectorAll('.cls-drop').forEach(z=>{
+    const cat=z.dataset.cat;
+    z.querySelectorAll('.dword').forEach(w=>{
+      const ok=w.dataset.cor===cat;c+=ok?1:0;
+      w.style.borderColor=ok?'#1B6B3A':'#B03030';w.style.background=ok?'#D4EDDA':'#FDECEA';w.style.color=ok?'#1B6B3A':'#B03030';
+    });
+  });
+  const fb=document.getElementById(fbId);
+  if(c===total){fb.textContent='✅ ممتاز! جميع الكلمات صُنِّفت صحيحاً.';fb.className='fb show ok';score+=2;streak++;}
+  else{fb.textContent='❌ '+c+' من '+total+' صحيحة. الكلمات الحمراء في المكان الخطأ.';fb.className='fb show err';if(c>=Math.ceil(total/2))score++;streak=0;}
+  tot++;upd();const n=document.getElementById(nId);if(n)n.classList.add('show');
+}
+
+let dItem=null;
+function setupOrd(lid){
+  const list=document.getElementById(lid);if(!list)return;
+  list.querySelectorAll('.order-item').forEach(item=>{
+    item.addEventListener('dragstart',()=>{dItem=item;item.classList.add('drag-on');});
+    item.addEventListener('dragend',()=>{item.classList.remove('drag-on');updN(lid);});
+    item.addEventListener('dragover',e=>{e.preventDefault();const r=item.getBoundingClientRect(),mid=r.top+r.height/2;list.insertBefore(dItem,e.clientY<mid?item:item.nextSibling);});
+  });
+}
+setupOrd('dord');
+function updN(lid){document.querySelectorAll('#'+lid+' .onum').forEach((n,i)=>n.textContent=i+1);}
+
+function chkOrd(lid,cor,fbId,nId){
+  if(ans[lid]!==undefined)return;ans[lid]=1;
+  const items=[...document.querySelectorAll('#'+lid+' .order-item')].map(i=>i.dataset.v);
+  const ok=items.every((v,i)=>v===cor[i]);
+  const fb=document.getElementById(fbId);
+  fb.textContent=ok?'✅ ممتاز! الترتيب الصحيح: الإسلام ← الإيمان ← الإحسان.':'❌ الترتيب الصحيح: الإسلام (أدنى) ← الإيمان ← الإحسان (أعلى).';
+  fb.className='fb show '+(ok?'ok':'err');
+  if(ok){score++;streak++;}else{streak=0;}tot++;upd();
+  document.querySelectorAll('#'+lid+' .order-item').forEach((item,i)=>{
+    const v=item.dataset.v===cor[i];item.style.borderColor=v?'#1B6B3A':'#B03030';item.style.background=v?'#D4EDDA':'#FDECEA';
+  });
+  const n=document.getElementById(nId);if(n)n.classList.add('show');
+}
+
+function showCard(id){const el=document.getElementById(id);if(el){el.style.display='block';setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),50);}}
+
+const NM={
+  'qr1n':'qr2c','qr2n':'qr3c','qr3n':'qr4c',
+  'dordn':'aq2c','aq2n':'aq3c','aq3n':'aq4c',
+  'fq1n':'fq2c','fq2n':'fq3c','fq3n':'fq4c',
+  'sr1n':'sr2c','sr2n':'sr3c','sr3n':'sr4c',
+  'ev1n':'ev2c','ev2n':'ev3c','ev3n':'ev4c','ev4n':'ev5c',
+};
+document.querySelectorAll('.nxt').forEach(btn=>{if(btn.id&&NM[btn.id])btn.addEventListener('click',()=>showCard(NM[btn.id]));});
+
+function go(i){
+  document.querySelectorAll('.tab-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  document.querySelectorAll('.section').forEach((s,j)=>s.classList.toggle('active',j===i));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showRes(){
+  const p=score/MAX*100;
+  let e='🏆',m='';
+  if(p>=85){e='🌟';m='ممتاز جداً! أداؤك متميز. بارك الله فيك وزادك علماً ونوراً.';}
+  else if(p>=70){e='😊';m='جيد جداً! أتقنت معظم المهارات. راجع ما أخطأت فيه وستتفوق.';}
+  else if(p>=50){e='📚';m='جيد! تحتاج لمراجعة بعض الدروس. لا تيأس والله معك.';}
+  else{e='💪';m='اقرأ دروسك مجدداً وعد للمحاولة. الجد والمثابرة طريق النجاح.';}
+  document.getElementById('re').textContent=e;
+  document.getElementById('rs').textContent=score+' / '+MAX;
+  document.getElementById('rmsg').textContent=m;
+  document.getElementById('rm').classList.add('show');
+}
+</script>
+</body>
+</html>
