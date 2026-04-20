@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تمارين عربية - السادس ابتدائي</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0E0A0;
+    --gold-dark: #8B6914;
+    --green: #2D6A4F;
+    --green-light: #D8F3DC;
+    --green-mid: #52B788;
+    --cream: #FDF8EE;
+    --cream-dark: #F0E8D0;
+    --text: #2C1810;
+    --text-muted: #6B4C2A;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --blue: #1A5276;
+    --blue-light: #D6EAF8;
+    --shadow: rgba(139, 105, 20, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #FDF8EE 0%, #F5E6C8 50%, #EDD9A3 100%);
+    min-height: 100vh;
+    color: var(--text);
+    direction: rtl;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #2D6A4F, #1B4332);
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(201,168,76,0.08) 20px,
+      rgba(201,168,76,0.08) 40px
+    );
+  }
+
+  .header-title {
+    font-family: 'Amiri', serif;
+    font-size: 2.4rem;
+    color: var(--gold-light);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 8px;
+  }
+
+  .header-subtitle {
+    font-size: 1rem;
+    color: rgba(240,224,160,0.8);
+    position: relative;
+    z-index: 1;
+  }
+
+  .ornament {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin: 0 10px;
+    opacity: 0.8;
+  }
+
+  .score-bar {
+    background: white;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px var(--shadow);
+    border-bottom: 3px solid var(--gold);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .score-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .score-num {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .progress-bar-wrap {
+    flex: 1;
+    min-width: 150px;
+    background: var(--cream-dark);
+    border-radius: 20px;
+    height: 10px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-mid), var(--gold));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    background: var(--cream-dark);
+    border-bottom: 2px solid var(--gold);
+    padding: 0 16px;
+    gap: 4px;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 12px 18px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    margin-bottom: -2px;
+  }
+
+  .tab-btn.active {
+    color: var(--green);
+    border-bottom-color: var(--green);
+    background: var(--cream);
+  }
+
+  .tab-btn:hover:not(.active) {
+    color: var(--text);
+    background: rgba(255,255,255,0.5);
+  }
+
+  .section {
+    display: none;
+    padding: 24px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section.active { display: block; }
+
+  .section-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: var(--green);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .exercise-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--cream-dark);
+    box-shadow: 0 4px 20px var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .exercise-label {
+    font-size: 0.78rem;
+    color: white;
+    background: var(--green);
+    padding: 3px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  .exercise-question {
+    font-family: 'Amiri', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 18px;
+    line-height: 1.8;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .option-btn {
+    padding: 12px 16px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid var(--cream-dark);
+    border-radius: 10px;
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    color: var(--text);
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--gold);
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .option-btn.correct {
+    border-color: var(--green);
+    background: var(--green-light);
+    color: var(--green);
+  }
+
+  .option-btn.wrong {
+    border-color: var(--red);
+    background: var(--red-light);
+    color: var(--red);
+  }
+
+  .option-btn:disabled { cursor: not-allowed; }
+
+  .feedback {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    align-items: center;
+    gap: 8px;
+  }
+  .feedback.show { display: flex; }
+  .feedback.success { background: var(--green-light); color: var(--green); border: 1px solid var(--green-mid); }
+  .feedback.error { background: var(--red-light); color: var(--red); border: 1px solid #e88; }
+
+  .next-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: none;
+  }
+  .next-btn:hover { background: #1B4332; transform: translateY(-1px); }
+  .next-btn.show { display: inline-block; }
+
+  .fill-input {
+    width: 100%;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    padding: 12px 16px;
+    border: 2px solid var(--cream-dark);
+    border-radius: 10px;
+    color: var(--text);
+    background: var(--cream);
+    margin-bottom: 12px;
+    direction: rtl;
+    transition: border-color 0.2s;
+  }
+  .fill-input:focus { outline: none; border-color: var(--gold); }
+  .fill-input.correct { border-color: var(--green); background: var(--green-light); }
+  .fill-input.wrong { border-color: var(--red); background: var(--red-light); }
+
+  .check-btn {
+    background: var(--gold-dark);
+    color: white;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 8px;
+  }
+  .check-btn:hover { background: var(--gold); }
+  .check-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .drag-zone {
+    border: 2px dashed var(--gold);
+    border-radius: 10px;
+    padding: 14px;
+    min-height: 56px;
+    background: var(--cream);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 14px;
+    transition: background 0.2s;
+  }
+  .drag-zone.over { background: var(--gold-light); }
+
+  .drag-word {
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    color: var(--gold-dark);
+  }
+  .drag-word:hover { transform: translateY(-2px); box-shadow: 0 4px 12px var(--shadow); }
+  .drag-word.dragging { opacity: 0.4; }
+
+  .classify-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .classify-box {
+    border: 2px solid var(--cream-dark);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .classify-header {
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  .classify-drop {
+    min-height: 80px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+    transition: background 0.2s;
+  }
+  .classify-drop.over { background: var(--gold-light); }
+
+  .result-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .result-badge.green { background: var(--green-light); color: var(--green); }
+  .result-badge.red { background: var(--red-light); color: var(--red); }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+
+  .modal-emoji { font-size: 3.5rem; margin-bottom: 16px; }
+
+  .modal-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.8rem;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+
+  .modal-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin: 16px 0;
+  }
+
+  .modal-msg {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .modal-restart {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .modal-restart:hover { background: #1B4332; }
+
+  .tip-box {
+    background: var(--blue-light);
+    border-right: 4px solid var(--blue);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--blue);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.6;
+  }
+
+  .tip-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .classify-container { grid-template-columns: 1fr; }
+    .header-title { font-size: 1.7rem; }
+    .section { padding: 16px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">
+    <span class="ornament">❧</span>
+    تمارين اللغة العربية
+    <span class="ornament">❧</span>
+  </div>
+  <div class="header-subtitle">المستوى السادس ابتدائي — تقويم تفاعلي</div>
+</div>
+
+<div class="score-bar">
+  <div class="score-item">
+    <span>النقاط</span>
+    <span class="score-num" id="score-display">0</span>
+    <span>/ <span id="total-display">0</span></span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-fill"></div>
+  </div>
+  <div class="score-item" id="streak-display" style="display:none">
+    🔥 <span id="streak-num">0</span> متتالية
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab(0)">📚 التراكيب</button>
+  <button class="tab-btn" onclick="switchTab(1)">✏️ الصرف</button>
+  <button class="tab-btn" onclick="switchTab(2)">🖊️ الإملاء</button>
+  <button class="tab-btn" onclick="switchTab(3)">📝 التعبير</button>
+  <button class="tab-btn" onclick="switchTab(4)">🏆 التقييم</button>
+</div>
+
+<!-- ====== TAB 1: التراكيب ====== -->
+<div class="section active" id="tab-0">
+  <div class="section-title">
+    <div class="section-icon">١</div>
+    التراكيب النحوية
+  </div>
+
+  <div class="tip-box">
+    <span class="tip-icon">💡</span>
+    <span>إعراب جمع المؤنث السالم: يُرفع بالضمة، ويُنصب بالكسرة، ويُجر بالكسرة.</span>
+  </div>
+
+  <!-- Exercise 1 -->
+  <div class="exercise-card">
+    <div class="exercise-label">تمرين ١ — اختر الإجابة الصحيحة</div>
+    <div class="exercise-question">أيٌّ من الجمل التالية تحتوي على <strong>جمع المؤنث السالم</strong> في محل نصب؟</div>
+    <div class="options-grid" id="q1-opts">
+      <button class="option-btn" onclick="checkMCQ('q1',0,1,this)">رأيتُ الطالباتِ المجتهداتِ</button>
+      <button class="option-btn" onclick="checkMCQ('q1',1,1,this)">جاءت المعلماتُ باكراً</button>
+      <button class="option-btn" onclick="checkMCQ('q1',2,1,this)">سلّمتُ على الجاراتِ</button>
+      <button class="option-btn" onclick="checkMCQ('q1',3,1,this)">المؤمناتُ صابراتٌ</button>
+    </div>
+    <div class="feedback" id="q1-fb"></div>
+    <button class="next-btn" id="q1-next">التمرين التالي ←</button>
+  </div>
+
+  <!-- Exercise 2 -->
+  <div class="exercise-card" id="q2-card" style="display:none">
+    <div class="exercise-label">تمرين ٢ — التوكيد</div>
+    <div class="exercise-question">اختر نوع التوكيد في الجملة:<br><em>«جاء المديرُ نفسُه»</em></div>
+    <div class="options-grid" id="q2-opts">
+      <button class="option-btn" onclick="checkMCQ('q2',0,0,this)">توكيد معنوي بـ«كل»</button>
+      <button class="option-btn" onclick="checkMCQ('q2',1,0,this)">توكيد لفظي</button>
+      <button class="option-btn" onclick="checkMCQ('q2',2,0,this)">توكيد معنوي بـ«نفس»</button>
+      <button class="option-btn" onclick="checkMCQ('q2',3,0,this)">لا توكيد</button>
+    </div>
+    <div class="feedback" id="q2-fb"></div>
+    <button class="next-btn" id="q2-next">التمرين التالي ←</button>
+  </div>
+
+  <!-- Exercise 3 - Fill in blank -->
+  <div class="exercise-card" id="q3-card" style="display:none">
+    <div class="exercise-label">تمرين ٣ — أعرب</div>
+    <div class="exercise-question">ما إعراب كلمة <strong>«معلماتٍ»</strong> في الجملة التالية؟<br><em>«أُعجبتُ بمعلماتٍ مجتهداتٍ»</em></div>
+    <input type="text" class="fill-input" id="q3-input" placeholder="اكتب إعرابها هنا...">
+    <div style="display:flex; gap:8px; flex-wrap:wrap">
+      <button class="check-btn" onclick="checkFill('q3',['اسم مجرور','مجرور بالكسرة','اسم مجرور بالكسرة','جمع مؤنث سالم مجرور بالكسرة'])">تحقق ✓</button>
+    </div>
+    <div class="feedback" id="q3-fb" style="margin-top:10px"></div>
+    <button class="next-btn" id="q3-next">انتقل للقسم التالي ←</button>
+  </div>
+</div>
+
+<!-- ====== TAB 2: الصرف ====== -->
+<div class="section" id="tab-1">
+  <div class="section-title">
+    <div class="section-icon">٢</div>
+    الصرف والتحويل
+  </div>
+
+  <div class="tip-box">
+    <span class="tip-icon">💡</span>
+    <span>اسم الفاعل من الفعل الثلاثي على وزن <strong>فاعِل</strong> — اسم المفعول على وزن <strong>مفعول</strong></span>
+  </div>
+
+  <!-- Classify exercise -->
+  <div class="exercise-card">
+    <div class="exercise-label">تمرين ١ — صنّف الكلمات</div>
+    <div class="exercise-question">صنّف الكلمات التالية إلى اسم فاعل أو اسم مفعول:</div>
+
+    <div class="drag-zone" id="words-pool">
+      <span class="drag-word" draggable="true" data-word="كاتب" data-correct="فاعل">كاتب</span>
+      <span class="drag-word" draggable="true" data-word="مكتوب" data-correct="مفعول">مكتوب</span>
+      <span class="drag-word" draggable="true" data-word="ناجح" data-correct="فاعل">ناجح</span>
+      <span class="drag-word" draggable="true" data-word="مفتوح" data-correct="مفعول">مفتوح</span>
+      <span class="drag-word" draggable="true" data-word="قارئ" data-correct="فاعل">قارئ</span>
+      <span class="drag-word" draggable="true" data-word="مقروء" data-correct="مفعول">مقروء</span>
+    </div>
+
+    <div class="classify-container">
+      <div class="classify-box">
+        <div class="classify-header" style="background:#D8F3DC; color:#2D6A4F">اسم الفاعل</div>
+        <div class="classify-drop" id="drop-فاعل" data-cat="فاعل"></div>
+      </div>
+      <div class="classify-box">
+        <div class="classify-header" style="background:#D6EAF8; color:#1A5276">اسم المفعول</div>
+        <div class="classify-drop" id="drop-مفعول" data-cat="مفعول"></div>
+      </div>
+    </div>
+
+    <button class="check-btn" onclick="checkClassify()">تحقق من التصنيف ✓</button>
+    <div class="feedback" id="classify-fb" style="margin-top:12px"></div>
+    <button class="next-btn" id="classify-next">التمرين التالي ←</button>
+  </div>
+
+  <!-- MCQ exercise 2 -->
+  <div class="exercise-card" id="s2-card" style="display:none">
+    <div class="exercise-label">تمرين ٢ — اسم التفضيل</div>
+    <div class="exercise-question">اختر الصيغة الصحيحة لاسم التفضيل من الفعل <strong>«جَمُل»</strong>:</div>
+    <div class="options-grid" id="s2-opts">
+      <button class="option-btn" onclick="checkMCQ('s2',0,2,this)">جمّال</button>
+      <button class="option-btn" onclick="checkMCQ('s2',1,2,this)">مجمّل</button>
+      <button class="option-btn" onclick="checkMCQ('s2',2,2,this)">أجمل</button>
+      <button class="option-btn" onclick="checkMCQ('s2',3,2,this)">جميل</button>
+    </div>
+    <div class="feedback" id="s2-fb"></div>
+    <button class="next-btn" id="s2-next">انتقل للقسم التالي ←</button>
+  </div>
+</div>
+
+<!-- ====== TAB 3: الإملاء ====== -->
+<div class="section" id="tab-2">
+  <div class="section-title">
+    <div class="section-icon">٣</div>
+    الإملاء
+  </div>
+
+  <div class="tip-box">
+    <span class="tip-icon">💡</span>
+    <span>الألف اللينة: تُكتب ياء (ى) في الأفعال الثلاثية وبعض الأسماء — وتُكتب ألف (ا) في الأفعال الرباعية فأكثر وكثير من الأسماء.</span>
+  </div>
+
+  <!-- Alef lina exercise -->
+  <div class="exercise-card">
+    <div class="exercise-label">تمرين ١ — الألف اللينة</div>
+    <div class="exercise-question">اختر الرسم الإملائي الصحيح لكل كلمة:</div>
+
+    <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:18px">
+      <div class="alef-row" data-correct="1">
+        <div style="font-size:1.1rem; color:var(--text-muted); margin-bottom:6px">الفعل من الجذر (رمى)</div>
+        <div class="options-grid" style="margin-bottom:0">
+          <button class="option-btn" onclick="checkAlef(this,0,'alef1')">رَمَا</button>
+          <button class="option-btn" onclick="checkAlef(this,1,'alef1')">رَمَى</button>
+        </div>
+        <div class="feedback" id="alef1-fb" style="margin-top:6px"></div>
+      </div>
+
+      <div class="alef-row" data-correct="0">
+        <div style="font-size:1.1rem; color:var(--text-muted); margin-bottom:6px">رسم كلمة (دنيا)</div>
+        <div class="options-grid" style="margin-bottom:0">
+          <button class="option-btn" onclick="checkAlef(this,0,'alef2')">دُنيا</button>
+          <button class="option-btn" onclick="checkAlef(this,1,'alef2')">دُنيى</button>
+        </div>
+        <div class="feedback" id="alef2-fb" style="margin-top:6px"></div>
+      </div>
+
+      <div class="alef-row" data-correct="0">
+        <div style="font-size:1.1rem; color:var(--text-muted); margin-bottom:6px">رسم كلمة (سعى)</div>
+        <div class="options-grid" style="margin-bottom:0">
+          <button class="option-btn" onclick="checkAlef(this,0,'alef3')">سَعَى</button>
+          <button class="option-btn" onclick="checkAlef(this,1,'alef3')">سَعَا</button>
+        </div>
+        <div class="feedback" id="alef3-fb" style="margin-top:6px"></div>
+      </div>
+    </div>
+
+    <button class="next-btn show" id="alef-next" onclick="showCard('imlaa2-card')">التمرين التالي ←</button>
+  </div>
+
+  <!-- Hamza exercise -->
+  <div class="exercise-card" id="imlaa2-card" style="display:none">
+    <div class="exercise-label">تمرين ٢ — الهمزة المتوسطة</div>
+    <div class="exercise-question">اختر الكتابة الصحيحة:</div>
+    <div class="options-grid" id="hmz-opts">
+      <button class="option-btn" onclick="checkMCQ('hmz',0,3,this)">سُاَل</button>
+      <button class="option-btn" onclick="checkMCQ('hmz',1,3,this)">سُئِل</button>
+      <button class="option-btn" onclick="checkMCQ('hmz',2,3,this)">سُؤِل</button>
+      <button class="option-btn" onclick="checkMCQ('hmz',3,3,this)">سُئل</button>
+    </div>
+    <div class="feedback" id="hmz-fb"></div>
+    <button class="next-btn" id="hmz-next">انتقل للقسم التالي ←</button>
+  </div>
+</div>
+
+<!-- ====== TAB 4: التعبير ====== -->
+<div class="section" id="tab-3">
+  <div class="section-title">
+    <div class="section-icon">٤</div>
+    التعبير الكتابي
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-label">فهم نوع النص</div>
+    <div class="exercise-question">ما الفرق الرئيسي بين <strong>القصة الواقعية</strong> و<strong>القصة الخيالية</strong>؟</div>
+    <div class="options-grid" id="tex1-opts">
+      <button class="option-btn" onclick="checkMCQ('tex1',0,1,this)">الواقعية أطول من الخيالية</button>
+      <button class="option-btn" onclick="checkMCQ('tex1',1,1,this)">الواقعية تعتمد أحداثاً حقيقية والخيالية تعتمد الخيال والتخيّل</button>
+      <button class="option-btn" onclick="checkMCQ('tex1',2,1,this)">الخيالية تُكتب بصيغة المتكلم والواقعية بصيغة الغائب</button>
+      <button class="option-btn" onclick="checkMCQ('tex1',3,1,this)">لا فرق بينهما</button>
+    </div>
+    <div class="feedback" id="tex1-fb"></div>
+    <button class="next-btn" id="tex1-next">التمرين التالي ←</button>
+  </div>
+
+  <div class="exercise-card" id="tex2-card" style="display:none">
+    <div class="exercise-label">تمرين — وصف الشخصية</div>
+    <div class="exercise-question">اختر أفضل بداية لفقرة وصف شخصية في قصة:</div>
+    <div class="options-grid" id="tex2-opts">
+      <button class="option-btn" onclick="checkMCQ('tex2',0,0,this)">«كان يوماً جميلاً والشمس مشرقة»</button>
+      <button class="option-btn" onclick="checkMCQ('tex2',1,0,this)">«يتميز سامي بطوله الفارع وعينيه الحادّتين اللتين تنمّان عن ذكاء متوقّد»</button>
+      <button class="option-btn" onclick="checkMCQ('tex2',2,0,this)">«قال سامي: أريد الذهاب إلى السوق»</button>
+      <button class="option-btn" onclick="checkMCQ('tex2',3,0,this)">«في يوم من الأيام ذهب سامي»</button>
+    </div>
+    <div class="feedback" id="tex2-fb"></div>
+    <button class="next-btn" id="tex2-next">التمرين التالي ←</button>
+  </div>
+
+  <div class="exercise-card" id="tex3-card" style="display:none">
+    <div class="exercise-label">تمرين — إصدار حكم</div>
+    <div class="exercise-question">أيٌّ من العبارات التالية يمثّل <strong>حُكماً</strong> واضحاً يمكن الدفاع عنه في فقرة؟</div>
+    <div class="options-grid" id="tex3-opts">
+      <button class="option-btn" onclick="checkMCQ('tex3',0,2,this)">«القراءة شيء جيد»</button>
+      <button class="option-btn" onclick="checkMCQ('tex3',1,2,this)">«الكتب متوفرة في المكتبات»</button>
+      <button class="option-btn" onclick="checkMCQ('tex3',2,2,this)">«القراءة اليومية تنمّي مهارة التعبير وتوسّع مدارك المتعلم»</button>
+      <button class="option-btn" onclick="checkMCQ('tex3',3,2,this)">«قرأتُ كتاباً بالأمس»</button>
+    </div>
+    <div class="feedback" id="tex3-fb"></div>
+    <button class="next-btn" id="tex3-next">انتقل للتقييم النهائي ←</button>
+  </div>
+</div>
+
+<!-- ====== TAB 5: التقييم ====== -->
+<div class="section" id="tab-4">
+  <div class="section-title">
+    <div class="section-icon">٥</div>
+    تقييم شامل
+  </div>
+
+  <div class="exercise-card">
+    <div class="exercise-label">السؤال ١ — تراكيب</div>
+    <div class="exercise-question">ما إعراب كلمة <strong>«المعلمات»</strong> في: <em>«جاءت المعلماتُ مبكراً»</em>؟</div>
+    <div class="options-grid" id="ev1-opts">
+      <button class="option-btn" onclick="checkMCQ('ev1',0,3,this)">مفعول به منصوب بالكسرة</button>
+      <button class="option-btn" onclick="checkMCQ('ev1',1,3,this)">اسم مجرور بالكسرة</button>
+      <button class="option-btn" onclick="checkMCQ('ev1',2,3,this)">مبتدأ مرفوع بالضمة</button>
+      <button class="option-btn" onclick="checkMCQ('ev1',3,3,this)">فاعل مرفوع بالضمة</button>
+    </div>
+    <div class="feedback" id="ev1-fb"></div>
+    <button class="next-btn" id="ev1-next">السؤال التالي ←</button>
+  </div>
+
+  <div class="exercise-card" id="ev2-card" style="display:none">
+    <div class="exercise-label">السؤال ٢ — صرف</div>
+    <div class="exercise-question">ما وزن اسم التفضيل؟</div>
+    <div class="options-grid" id="ev2-opts">
+      <button class="option-btn" onclick="checkMCQ('ev2',0,1,this)">فاعِل</button>
+      <button class="option-btn" onclick="checkMCQ('ev2',1,1,this)">أفعَل</button>
+      <button class="option-btn" onclick="checkMCQ('ev2',2,1,this)">مفعول</button>
+      <button class="option-btn" onclick="checkMCQ('ev2',3,1,this)">فَعَّال</button>
+    </div>
+    <div class="feedback" id="ev2-fb"></div>
+    <button class="next-btn" id="ev2-next">السؤال التالي ←</button>
+  </div>
+
+  <div class="exercise-card" id="ev3-card" style="display:none">
+    <div class="exercise-label">السؤال ٣ — إملاء</div>
+    <div class="exercise-question">اختر الجملة التي فيها خطأ إملائي:</div>
+    <div class="options-grid" id="ev3-opts">
+      <button class="option-btn" onclick="checkMCQ('ev3',0,2,this)">«سعى الطالب إلى التفوق»</button>
+      <button class="option-btn" onclick="checkMCQ('ev3',1,2,this)">«رمى اللاعب الكرة بقوة»</button>
+      <button class="option-btn" onclick="checkMCQ('ev3',2,2,this)">«دعا الأصدقاء إلى الحفلا»</button>
+      <button class="option-btn" onclick="checkMCQ('ev3',3,2,this)">«اشترى التاجر بضاعة جيدة»</button>
+    </div>
+    <div class="feedback" id="ev3-fb"></div>
+    <button class="next-btn" id="ev3-next">السؤال التالي ←</button>
+  </div>
+
+  <div class="exercise-card" id="ev4-card" style="display:none">
+    <div class="exercise-label">السؤال ٤ — تعبير</div>
+    <div class="exercise-question">أيٌّ مما يلي <em>ليس</em> من عناصر الوصف الجيد للشخصية؟</div>
+    <div class="options-grid" id="ev4-opts">
+      <button class="option-btn" onclick="checkMCQ('ev4',0,3,this)">المظهر الخارجي</button>
+      <button class="option-btn" onclick="checkMCQ('ev4',1,3,this)">الصفات النفسية والأخلاقية</button>
+      <button class="option-btn" onclick="checkMCQ('ev4',2,3,this)">أسلوب الحديث والتصرف</button>
+      <button class="option-btn" onclick="checkMCQ('ev4',3,3,this)">عدد صفحات القصة</button>
+    </div>
+    <div class="feedback" id="ev4-fb"></div>
+    <button class="next-btn" id="ev4-next" onclick="showResult()">🏆 عرض النتيجة النهائية</button>
+  </div>
+</div>
+
+<!-- Result Modal -->
+<div class="modal-overlay" id="result-modal">
+  <div class="modal-box">
+    <div class="modal-emoji" id="result-emoji">🏆</div>
+    <div class="modal-title">نتيجتك النهائية</div>
+    <div class="modal-score" id="result-score">0/14</div>
+    <div class="modal-msg" id="result-msg"></div>
+    <button class="modal-restart" onclick="restartAll()">إعادة التمارين 🔄</button>
+  </div>
+</div>
+
+<script>
+let score = 0;
+let totalAnswered = 0;
+let streak = 0;
+const maxScore = 14;
+
+const answers = {};
+const feedbacks = {
+  q1: ['✅ صحيح! «الطالبات» مفعول به منصوب بالكسرة عوضاً عن الفتحة.', '❌ «المعلمات» هنا فاعل مرفوع بالضمة.', '❌ «الجارات» هنا مجرور بحرف الجر، ليس منصوباً.', '❌ «المؤمنات» خبر مرفوع.'],
+  q2: ['❌ «كل» توكيد معنوي لكنها غير موجودة في الجملة.', '❌ التوكيد اللفظي يكون بإعادة اللفظ نفسه.', '✅ «نفس» من ألفاظ التوكيد المعنوي.', '❌ الجملة تحتوي توكيداً.'],
+  s2: ['❌ جمّال صيغة مبالغة.', '❌ مجمَّل اسم مفعول.', '✅ أجمل هو اسم التفضيل على وزن أفعل.', '❌ جميل صفة مشبهة.'],
+  hmz: ['❌ سُأَل خطأ.', '❌ همزة على نبرة لأن الحرف الذي قبلها مكسور.', '❌ سُؤِل خطأ في ضبط حركة الهمزة.', '✅ «سُئِل» صحيح: الهمزة على نبرة لأن ما قبلها مكسور وما بعدها مكسور.'],
+  tex1: ['❌ الطول ليس المعيار الفارق.', '✅ الفرق الجوهري هو اعتماد كل منهما على نوع مختلف من الأحداث.', '❌ هذا ليس الفارق الصحيح.', '❌ بينهما فروق واضحة.'],
+  tex2: ['❌ هذه بداية لوصف المكان لا الشخصية.', '✅ هذه البداية تصف الشخصية مباشرة بتفاصيل مرئية ودلالية.', '❌ هذه بداية حوار لا وصف.', '❌ هذه بداية سردية عامة.'],
+  tex3: ['❌ هذا حكم عام وغير محدد.', '❌ هذه معلومة عامة لا حكم.', '✅ هذا حكم محدد ودقيق يمكن تطويره ودعمه بحجج.', '❌ هذه جملة إخبارية وليست حكماً.'],
+  ev1: ['❌ المفعول به منصوب، و«المعلمات» هنا فاعل.', '❌ المجرور يكون بعد حرف جر.', '❌ المبتدأ لا يسبقه فعل.', '✅ «المعلمات» فاعل مرفوع وعلامة رفعه الضمة الظاهرة.'],
+  ev2: ['❌ فاعِل وزن اسم الفاعل.', '✅ أفعَل هو وزن اسم التفضيل.', '❌ مفعول وزن اسم المفعول.', '❌ فعّال صيغة مبالغة.'],
+  ev3: ['❌ «سعى» كُتبت صحيحة.', '❌ «رمى» كُتبت صحيحة.', '✅ «الحفلا» خطأ، والصحيح «الحفلة».', '❌ «اشترى» كُتبت صحيحة.'],
+  ev4: ['❌ المظهر الخارجي عنصر أساسي في الوصف.', '❌ الصفات النفسية من أهم عناصر الوصف.', '❌ أسلوب الحديث يكشف شخصية الشخصية.', '✅ عدد صفحات القصة لا علاقة له بوصف الشخصية.'],
+};
+
+const correctAnswers = { q1:0, q2:2, s2:2, hmz:3, tex1:1, tex2:1, tex3:2, ev1:3, ev2:1, ev3:2, ev4:3 };
+const points = { q1:1, q2:1, s2:1, hmz:1, tex1:1, tex2:1, tex3:1, ev1:1, ev2:1, ev3:1, ev4:1 };
+
+function updateScore() {
+  document.getElementById('score-display').textContent = score;
+  document.getElementById('total-display').textContent = totalAnswered;
+  const pct = maxScore > 0 ? (score / maxScore * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  if (streak > 0) {
+    document.getElementById('streak-display').style.display = 'flex';
+    document.getElementById('streak-num').textContent = streak;
+  }
+}
+
+function checkMCQ(qid, chosen, correct, btn) {
+  if (answers[qid] !== undefined) return;
+  answers[qid] = chosen;
+  const opts = document.querySelectorAll(`#${qid}-opts .option-btn`);
+  opts.forEach((b, i) => {
+    b.disabled = true;
+    if (i === correct) b.classList.add('correct');
+    else if (i === chosen) b.classList.add('wrong');
+  });
+  const fb = document.getElementById(`${qid}-fb`);
+  const isCorrect = chosen === correct;
+  fb.textContent = feedbacks[qid][chosen];
+  fb.className = 'feedback show ' + (isCorrect ? 'success' : 'error');
+  if (isCorrect) { score++; streak++; } else { streak = 0; }
+  totalAnswered++;
+  updateScore();
+  const nextBtn = document.getElementById(`${qid}-next`);
+  if (nextBtn) nextBtn.classList.add('show');
+}
+
+function checkFill(qid, acceptedAnswers) {
+  if (answers[qid] !== undefined) return;
+  const input = document.getElementById(`${qid}-input`);
+  const val = input.value.trim();
+  if (!val) return;
+  const isCorrect = acceptedAnswers.some(a => val.includes(a.split(' ')[0]) || a.includes(val));
+  answers[qid] = val;
+  input.disabled = true;
+  input.classList.add(isCorrect ? 'correct' : 'wrong');
+  const fb = document.getElementById(`${qid}-fb`);
+  fb.textContent = isCorrect ? '✅ إجابة صحيحة! جمع مؤنث سالم مجرور بالكسرة.' : '❌ الإجابة الصحيحة: اسم مجرور، وعلامة جره الكسرة الظاهرة على آخره.';
+  fb.className = 'feedback show ' + (isCorrect ? 'success' : 'error');
+  if (isCorrect) { score++; streak++; } else { streak = 0; }
+  totalAnswered++;
+  updateScore();
+  document.getElementById(`${qid}-next`).classList.add('show');
+}
+
+function checkAlef(btn, chosen, fbId) {
+  const row = btn.closest('.alef-row');
+  if (row.dataset.checked) return;
+  row.dataset.checked = '1';
+  const correct = parseInt(row.dataset.correct);
+  const allBtns = row.querySelectorAll('.option-btn');
+  allBtns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === correct) b.classList.add('correct');
+    else if (i === chosen) b.classList.add('wrong');
+  });
+  const isCorrect = chosen === correct;
+  const fb = document.getElementById(fbId + '-fb');
+  fb.textContent = isCorrect ? '✅ صحيح!' : '❌ راجع قاعدة الألف اللينة.';
+  fb.className = 'feedback show ' + (isCorrect ? 'success' : 'error');
+  if (isCorrect) { score++; streak++; } else { streak = 0; }
+  totalAnswered++;
+  updateScore();
+}
+
+// Drag & Drop
+let draggedEl = null;
+document.querySelectorAll('.drag-word').forEach(word => {
+  word.addEventListener('dragstart', e => { draggedEl = word; word.classList.add('dragging'); });
+  word.addEventListener('dragend', () => word.classList.remove('dragging'));
+});
+document.querySelectorAll('.classify-drop, #words-pool').forEach(zone => {
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('over');
+    if (draggedEl) zone.appendChild(draggedEl);
+  });
+});
+
+function checkClassify() {
+  if (answers['classify'] !== undefined) return;
+  answers['classify'] = 1;
+  let correct = 0, total = 0;
+  document.querySelectorAll('.classify-drop').forEach(zone => {
+    const cat = zone.dataset.cat;
+    zone.querySelectorAll('.drag-word').forEach(w => {
+      total++;
+      if (w.dataset.correct === cat) {
+        correct++;
+        w.style.borderColor = '#2D6A4F';
+        w.style.background = '#D8F3DC';
+        w.style.color = '#2D6A4F';
+      } else {
+        w.style.borderColor = '#C0392B';
+        w.style.background = '#FDECEA';
+        w.style.color = '#C0392B';
+      }
+    });
+  });
+  const fb = document.getElementById('classify-fb');
+  if (correct === 6) {
+    fb.textContent = '✅ ممتاز! جميع الكلمات صُنِّفت بشكل صحيح.';
+    fb.className = 'feedback show success';
+    score += 2; streak++;
+  } else {
+    fb.textContent = `❌ ${correct} من 6 صحيحة. تحقق من الكلمات المميزة باللون الأحمر.`;
+    fb.className = 'feedback show error';
+    if (correct >= 4) { score += 1; } streak = 0;
+  }
+  totalAnswered++;
+  updateScore();
+  document.getElementById('classify-next').classList.add('show');
+}
+
+function showCard(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = 'block'; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+}
+
+// Next button wiring
+const nextMap = {
+  'q1-next': 'q2-card', 'q2-next': 'q3-card',
+  'q3-next': () => switchTab(1),
+  'classify-next': 's2-card', 's2-next': () => switchTab(2),
+  'alef-next': 'imlaa2-card', 'hmz-next': () => switchTab(3),
+  'tex1-next': 'tex2-card', 'tex2-next': 'tex3-card', 'tex3-next': () => switchTab(4),
+  'ev1-next': 'ev2-card', 'ev2-next': 'ev3-card', 'ev3-next': 'ev4-card',
+};
+
+document.querySelectorAll('.next-btn').forEach(btn => {
+  if (btn.id && nextMap[btn.id]) {
+    btn.addEventListener('click', () => {
+      const action = nextMap[btn.id];
+      if (typeof action === 'function') action();
+      else showCard(action);
+    });
+  }
+});
+
+function switchTab(idx) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('.section').forEach((s, i) => s.classList.toggle('active', i === idx));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showResult() {
+  const modal = document.getElementById('result-modal');
+  const pct = (score / maxScore) * 100;
+  document.getElementById('result-score').textContent = `${score} / ${maxScore}`;
+  let emoji = '🏆', msg = '';
+  if (pct >= 85) { emoji = '🌟'; msg = 'ممتاز! أداؤك رائع وفوق المتوقع. أنت تستحق التهنئة!'; }
+  else if (pct >= 70) { emoji = '😊'; msg = 'جيد جداً! أتقنت معظم المهارات. راجع النقاط الضعيفة وستصل للإتقان.'; }
+  else if (pct >= 50) { emoji = '📚'; msg = 'جيد! لكن تحتاج إلى المزيد من التدريب على بعض المهارات.'; }
+  else { emoji = '💪'; msg = 'لا تيأس! المراجعة مفتاح النجاح. أعد التمارين مرة أخرى.'; }
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-msg').textContent = msg;
+  modal.classList.add('show');
+}
+
+function restartAll() {
+  location.reload();
+}
+</script>
+</body>
+</html>
