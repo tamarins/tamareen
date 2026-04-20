@@ -189,7 +189,7 @@ body{
   letter-spacing:1.5px;opacity:.5;margin-bottom:6px;}
 .ex-q{font-size:1rem;font-weight:700;line-height:1.6;margin-bottom:12px;color:#e8e8f0;}
 
-/* math display */
+/* math display - تم التعديل هنا */
 .math-box{
   background:rgba(255,255,255,0.05);
   border:1px solid rgba(255,255,255,0.1);
@@ -200,10 +200,12 @@ body{
   margin:8px 0;
   text-align:center;
   direction:ltr;
+  display:inline-block; /* يحافظ على التنسيق داخل النص العربي */
+  unicode-bidi: isolate; /* يمنع تأثير اتجاه الصفحة على الأرقام */
   letter-spacing:1px;
 }
 
-/* options */
+/* options - تم التعديل هنا */
 .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
 .opt{
   padding:8px 16px;
@@ -214,13 +216,14 @@ body{
   font-size:.9rem;font-weight:700;
   cursor:pointer;color:var(--text);
   transition:all .18s;
+  unicode-bidi: plaintext; /* يقوم بضبط الاتجاه تلقائياً: لليسار إذا كان أرقام، ولليمين إذا كان عربي */
 }
 .opt:hover{border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.08);}
 .opt.correct{background:#43AA8B!important;border-color:#43AA8B!important;color:#fff!important;}
 .opt.wrong{background:#E63946!important;border-color:#E63946!important;color:#fff!important;animation:shake .35s;}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
-/* inputs */
+/* inputs - تم التعديل هنا */
 .ex-input{
   width:100%;padding:10px 14px;
   border-radius:10px;
@@ -230,7 +233,8 @@ body{
   font-size:.95rem;font-weight:700;
   color:var(--text);outline:none;
   transition:border-color .2s;
-  direction:ltr;
+  unicode-bidi: plaintext; /* يحافظ على النص الإرشادي (Placeholder) بالعربية، ويكتب الأرقام من اليسار */
+  text-align: start;
 }
 .ex-input:focus{border-color:var(--c1);}
 .ex-input.ar{direction:rtl;}
@@ -256,7 +260,7 @@ body{
 .fb.ok{background:rgba(67,170,139,0.2);border:1.5px solid var(--c5);color:#6EFCD6;}
 .fb.ko{background:rgba(230,57,70,0.2);border:1.5px solid var(--c6);color:#FF8FA3;}
 
-/* inline blank */
+/* inline blank - تم التعديل هنا */
 .blank{
   display:inline-block;min-width:70px;
   border-bottom:2.5px solid rgba(255,255,255,0.4);
@@ -265,6 +269,7 @@ body{
   outline:none;background:transparent;
   text-align:center;font-family:'Cairo',sans-serif;
   color:var(--c3);direction:ltr;
+  unicode-bidi: isolate;
 }
 
 /* formula display */
@@ -276,6 +281,8 @@ body{
   font-size:1rem;font-weight:700;
   margin:8px 0;text-align:center;
   direction:ltr;color:var(--c3);
+  display:inline-block;
+  unicode-bidi: isolate;
 }
 
 /* divider */
@@ -306,21 +313,18 @@ body{
 <div class="deco d3">∞</div>
 <div class="deco d4">√</div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">📐 السنة السادسة ابتدائي</div>
   <h1>تمارين الرياضيات التفاعلية</h1>
   <p>أجب على التمارين واكتشف نتيجتك فوراً! 🚀</p>
 </div>
 
-<!-- SCORE -->
 <div class="score-bar">
   <div class="score-chip chip-total">📊 الإجمالي: <span id="sc-total">0</span></div>
   <div class="score-chip chip-correct">✅ صحيح: <span id="sc-ok">0</span></div>
   <div class="score-chip chip-wrong">❌ خطأ: <span id="sc-ko">0</span></div>
 </div>
 
-<!-- NAV -->
 <nav class="nav">
   <a class="nav-btn nb1" href="#unit1">🔢 الأعداد</a>
   <a class="nav-btn nb2" href="#unit2">➗ العمليات</a>
@@ -332,9 +336,6 @@ body{
 
 <div class="wrap">
 
-<!-- ══════════════════════════════════════
-     UNITE 1 — الأعداد
-══════════════════════════════════════ -->
 <div id="unit1">
   <div class="sec-hdr sh1">
     <span class="sec-hdr-icon">🔢</span>
@@ -344,7 +345,6 @@ body{
     </div>
   </div>
 
-  <!-- الملايين والمليارات -->
   <div class="topic"><span class="topic-bar" style="background:var(--c1)"></span>الملايين والمليارات</div>
   <div class="ex-grid">
 
@@ -421,7 +421,6 @@ body{
     </div>
   </div>
 
-  <!-- المضاعفات والقواسم -->
   <div class="topic"><span class="topic-bar" style="background:var(--c1)"></span>المضاعفات والقواسم (الدرس 5)</div>
   <div class="ex-grid">
 
@@ -464,7 +463,6 @@ body{
     </div>
   </div>
 
-  <!-- الأعداد العشرية -->
   <div class="topic"><span class="topic-bar" style="background:var(--c1)"></span>الأعداد الصحيحة والأعداد العشرية (الدرس 6)</div>
   <div class="ex-grid">
 
@@ -503,6 +501,9 @@ body{
 </div>
 
 <div class="div-wave">· · · · · · · · · · · ·</div>
+
+</body>
+</html>
 
 <!-- ══════════════════════════════════════
      UNITE 2 — العمليات الحسابية
