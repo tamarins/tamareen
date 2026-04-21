@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تمارين علوم - المستوى السادس ابتدائي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #0ea5e9;
+    --sky-dark: #0369a1;
+    --green: #22c55e;
+    --green-dark: #15803d;
+    --orange: #f97316;
+    --orange-dark: #c2410c;
+    --purple: #a855f7;
+    --purple-dark: #7e22ce;
+    --rose: #f43f5e;
+    --gold: #eab308;
+    --bg: #f0f9ff;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 20px;
+    --shadow: 0 8px 32px rgba(14,165,233,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #a855f7 100%);
+    padding: 48px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-stars {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { from{opacity:.2;transform:scale(1)} to{opacity:.9;transform:scale(1.4)} }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(8px);
+  }
+  .hero h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    color: white;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+  .hero p {
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  /* ===== SCORE BAR ===== */
+  .score-bar {
+    background: white;
+    margin: -24px 16px 0;
+    border-radius: var(--radius);
+    padding: 18px 28px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    position: relative;
+    z-index: 10;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .score-item {
+    text-align: center;
+  }
+  .score-num {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .score-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .score-divider { width: 1px; height: 40px; background: var(--border); }
+
+  /* ===== UNIT TABS ===== */
+  .units-nav {
+    padding: 28px 16px 0;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .unit-tab {
+    border: none;
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .25s;
+    white-space: nowrap;
+    opacity: 0.6;
+    background: white;
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .unit-tab.active, .unit-tab:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.13);
+  }
+  .unit-tab[data-unit="1"].active { background: linear-gradient(135deg,#22c55e,#16a34a); color: white; }
+  .unit-tab[data-unit="2"].active { background: linear-gradient(135deg,#f97316,#dc2626); color: white; }
+  .unit-tab[data-unit="3"].active { background: linear-gradient(135deg,#0ea5e9,#6366f1); color: white; }
+  .unit-tab[data-unit="4"].active { background: linear-gradient(135deg,#a855f7,#ec4899); color: white; }
+  .unit-tab[data-unit="5"].active { background: linear-gradient(135deg,#eab308,#f97316); color: white; }
+  .unit-tab[data-unit="6"].active { background: linear-gradient(135deg,#14b8a6,#0ea5e9); color: white; }
+
+  /* ===== MAIN CONTENT ===== */
+  .main { padding: 24px 16px 60px; max-width: 860px; margin: 0 auto; }
+
+  .unit-section { display: none; animation: fadeIn .4s ease; }
+  .unit-section.active { display: block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  .unit-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .unit-header::after {
+    content: attr(data-emoji);
+    position: absolute;
+    left: -10px;
+    bottom: -10px;
+    font-size: 80px;
+    opacity: 0.12;
+    line-height: 1;
+  }
+  .u1-bg { background: linear-gradient(135deg,#22c55e,#16a34a); }
+  .u2-bg { background: linear-gradient(135deg,#f97316,#dc2626); }
+  .u3-bg { background: linear-gradient(135deg,#0ea5e9,#6366f1); }
+  .u4-bg { background: linear-gradient(135deg,#a855f7,#ec4899); }
+  .u5-bg { background: linear-gradient(135deg,#eab308,#f97316); }
+  .u6-bg { background: linear-gradient(135deg,#14b8a6,#0ea5e9); }
+
+  .unit-icon { font-size: 36px; }
+  .unit-title { font-size: 22px; font-weight: 800; }
+  .unit-sub { font-size: 14px; opacity: .85; margin-top: 2px; }
+
+  /* ===== EXERCISE CARD ===== */
+  .ex-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+    transition: box-shadow .2s;
+  }
+  .ex-card:hover { box-shadow: 0 12px 40px rgba(14,165,233,0.13); }
+
+  .ex-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: .5px;
+  }
+  .type-qcm { background: #dbeafe; color: #1d4ed8; }
+  .type-vf  { background: #dcfce7; color: #15803d; }
+  .type-fill{ background: #fef9c3; color: #a16207; }
+  .type-order{background: #fce7f3; color: #9d174d; }
+  .type-match{background: #ede9fe; color: #6d28d9; }
+
+  .ex-q {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  .ex-q span.hl {
+    background: linear-gradient(120deg,#fde68a,#fbbf24);
+    padding: 0 4px;
+    border-radius: 4px;
+  }
+
+  /* QCM */
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice-btn {
+    border: 2px solid var(--border);
+    background: white;
+    border-radius: 14px;
+    padding: 13px 18px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: right;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+  }
+  .choice-btn:hover:not(:disabled) {
+    border-color: var(--sky);
+    background: #f0f9ff;
+    transform: translateX(-3px);
+  }
+  .choice-btn .choice-letter {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: all .2s;
+  }
+  .choice-btn.correct { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+  .choice-btn.correct .choice-letter { background: #22c55e; color: white; }
+  .choice-btn.wrong { border-color: #f43f5e; background: #fff1f2; color: #be123c; }
+  .choice-btn.wrong .choice-letter { background: #f43f5e; color: white; }
+  .choice-btn:disabled { cursor: default; }
+
+  /* TRUE/FALSE */
+  .tf-btns { display: flex; gap: 12px; }
+  .tf-btn {
+    flex: 1;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all .2s;
+    background: white;
+    color: var(--text);
+  }
+  .tf-btn:hover:not(:disabled) { transform: scale(1.04); }
+  .tf-btn.true-btn:hover:not(:disabled) { border-color: #22c55e; background: #f0fdf4; }
+  .tf-btn.false-btn:hover:not(:disabled) { border-color: #f43f5e; background: #fff1f2; }
+  .tf-btn.correct { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+  .tf-btn.wrong { border-color: #f43f5e; background: #fff1f2; color: #be123c; }
+  .tf-btn:disabled { cursor: default; }
+
+  /* FILL */
+  .fill-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .fill-input {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 9px 16px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    transition: all .2s;
+    min-width: 140px;
+    text-align: center;
+    color: var(--text);
+    background: white;
+  }
+  .fill-input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(14,165,233,0.15); }
+  .fill-input.correct { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+  .fill-input.wrong { border-color: #f43f5e; background: #fff1f2; color: #be123c; }
+  .check-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 9px 20px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(135deg,var(--sky),var(--sky-dark));
+    color: white;
+    transition: all .2s;
+  }
+  .check-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(14,165,233,0.35); }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+  .feedback.show { display: flex; animation: popIn .3s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes popIn { from{opacity:0;transform:scale(.9)} to{opacity:1;transform:scale(1)} }
+  .feedback.ok { background: #f0fdf4; color: #15803d; border: 1.5px solid #86efac; }
+  .feedback.nope { background: #fff1f2; color: #be123c; border: 1.5px solid #fda4af; }
+
+  /* MATCH */
+  .match-container { display: flex; gap: 16px; flex-wrap: wrap; }
+  .match-col { flex: 1; min-width: 120px; display: flex; flex-direction: column; gap: 8px; }
+  .match-col h4 { font-size: 13px; color: var(--muted); font-weight: 700; margin-bottom: 4px; text-align: center; }
+  .match-item {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all .2s;
+    text-align: center;
+    user-select: none;
+  }
+  .match-left { background: #eff6ff; color: #1d4ed8; }
+  .match-right { background: #fef9c3; color: #92400e; }
+  .match-item:hover { transform: scale(1.03); }
+  .match-item.selected { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(168,85,247,0.2); }
+  .match-item.matched { opacity: .55; cursor: default; }
+  .match-item.correct-match { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
+  .match-item.wrong-match { border-color: #f43f5e; background: #fff1f2; color: #be123c; }
+  .match-hint { font-size: 13px; color: var(--muted); margin-top: 10px; font-style: italic; }
+
+  /* PROGRESS */
+  .progress-wrap {
+    background: #f1f5f9;
+    border-radius: 50px;
+    height: 8px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--sky), var(--purple));
+    transition: width .5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* CONFETTI */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fall 1.2s ease-in forwards;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-30px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:540px){
+    .score-bar { padding: 14px 12px; }
+    .score-num { font-size: 22px; }
+    .ex-q { font-size: 16px; }
+    .unit-title { font-size: 18px; }
+    .tf-btns { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-stars" id="stars"></div>
+  <div class="hero-badge">🏫 المستوى السادس ابتدائي</div>
+  <h1>تمارين النشاط العلمي التفاعلية</h1>
+  <p>تعلّم بطريقة ممتعة وشيّقة 🚀</p>
+</div>
+
+<div class="score-bar">
+  <div class="score-item">
+    <div class="score-num" id="correct-count" style="color:var(--green)">0</div>
+    <div class="score-label">✅ إجابات صحيحة</div>
+  </div>
+  <div class="score-divider"></div>
+  <div class="score-item">
+    <div class="score-num" id="wrong-count" style="color:var(--rose)">0</div>
+    <div class="score-label">❌ إجابات خاطئة</div>
+  </div>
+  <div class="score-divider"></div>
+  <div class="score-item">
+    <div class="score-num" id="total-count" style="color:var(--sky)">0</div>
+    <div class="score-label">📝 الإجمالي</div>
+  </div>
+  <div class="score-divider"></div>
+  <div class="score-item">
+    <div class="score-num" id="pct-count" style="color:var(--purple)">0%</div>
+    <div class="score-label">🏆 النسبة</div>
+  </div>
+</div>
+
+<div class="units-nav">
+  <button class="unit-tab active" data-unit="1" onclick="switchUnit(1)">🌿 الوحدة 1</button>
+  <button class="unit-tab" data-unit="2" onclick="switchUnit(2)">🔥 الوحدة 2</button>
+  <button class="unit-tab" data-unit="3" onclick="switchUnit(3)">⚡ الوحدة 4</button>
+  <button class="unit-tab" data-unit="4" onclick="switchUnit(4)">🧬 الوحدة 5</button>
+  <button class="unit-tab" data-unit="5" onclick="switchUnit(5)">🌍 الوحدة 6</button>
+  <button class="unit-tab" data-unit="6" onclick="switchUnit(6)">🧠 الوحدة 3</button>
+</div>
+
+<div class="main">
+
+  <!-- ============ UNIT 1: البيئة ============ -->
+  <div class="unit-section active" id="unit-1">
+    <div class="unit-header u1-bg" data-emoji="🌿">
+      <div class="unit-icon">🌿</div>
+      <div>
+        <div class="unit-title">البيئة والتوازن البيئي</div>
+        <div class="unit-sub">مكونات الوسط البيئي • العلاقات المتبادلة • اختلال التوازن</div>
+      </div>
+    </div>
+
+    <!-- Q1 QCM -->
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">ما المقصود بـ <span class="hl">الوسط البيئي</span> ؟</div>
+      <div class="choices" id="q1">
+        <button class="choice-btn" onclick="answerQCM('q1',this,false)"><span class="choice-letter">أ</span> مجموعة من الحيوانات فقط</button>
+        <button class="choice-btn" onclick="answerQCM('q1',this,true)"><span class="choice-letter">ب</span> المجال الذي تعيش فيه الكائنات الحية مع عواملها الحيوية وغير الحيوية</button>
+        <button class="choice-btn" onclick="answerQCM('q1',this,false)"><span class="choice-letter">ج</span> نوع محدد من النباتات</button>
+        <button class="choice-btn" onclick="answerQCM('q1',this,false)"><span class="choice-letter">د</span> التربة والماء فقط</button>
+      </div>
+      <div class="feedback" id="q1-fb"></div>
+    </div>
+
+    <!-- Q2 VF -->
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">التلوث الصناعي يُسبب <span class="hl">اختلال التوازن البيئي</span>.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf2')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf2')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf2-fb"></div>
+    </div>
+
+    <!-- Q3 FILL -->
+    <div class="ex-card">
+      <div class="ex-type type-fill">✏️ أكمل الفراغ</div>
+      <div class="ex-q">تُسمى العلاقة التي يستفيد منها كلا الكائنَين بـ ________</div>
+      <div class="fill-row">
+        <input class="fill-input" id="fill3" placeholder="اكتب هنا..." autocomplete="off">
+        <button class="check-btn" onclick="checkFill('fill3',['التكافل','تكافل','التعايش المشترك','تعايش مشترك'])">تحقق ✓</button>
+      </div>
+      <div class="feedback" id="fill3-fb"></div>
+    </div>
+
+    <!-- Q4 QCM -->
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">أيٌّ مما يلي مثال على <span class="hl">عامل حيوي</span> في البيئة؟</div>
+      <div class="choices" id="q4">
+        <button class="choice-btn" onclick="answerQCM('q4',this,false)"><span class="choice-letter">أ</span> درجة الحرارة</button>
+        <button class="choice-btn" onclick="answerQCM('q4',this,false)"><span class="choice-letter">ب</span> الضوء</button>
+        <button class="choice-btn" onclick="answerQCM('q4',this,true)"><span class="choice-letter">ج</span> النباتات والحيوانات</button>
+        <button class="choice-btn" onclick="answerQCM('q4',this,false)"><span class="choice-letter">د</span> الرياح</button>
+      </div>
+      <div class="feedback" id="q4-fb"></div>
+    </div>
+
+    <!-- Q5 VF -->
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">السلسلة الغذائية تبدأ دائمًا بـ <span class="hl">كائن مُفترِس</span>.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,false,'tf5')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,false,'tf5')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf5-fb"></div>
+    </div>
+  </div>
+
+  <!-- ============ UNIT 2: الاحتراقات والمادة ============ -->
+  <div class="unit-section" id="unit-2">
+    <div class="unit-header u2-bg" data-emoji="🔥">
+      <div class="unit-icon">🔥</div>
+      <div>
+        <div class="unit-title">الاحتراقات وتغيرات المادة</div>
+        <div class="unit-sub">الهواء من حولنا • الاحتراقات • تغيرات المادة</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">ما الغاز المسؤول عن <span class="hl">اشتعال النار</span> في الهواء؟</div>
+      <div class="choices" id="q6">
+        <button class="choice-btn" onclick="answerQCM('q6',this,false)"><span class="choice-letter">أ</span> ثاني أكسيد الكربون</button>
+        <button class="choice-btn" onclick="answerQCM('q6',this,true)"><span class="choice-letter">ب</span> الأكسجين</button>
+        <button class="choice-btn" onclick="answerQCM('q6',this,false)"><span class="choice-letter">ج</span> النيتروجين</button>
+        <button class="choice-btn" onclick="answerQCM('q6',this,false)"><span class="choice-letter">د</span> البخار</button>
+      </div>
+      <div class="feedback" id="q6-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-fill">✏️ أكمل الفراغ</div>
+      <div class="ex-q">عند تسخين الماء يتحول إلى ________ وهذا تغيير ________</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <input class="fill-input" id="fill7a" placeholder="يتحول إلى..." style="max-width:140px">
+        <input class="fill-input" id="fill7b" placeholder="نوع التغيير..." style="max-width:140px">
+        <button class="check-btn" onclick="checkFillMulti(['fill7a','fill7b'],[['بخار','بخار ماء','بخار الماء'],['فيزيائي','مادي','فيزيائية']],'fill7-fb')">تحقق ✓</button>
+      </div>
+      <div class="feedback" id="fill7-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">الاحتراق الكامل ينتج <span class="hl">ثاني أكسيد الكربون وبخار الماء</span> فقط.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf8')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf8')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf8-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">تشكّل الصدأ مثال على تغيير ______</div>
+      <div class="choices" id="q9">
+        <button class="choice-btn" onclick="answerQCM('q9',this,false)"><span class="choice-letter">أ</span> فيزيائي</button>
+        <button class="choice-btn" onclick="answerQCM('q9',this,true)"><span class="choice-letter">ب</span> كيميائي</button>
+        <button class="choice-btn" onclick="answerQCM('q9',this,false)"><span class="choice-letter">ج</span> حيوي</button>
+        <button class="choice-btn" onclick="answerQCM('q9',this,false)"><span class="choice-letter">د</span> بيولوجي</button>
+      </div>
+      <div class="feedback" id="q9-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">يُشكّل <span class="hl">النيتروجين</span> حوالي 78% من الهواء.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf10')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf10')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf10-fb"></div>
+    </div>
+  </div>
+
+  <!-- ============ UNIT 3: الطاقة الكهربائية ============ -->
+  <div class="unit-section" id="unit-3">
+    <div class="unit-header u3-bg" data-emoji="⚡">
+      <div class="unit-icon">⚡</div>
+      <div>
+        <div class="unit-title">أشكال وطرق نقل الطاقة والحركة</div>
+        <div class="unit-sub">الطاقة الكهربائية • استهلاكها • الرافعات • الحركة</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">وحدة قياس <span class="hl">الطاقة الكهربائية</span> هي:</div>
+      <div class="choices" id="q11">
+        <button class="choice-btn" onclick="answerQCM('q11',this,false)"><span class="choice-letter">أ</span> الأمبير</button>
+        <button class="choice-btn" onclick="answerQCM('q11',this,false)"><span class="choice-letter">ب</span> الفولط</button>
+        <button class="choice-btn" onclick="answerQCM('q11',this,true)"><span class="choice-letter">ج</span> الكيلوواط ساعة (kWh)</button>
+        <button class="choice-btn" onclick="answerQCM('q11',this,false)"><span class="choice-letter">د</span> الأوم</button>
+      </div>
+      <div class="feedback" id="q11-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">الرافعة هي آلة بسيطة تُساعد على <span class="hl">رفع الأثقال</span> بمجهود أقل.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf12')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf12')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf12-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-fill">✏️ أكمل الفراغ</div>
+      <div class="ex-q">تحتوي الرافعة على ثلاثة عناصر: نقطة الارتكاز، الحمل، و________</div>
+      <div class="fill-row">
+        <input class="fill-input" id="fill13" placeholder="اكتب هنا...">
+        <button class="check-btn" onclick="checkFill('fill13',['القوة المحرّكة','القوة','المجهود','الجهد','المجهود المبذول'])">تحقق ✓</button>
+      </div>
+      <div class="feedback" id="fill13-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-match">🔗 وصل بين العمودين</div>
+      <div class="ex-q">صل كل نوع طاقة بتحويله الصحيح:</div>
+      <div class="match-container" id="match14">
+        <div class="match-col">
+          <h4>📦 نوع الطاقة</h4>
+          <div class="match-item match-left" data-id="m1" onclick="selectMatch(this,'match14')">⚡ كهربائية</div>
+          <div class="match-item match-left" data-id="m2" onclick="selectMatch(this,'match14')">☀️ شمسية</div>
+          <div class="match-item match-left" data-id="m3" onclick="selectMatch(this,'match14')">🌊 حركية</div>
+        </div>
+        <div class="match-col">
+          <h4>🎯 تتحول إلى</h4>
+          <div class="match-item match-right" data-pair="m1" onclick="selectMatch(this,'match14')">💡 ضوء وحرارة</div>
+          <div class="match-item match-right" data-pair="m3" onclick="selectMatch(this,'match14')">⚙️ كهربائية (توربين)</div>
+          <div class="match-item match-right" data-pair="m2" onclick="selectMatch(this,'match14')">🔋 كهربائية (ألواح)</div>
+        </div>
+      </div>
+      <div class="feedback" id="match14-fb"></div>
+    </div>
+  </div>
+
+  <!-- ============ UNIT 4: دورات الحياة ============ -->
+  <div class="unit-section" id="unit-4">
+    <div class="unit-header u4-bg" data-emoji="🧬">
+      <div class="unit-icon">🧬</div>
+      <div>
+        <div class="unit-title">دورات الحياة والتوالد والوراثة</div>
+        <div class="unit-sub">البلوغ • التوالد عند الإنسان • الوراثة • مراحل الولادة</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">أين يتم <span class="hl">تخصيب البويضة</span> عند الإنسان؟</div>
+      <div class="choices" id="q15">
+        <button class="choice-btn" onclick="answerQCM('q15',this,false)"><span class="choice-letter">أ</span> الرحم</button>
+        <button class="choice-btn" onclick="answerQCM('q15',this,true)"><span class="choice-letter">ب</span> قناة فالوب (قناة مولّد البيض)</button>
+        <button class="choice-btn" onclick="answerQCM('q15',this,false)"><span class="choice-letter">ج</span> المبيض</button>
+        <button class="choice-btn" onclick="answerQCM('q15',this,false)"><span class="choice-letter">د</span> عنق الرحم</button>
+      </div>
+      <div class="feedback" id="q15-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">مدة الحمل عند المرأة حوالي <span class="hl">9 أشهر</span>.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf16')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf16')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf16-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-fill">✏️ أكمل الفراغ</div>
+      <div class="ex-q">الخصائص التي تنتقل من الآباء إلى الأبناء تسمى ________</div>
+      <div class="fill-row">
+        <input class="fill-input" id="fill17" placeholder="اكتب هنا...">
+        <button class="check-btn" onclick="checkFill('fill17',['الصفات الوراثية','الوراثة','الصفات المورّثة','الجينات'])">تحقق ✓</button>
+      </div>
+      <div class="feedback" id="fill17-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">أيٌّ مما يلي <span class="hl">ليس</span> من علامات البلوغ عند الذكر؟</div>
+      <div class="choices" id="q18">
+        <button class="choice-btn" onclick="answerQCM('q18',this,false)"><span class="choice-letter">أ</span> خشونة الصوت</button>
+        <button class="choice-btn" onclick="answerQCM('q18',this,false)"><span class="choice-letter">ب</span> نمو الشعر</button>
+        <button class="choice-btn" onclick="answerQCM('q18',this,true)"><span class="choice-letter">ج</span> الدورة الشهرية</button>
+        <button class="choice-btn" onclick="answerQCM('q18',this,false)"><span class="choice-letter">د</span> تضخم العضلات</button>
+      </div>
+      <div class="feedback" id="q18-fb"></div>
+    </div>
+  </div>
+
+  <!-- ============ UNIT 5: الأرض ============ -->
+  <div class="unit-section" id="unit-5">
+    <div class="unit-header u5-bg" data-emoji="🌍">
+      <div class="unit-icon">🌍</div>
+      <div>
+        <div class="unit-title">الخصائص الطبيعية للأرض</div>
+        <div class="unit-sub">الماء على سطح الأرض • التنوع البيولوجي • الصخور والمعادن • الاحتباس الحراري</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">ما نسبة تغطية الماء لسطح <span class="hl">كوكب الأرض</span>؟</div>
+      <div class="choices" id="q19">
+        <button class="choice-btn" onclick="answerQCM('q19',this,false)"><span class="choice-letter">أ</span> حوالي 50%</button>
+        <button class="choice-btn" onclick="answerQCM('q19',this,true)"><span class="choice-letter">ب</span> حوالي 71%</button>
+        <button class="choice-btn" onclick="answerQCM('q19',this,false)"><span class="choice-letter">ج</span> حوالي 30%</button>
+        <button class="choice-btn" onclick="answerQCM('q19',this,false)"><span class="choice-letter">د</span> حوالي 90%</button>
+      </div>
+      <div class="feedback" id="q19-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q"><span class="hl">الاحتباس الحراري</span> يُسبب ارتفاع درجة حرارة الأرض بسبب تراكم غازات الدفيئة.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf20')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf20')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf20-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-match">🔗 وصل بين العمودين</div>
+      <div class="ex-q">صل كل صخر بنوعه:</div>
+      <div class="match-container" id="match21">
+        <div class="match-col">
+          <h4>🪨 الصخر</h4>
+          <div class="match-item match-left" data-id="r1" onclick="selectMatch(this,'match21')">🌋 الغرانيت</div>
+          <div class="match-item match-left" data-id="r2" onclick="selectMatch(this,'match21')">🐚 الحجر الجيري</div>
+          <div class="match-item match-left" data-id="r3" onclick="selectMatch(this,'match21')">💎 الرخام</div>
+        </div>
+        <div class="match-col">
+          <h4>📂 النوع</h4>
+          <div class="match-item match-right" data-pair="r1" onclick="selectMatch(this,'match21')">🔥 نارية</div>
+          <div class="match-item match-right" data-pair="r2" onclick="selectMatch(this,'match21')">🌊 رسوبية</div>
+          <div class="match-item match-right" data-pair="r3" onclick="selectMatch(this,'match21')">⚗️ متحولة</div>
+        </div>
+      </div>
+      <div class="feedback" id="match21-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-fill">✏️ أكمل الفراغ</div>
+      <div class="ex-q">يُعدّ <span class="hl">ثاني أكسيد الكربون</span> من أبرز غازات الدفيئة، وتزداد نسبته بسبب ________</div>
+      <div class="fill-row">
+        <input class="fill-input" id="fill22" placeholder="اكتب هنا...">
+        <button class="check-btn" onclick="checkFill('fill22',['حرق الوقود الأحفوري','حرق الوقود','التلوث','الصناعة','قطع الأشجار','إزالة الغابات'])">تحقق ✓</button>
+      </div>
+      <div class="feedback" id="fill22-fb"></div>
+    </div>
+  </div>
+
+  <!-- ============ UNIT 6: الجهاز العصبي / التغذية ============ -->
+  <div class="unit-section" id="unit-6">
+    <div class="unit-header u6-bg" data-emoji="🧠">
+      <div class="unit-icon">🧠</div>
+      <div>
+        <div class="unit-title">الجهاز العصبي والتغذية والصحة</div>
+        <div class="unit-sub">الحساسية الشعورية • الحركة الإرادية واللاإرادية • وقاية الجهاز العصبي</div>
+      </div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">ما الفرق بين <span class="hl">الحركة الإرادية</span> و<span class="hl">اللاإرادية</span>؟</div>
+      <div class="choices" id="q23">
+        <button class="choice-btn" onclick="answerQCM('q23',this,true)"><span class="choice-letter">أ</span> الإرادية تتحكم فيها الإرادة، واللاإرادية تحدث تلقائياً دون وعي</button>
+        <button class="choice-btn" onclick="answerQCM('q23',this,false)"><span class="choice-letter">ب</span> لا فرق بينهما</button>
+        <button class="choice-btn" onclick="answerQCM('q23',this,false)"><span class="choice-letter">ج</span> اللاإرادية أسرع من الإرادية دائماً</button>
+        <button class="choice-btn" onclick="answerQCM('q23',this,false)"><span class="choice-letter">د</span> الإرادية تحدث في النوم فقط</button>
+      </div>
+      <div class="feedback" id="q23-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">ضربة القلب هي مثال على حركة <span class="hl">إرادية</span>.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,false,'tf24')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,false,'tf24')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf24-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-fill">✏️ أكمل الفراغ</div>
+      <div class="ex-q">الخلية العصبية التي تنقل الرسائل في الجهاز العصبي تسمى ________</div>
+      <div class="fill-row">
+        <input class="fill-input" id="fill25" placeholder="اكتب هنا...">
+        <button class="check-btn" onclick="checkFill('fill25',['النيورون','الخلية العصبية','عصبون','نورون'])">تحقق ✓</button>
+      </div>
+      <div class="feedback" id="fill25-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-qcm">🔵 اختر الجواب الصحيح</div>
+      <div class="ex-q">أيٌّ مما يلي يساعد على <span class="hl">حماية الجهاز العصبي</span>؟</div>
+      <div class="choices" id="q26">
+        <button class="choice-btn" onclick="answerQCM('q26',this,false)"><span class="choice-letter">أ</span> كثرة مشاهدة الشاشات</button>
+        <button class="choice-btn" onclick="answerQCM('q26',this,true)"><span class="choice-letter">ب</span> النوم الكافي والتغذية المتوازنة</button>
+        <button class="choice-btn" onclick="answerQCM('q26',this,false)"><span class="choice-letter">ج</span> تناول الأدوية بدون وصفة</button>
+        <button class="choice-btn" onclick="answerQCM('q26',this,false)"><span class="choice-letter">د</span> التدخين</button>
+      </div>
+      <div class="feedback" id="q26-fb"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-type type-vf">✅ صح أم خطأ</div>
+      <div class="ex-q">المخ والنخاع الشوكي يُشكّلان <span class="hl">الجهاز العصبي المركزي</span>.</div>
+      <div class="tf-btns">
+        <button class="tf-btn true-btn" onclick="answerTF(this,true,true,'tf27')">✅ صحيح</button>
+        <button class="tf-btn false-btn" onclick="answerTF(this,false,true,'tf27')">❌ خطأ</button>
+      </div>
+      <div class="feedback" id="tf27-fb"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== SCORE =====
+let correct = 0, wrong = 0;
+
+function updateScore(isCorrect) {
+  if (isCorrect) correct++; else wrong++;
+  document.getElementById('correct-count').textContent = correct;
+  document.getElementById('wrong-count').textContent = wrong;
+  document.getElementById('total-count').textContent = correct + wrong;
+  const pct = correct + wrong === 0 ? 0 : Math.round(correct / (correct + wrong) * 100);
+  document.getElementById('pct-count').textContent = pct + '%';
+  if (isCorrect && correct % 3 === 0) confetti();
+}
+
+// ===== UNIT SWITCH =====
+function switchUnit(n) {
+  document.querySelectorAll('.unit-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.unit-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('unit-' + n).classList.add('active');
+  document.querySelector('.unit-tab[data-unit="' + n + '"]').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ===== QCM =====
+function answerQCM(groupId, btn, isCorrect) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    showFeedback(groupId + '-fb', true, '🎉 إجابة صحيحة! أحسنت!');
+  } else {
+    btn.classList.add('wrong');
+    const correct_btn = [...group.querySelectorAll('.choice-btn')].find(b => {
+      const txt = b.getAttribute('onclick');
+      return txt && txt.includes(',true)');
+    });
+    if (correct_btn) correct_btn.classList.add('correct');
+    showFeedback(groupId + '-fb', false, '❌ إجابة خاطئة. الإجابة الصحيحة ملوّنة باللون الأخضر.');
+  }
+  updateScore(isCorrect);
+}
+
+// ===== TRUE/FALSE =====
+function answerTF(btn, answer, correctAnswer, fbId) {
+  const container = btn.closest('.ex-card');
+  container.querySelectorAll('.tf-btn').forEach(b => b.disabled = true);
+  const isCorrect = answer === correctAnswer;
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  if (!isCorrect) {
+    const other = btn.classList.contains('true-btn')
+      ? container.querySelector('.false-btn')
+      : container.querySelector('.true-btn');
+    if (other) other.classList.add('correct');
+  }
+  showFeedback(fbId + '-fb', isCorrect, isCorrect ? '🎉 صحيح تماماً!' : '❌ خطأ. الإجابة الصحيحة محددة باللون الأخضر.');
+  updateScore(isCorrect);
+}
+
+// ===== FILL =====
+function checkFill(inputId, validAnswers) {
+  const input = document.getElementById(inputId);
+  const val = input.value.trim();
+  const isCorrect = validAnswers.some(a => val.includes(a) || a.includes(val) && val.length > 2);
+  input.classList.add(isCorrect ? 'correct' : 'wrong');
+  input.disabled = true;
+  input.closest('.ex-card').querySelector('.check-btn').disabled = true;
+  showFeedback(inputId + '-fb', isCorrect,
+    isCorrect ? '✅ رائع! إجابة صحيحة!' : `❌ إجابة خاطئة. من الإجابات الصحيحة: "${validAnswers[0]}"`);
+  updateScore(isCorrect);
+}
+
+function checkFillMulti(ids, validSets, fbId) {
+  let allCorrect = true;
+  ids.forEach((id, i) => {
+    const input = document.getElementById(id);
+    const val = input.value.trim();
+    const isCorrect = validSets[i].some(a => val.includes(a) || a.includes(val) && val.length > 2);
+    input.classList.add(isCorrect ? 'correct' : 'wrong');
+    input.disabled = true;
+    if (!isCorrect) allCorrect = false;
+  });
+  const btn = document.getElementById(fbId).closest('.ex-card').querySelector('.check-btn');
+  if (btn) btn.disabled = true;
+  showFeedback(fbId, allCorrect,
+    allCorrect ? '✅ ممتاز! الإجابتان صحيحتان!' : '❌ راجع إجاباتك. الإجابات الخاطئة ملونة بالأحمر.');
+  updateScore(allCorrect);
+}
+
+// ===== MATCH =====
+const matchState = {};
+
+function selectMatch(item, groupId) {
+  if (item.classList.contains('matched') || item.classList.contains('correct-match')) return;
+
+  if (!matchState[groupId]) matchState[groupId] = { selected: null };
+  const state = matchState[groupId];
+
+  if (state.selected === null) {
+    if (item.classList.contains('match-left')) {
+      item.classList.add('selected');
+      state.selected = item;
+    }
+  } else {
+    if (item.classList.contains('match-right')) {
+      const leftId = state.selected.getAttribute('data-id');
+      const rightPair = item.getAttribute('data-pair');
+      const isCorrect = leftId === rightPair;
+
+      state.selected.classList.remove('selected');
+      state.selected.classList.add(isCorrect ? 'correct-match matched' : 'wrong-match');
+      item.classList.add(isCorrect ? 'correct-match matched' : 'wrong-match');
+
+      if (!isCorrect) {
+        setTimeout(() => {
+          state.selected.classList.remove('wrong-match');
+          item.classList.remove('wrong-match');
+        }, 700);
+        showFeedback(groupId + '-fb', false, '❌ حاول مرة أخرى!');
+      } else {
+        // check if all matched
+        const group = document.getElementById(groupId);
+        const lefts = group.querySelectorAll('.match-left');
+        const allDone = [...lefts].every(l => l.classList.contains('matched'));
+        if (allDone) {
+          showFeedback(groupId + '-fb', true, '🎉 أحسنت! وصلت جميع الأزواج بشكل صحيح!');
+          updateScore(true);
+        }
+      }
+      state.selected = null;
+    } else {
+      state.selected.classList.remove('selected');
+      item.classList.add('selected');
+      state.selected = item;
+    }
+  }
+}
+
+// ===== FEEDBACK =====
+function showFeedback(id, ok, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'feedback show ' + (ok ? 'ok' : 'nope');
+  el.textContent = msg;
+}
+
+// ===== CONFETTI =====
+function confetti() {
+  const colors = ['#22c55e','#0ea5e9','#f97316','#a855f7','#f43f5e','#eab308'];
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.cssText = `
+      left: ${Math.random()*100}vw;
+      top: 0;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      width: ${6 + Math.random()*8}px;
+      height: ${6 + Math.random()*8}px;
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-delay: ${Math.random()*0.5}s;
+      animation-duration: ${1 + Math.random()}s;
+    `;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 2000);
+  }
+}
+
+// ===== STARS =====
+(function makeStars() {
+  const c = document.getElementById('stars');
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = 2 + Math.random() * 4;
+    s.style.cssText = `
+      width:${sz}px;height:${sz}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      animation-delay:${Math.random()*2}s;
+      animation-duration:${1.5 + Math.random()}s;
+    `;
+    c.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
