@@ -1,169 +1,745 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📐فضاء الأستاذ لحسن الماضي📐</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --main-color: #1b51bd;
-            --accent-color: #565454;
-            --bg-color: #1e3a8a;
-            --white: #fbfbfb;
-            --text-dark: #0c0c0c;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📐 فضاء الأستاذ لحسن الماضي</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0b1e4a;
+  --blue:    #1b51bd;
+  --blue2:   #2563eb;
+  --cyan:    #38bdf8;
+  --gold:    #f59e0b;
+  --white:   #f8faff;
+  --card:    rgba(255,255,255,0.06);
+  --border:  rgba(255,255,255,0.10);
+  --radius:  22px;
+}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#fff;
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
+html { scroll-behavior: smooth; }
 
-        /* الهيدر الجديد */
-        header {
-            background: var(--main-color);
-            color: var(--white);
-            padding: 60px 80px;
-            text-align: center;
-            clip-path: polygon(0 0, 100% 100, 100% 50%, 0% 100%);
-        }
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
+/* ===== ANIMATED BACKGROUND ===== */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(11,30,74,1) 0%, #060e24 100%);
+  pointer-events: none;
+}
 
-        header p {
-            font-weight: 300;
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
 
-        .main-container {
-            max-width: 1100px;
-            margin: -50px auto 50px;
-            padding: 0 20px;
-        }
+/* ===== PARTICLES ===== */
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .6; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
 
-        /* شبكة الأقسام */
-        .subjects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
+/* ===== WRAPPER ===== */
+.wrapper { position: relative; z-index: 1; }
 
-        .subject-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-dark);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 5px solid transparent;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
+/* ===== HEADER ===== */
+header {
+  padding: 0 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 
-        .subject-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
+.header-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes pulse { from{transform:translate(-50%,-50%) scale(.9)} to{transform:translate(-50%,-50%) scale(1.1)} }
 
-        /* ألوان مخصصة لكل مادة */
-        .arabic { border-bottom-color: #e67e22; }
-        .islamic { border-bottom-color: #27ae60; }
-        .french { border-bottom-color: #2980b9; }
-        .math { border-bottom-color: #8e44ad; }
-        .updates { border-bottom-color: #c0392b; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.3);
+  padding: 7px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: .5px;
+  margin-bottom: 28px;
+  backdrop-filter: blur(10px);
+  animation: fadeDown .8s ease both;
+}
+.badge::before { content: ''; width: 7px; height: 7px; background: var(--cyan); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-        .icon {
-            font-size: 45px;
-            margin-bottom: 15px;
-            display: block;
-        }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(30px)}  to{opacity:1;transform:translateY(0)} }
 
-        .subject-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--main-color);
-        }
+.avatar-ring {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue2), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px;
+  margin: 0 auto 30px;
+  box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5);
+  animation: fadeDown .9s .1s ease both, ringRotate 8s linear infinite;
+  position: relative;
+}
+@keyframes ringRotate {
+  0% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), -4px 0 15px rgba(245,158,11,0.3); }
+  100% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+}
 
-        .subject-card p {
-            font-size: 0.95rem;
-            color: #7f8c8d;
-        }
+header h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(30px, 5.5vw, 58px);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeDown 1s .2s ease both;
+}
 
-        footer {
-            text-align: center;
-            padding: 40px;
-            color: #95a5a6;
-            font-size: 0.9rem;
-        }
+.header-sub {
+  font-size: clamp(14px, 2.2vw, 19px);
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+  margin-bottom: 12px;
+  animation: fadeDown 1s .3s ease both;
+}
 
-        /* تحسين للهاتف */
-        @media (max-width: 600px) {
-            header h1 { font-size: 1.8rem; }
-            .main-container { margin-top: -30px; }
-        }
-    </style>
+.school-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 5px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 44px;
+  animation: fadeDown 1s .4s ease both;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 52px;
+  animation: fadeUp 1s .5s ease both;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 14px 26px;
+  border-radius: 14px;
+  text-align: center;
+  min-width: 100px;
+}
+.stat-num { font-size: 26px; font-weight: 900; color: var(--cyan); line-height: 1; }
+.stat-lbl { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: 500; }
+
+.scroll-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.4);
+  font-size: 13px;
+  animation: fadeUp 1s .8s ease both;
+  cursor: pointer;
+}
+.scroll-arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  animation: bounce 1.6s ease-in-out infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+/* ===== SECTION ===== */
+.section {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 30px;
+  background: var(--cyan);
+  opacity: .4;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.section-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 50px;
+  max-width: 520px;
+}
+
+/* ===== SUBJECTS GRID ===== */
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.subject-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 30px 28px;
+  text-decoration: none;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, border-color .3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.subject-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: var(--c-grad);
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.subject-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px var(--c-border);
+  border-color: var(--c-border);
+}
+.subject-card:hover::before { opacity: 1; }
+
+/* per-card colors */
+.arabic  { --c-grad: linear-gradient(135deg,rgba(230,126,34,0.12),rgba(230,126,34,0)); --c-border: rgba(230,126,34,0.5); }
+.islamic { --c-grad: linear-gradient(135deg,rgba(39,174,96,0.12),rgba(39,174,96,0));   --c-border: rgba(39,174,96,0.5); }
+.french  { --c-grad: linear-gradient(135deg,rgba(41,128,185,0.12),rgba(41,128,185,0)); --c-border: rgba(41,128,185,0.5); }
+.math    { --c-grad: linear-gradient(135deg,rgba(142,68,173,0.12),rgba(142,68,173,0)); --c-border: rgba(142,68,173,0.5); }
+.updates { --c-grad: linear-gradient(135deg,rgba(192,57,43,0.12),rgba(192,57,43,0));   --c-border: rgba(192,57,43,0.5); }
+.science { --c-grad: linear-gradient(135deg,rgba(20,184,166,0.12),rgba(20,184,166,0)); --c-border: rgba(20,184,166,0.5); }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.card-icon {
+  width: 58px; height: 58px;
+  border-radius: 16px;
+  background: var(--c-icon-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+  transition: transform .3s ease;
+}
+.subject-card:hover .card-icon { transform: rotate(-6deg) scale(1.12); }
+
+.arabic  .card-icon { --c-icon-bg: rgba(230,126,34,0.2); }
+.islamic .card-icon { --c-icon-bg: rgba(39,174,96,0.2); }
+.french  .card-icon { --c-icon-bg: rgba(41,128,185,0.2); }
+.math    .card-icon { --c-icon-bg: rgba(142,68,173,0.2); }
+.updates .card-icon { --c-icon-bg: rgba(192,57,43,0.2); }
+.science .card-icon { --c-icon-bg: rgba(20,184,166,0.2); }
+
+.card-arrow {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  transition: all .3s ease;
+  flex-shrink: 0;
+}
+.subject-card:hover .card-arrow {
+  background: var(--c-icon-bg);
+  color: white;
+  border-color: var(--c-border);
+  transform: translateX(-4px);
+}
+
+.card-body { position: relative; z-index: 1; }
+
+.card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-tag);
+  margin-bottom: 6px;
+}
+.arabic  .card-tag { --c-tag: #e67e22; }
+.islamic .card-tag { --c-tag: #27ae60; }
+.french  .card-tag { --c-tag: #2980b9; }
+.math    .card-tag { --c-tag: #9b59b6; }
+.updates .card-tag { --c-tag: #e74c3c; }
+.science .card-tag { --c-tag: #14b8a6; }
+
+.card-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+  z-index: 1;
+}
+
+.card-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.card-level {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 600;
+}
+
+/* Featured card (wider) */
+.subject-card.featured {
+  grid-column: span 2;
+}
+@media(max-width:680px) {
+  .subject-card.featured { grid-column: span 1; }
+}
+
+/* ===== DIVIDER ===== */
+.wave-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue2), var(--cyan), var(--blue2), transparent);
+  margin: 0 auto;
+  max-width: 300px;
+  border-radius: 2px;
+  opacity: .5;
+}
+
+/* ===== INFO STRIP ===== */
+.info-strip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  backdrop-filter: blur(12px);
+  margin-top: 50px;
+}
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.info-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(56,189,248,0.1);
+  border: 1px solid rgba(56,189,248,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.info-text strong { font-size: 14px; font-weight: 700; color: var(--white); }
+.info-text span   { display: block; font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 50px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.footer-logo {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 22px; }
+.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--cyan); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:600px){
+  .stats-row .stat { padding: 10px 18px; }
+  .subjects-grid { grid-template-columns: 1fr; }
+  .info-strip { flex-direction: column; gap: 18px; }
+}
+</style>
 </head>
 <body>
 
-<header>
-    <h1>الفضاء الرقمي للأستاذ لحسن الماضي</h1>
-    <p>موارد تربوية وتمارين تفاعلية للمستويين الخامس والسادس ابتدائي</p>
-</header>
+<!-- BG -->
+<div class="bg-layer"></div>
+<div class="grid-overlay"></div>
+<div id="particles"></div>
 
-<div class="main-container">
-    <div class="subjects-grid">
-        
-        <a href="arabic.html" class="subject-card arabic">
-            <span class="icon">✒️</span>
-            <h3>اللغة العربية</h3>
-            <p>تمارين التراكيب، الصرف والتحويل، والقراءة والمؤلفات.</p>
-        </a>
+<div class="wrapper">
 
-        <a href="islamic.html" class="subject-card islamic">
-            <span class="icon">🕌</span>
-            <h3>التربية الإسلامية</h3>
-            <p>دروس الاستجابة، القسط، الحكمة والتزكية.</p>
-        </a>
+  <!-- ===== HERO ===== -->
+  <header>
+    <div class="header-glow"></div>
 
-        <a href="french.html" class="subject-card french">
-            <span class="icon">🇫🇷</span>
-            <h3>Langue Française</h3>
-            <p>Grammaire, Conjugaison, Lexique et Orthographe.</p>
-        </a>
+    <div class="badge">🎓 فضاء تعليمي رقمي</div>
 
-        <a href="math.html" class="subject-card math">
-            <span class="icon">📐</span>
-            <h3>الرياضيات</h3>
-            <p>أنشطة الحساب الذهني، الهندسة، وحل المسائل.</p>
-        </a>
+    <div class="avatar-ring">👨‍🏫</div>
 
-        <a href="updates.html" class="subject-card updates">
-            <span class="icon">🔔</span>
-            <h3>مستجدات </h3>
-            <p>إعلانات، الامتحانات.</p>
-        </a>
+    <h1>الفضاء الرقمي<br>للأستاذ لحسن الماضي</h1>
+    <p class="header-sub">موارد تربوية وتمارين تفاعلية للمستويين الخامس والسادس ابتدائي</p>
+    <div class="school-tag">🏫 مجموعة مدارس الزعفران</div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-lbl">مواد دراسية</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-lbl">مستويات</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-lbl">تمارين تفاعلية</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2026</div>
+        <div class="stat-lbl">سنة دراسية</div>
+      </div>
+    </div>
+
+    <div class="scroll-cta" onclick="document.getElementById('subjects').scrollIntoView({behavior:'smooth'})">
+      <span>اكتشف المحتوى</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </header>
+
+  <!-- ===== SUBJECTS ===== -->
+  <section class="section" id="subjects">
+
+    <div class="reveal">
+      <div class="section-label">المواد الدراسية</div>
+      <h2 class="section-title">اختر مادتك وابدأ التعلم</h2>
+      <p class="section-desc">كل مادة تحتوي على دروس منظمة، تمارين تفاعلية، وموارد داعمة للمتعلم.</p>
+    </div>
+
+    <div class="subjects-grid reveal">
+
+      <a href="arabic.html" class="subject-card arabic">
+        <div class="card-top">
+          <div class="card-icon">✒️</div>
+          <div class="card-arrow">←</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">اللغة العربية</div>
+          <div class="card-title">اللغة العربية</div>
+          <div class="card-desc">تمارين التراكيب، الصرف والتحويل، القراءة والمؤلفات والتعبير الكتابي.</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-pills">
+            <span class="pill">تراكيب</span>
+            <span class="pill">صرف</span>
+            <span class="pill">قراءة</span>
+          </div>
+          <div class="card-level">س5 • س6</div>
+        </div>
+      </a>
+
+      <a href="islamic.html" class="subject-card islamic">
+        <div class="card-top">
+          <div class="card-icon">🕌</div>
+          <div class="card-arrow">←</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">التربية الإسلامية</div>
+          <div class="card-title">التربية الإسلامية</div>
+          <div class="card-desc">دروس الاستجابة والقسط والحكمة والتزكية، مع تمارين التقويم والدعم.</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-pills">
+            <span class="pill">العقيدة</span>
+            <span class="pill">الأخلاق</span>
+            <span class="pill">الفقه</span>
+          </div>
+          <div class="card-level">س5 • س6</div>
+        </div>
+      </a>
+
+      <a href="french.html" class="subject-card french">
+        <div class="card-top">
+          <div class="card-icon">🇫🇷</div>
+          <div class="card-arrow">←</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Langue Française</div>
+          <div class="card-title">Langue Française</div>
+          <div class="card-desc">Grammaire, Conjugaison, Lexique, Orthographe et Expression écrite.</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-pills">
+            <span class="pill">Grammaire</span>
+            <span class="pill">Conjugaison</span>
+          </div>
+          <div class="card-level">5AEP • 6AEP</div>
+        </div>
+      </a>
+
+      <a href="math.html" class="subject-card math featured">
+        <div class="card-top">
+          <div class="card-icon">📐</div>
+          <div class="card-arrow">←</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">الرياضيات</div>
+          <div class="card-title">الرياضيات</div>
+          <div class="card-desc">أنشطة الحساب الذهني، الهندسة، القياس، وحل المسائل المركبة. تمارين تفاعلية مع التصحيح الفوري.</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-pills">
+            <span class="pill">الحساب الذهني</span>
+            <span class="pill">الهندسة</span>
+            <span class="pill">القياس</span>
+            <span class="pill">حل المسائل</span>
+          </div>
+          <div class="card-level">س5 • س6</div>
+        </div>
+      </a>
+
+      <a href="updates.html" class="subject-card updates">
+        <div class="card-top">
+          <div class="card-icon">🔔</div>
+          <div class="card-arrow">←</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">مستجدات وإعلانات</div>
+          <div class="card-title">المستجدات</div>
+          <div class="card-desc">إعلانات هامة، نتائج الفروض، برامج الامتحانات، والوثائق الرسمية.</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-pills">
+            <span class="pill">إعلانات</span>
+            <span class="pill">امتحانات</span>
+          </div>
+          <div class="card-level">الكل</div>
+        </div>
+      </a>
 
     </div>
-</div>
 
-<footer>
-    <p>تم التطوير بكل فخر للأغراض التعليمية &copy; 2026</p>
-    <p>الأستاذ لحسن  الماضي - مجموعة مدارس الزعفران</p>
-</footer>
+    <!-- info strip -->
+    <div class="info-strip reveal">
+      <div class="info-item">
+        <div class="info-icon">📅</div>
+        <div class="info-text">
+          <strong>السنة الدراسية 2025 - 2026</strong>
+          <span>المرحلة الابتدائية • المستوى الخامس والسادس</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">🎯</div>
+        <div class="info-text">
+          <strong>تمارين تفاعلية مع تصحيح فوري</strong>
+          <span>مصممة لتنمية الكفايات الأساسية</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📱</div>
+        <div class="info-text">
+          <strong>متوافق مع جميع الأجهزة</strong>
+          <span>هاتف • لوحة • حاسوب</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wave-divider" style="margin-bottom:40px"></div>
+    <div class="footer-logo">📐 الأستاذ لحسن الماضي</div>
+    <div class="footer-sub">مجموعة مدارس الزعفران • المرحلة الابتدائية</div>
+    <div class="footer-links">
+      <a href="arabic.html">اللغة العربية</a>
+      <a href="islamic.html">التربية الإسلامية</a>
+      <a href="french.html">Français</a>
+      <a href="math.html">الرياضيات</a>
+      <a href="updates.html">المستجدات</a>
+    </div>
+    <div class="footer-copy">تم التطوير بكل فخر للأغراض التعليمية &copy; 2026 — جميع الحقوق محفوظة</div>
+  </footer>
+
+</div><!-- /wrapper -->
+
+<script>
+// ===== PARTICLES =====
+(function() {
+  const c = document.getElementById('particles');
+  const colors = ['#38bdf8','#2563eb','#f59e0b','#a855f7','#22d3ee'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = 2 + Math.random() * 4;
+    p.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}vw;
+      animation-duration:${8 + Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    c.appendChild(p);
+  }
+})();
+
+// ===== SCROLL REVEAL =====
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 100);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Stagger cards
+document.querySelectorAll('.subject-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 80) + 'ms';
+  card.classList.add('reveal');
+  obs.observe(card);
+});
+</script>
 
 </body>
 </html>
