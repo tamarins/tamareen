@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercices de français avec correction</title>
+  <style>
+    :root {
+      --ink: #22313f;
+      --muted: #637381;
+      --paper: #ffffff;
+      --soft: #f4f7fb;
+      --teal: #0f766e;
+      --teal-dark: #115e59;
+      --orange: #f4a261;
+      --green: #2e7d32;
+      --red: #b42318;
+      --line: #d9e2ec;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--soft);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--teal);
+      color: white;
+      padding: 34px 7%;
+    }
+
+    header h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 10px;
+      letter-spacing: 0;
+    }
+
+    header p {
+      max-width: 820px;
+      color: #e6fffb;
+      font-size: 18px;
+    }
+
+    main {
+      width: min(1120px, 92%);
+      margin: 28px auto 56px;
+    }
+
+    .score-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      position: sticky;
+      top: 10px;
+      z-index: 3;
+      box-shadow: 0 10px 26px rgba(34, 49, 63, 0.08);
+    }
+
+    .score-value {
+      font-size: 28px;
+      color: var(--teal-dark);
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      padding: 11px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .primary {
+      background: var(--orange);
+      color: #2f2417;
+    }
+
+    .secondary {
+      background: #e8eef4;
+      color: var(--ink);
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .section-head {
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      color: var(--teal-dark);
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+    }
+
+    .category {
+      margin-top: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .category h3 {
+      background: #ecfdf5;
+      color: var(--teal-dark);
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 20px;
+    }
+
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      padding: 16px;
+    }
+
+    .exercise,
+    .writing-card {
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .exercise.correct {
+      border-color: #83c59b;
+      background: #f1fbf4;
+    }
+
+    .exercise.wrong {
+      border-color: #efb0a8;
+      background: #fff6f5;
+    }
+
+    label,
+    .prompt {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #b8c7d3;
+      border-radius: 6px;
+      padding: 10px 11px;
+      font: inherit;
+      background: white;
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+      margin-top: 10px;
+    }
+
+    .hint,
+    .feedback {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .feedback.good {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .feedback.bad {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 16px;
+    }
+
+    .criteria {
+      margin: 13px 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .criteria label {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      font-weight: 400;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .criteria input {
+      margin-top: 5px;
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+    }
+
+    .model {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 6px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #4a2c10;
+      font-size: 15px;
+    }
+
+    .model.show {
+      display: block;
+    }
+
+    .small-btn {
+      background: var(--teal);
+      color: white;
+      padding: 9px 12px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 24px;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 28px 5%;
+      }
+
+      main {
+        width: 94%;
+      }
+
+      .score-box {
+        position: static;
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        justify-content: stretch;
+      }
+
+      .actions button {
+        flex: 1 1 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Exercices de français simplifiés</h1>
+    <p>Unités 4 et 5: grammaire, conjugaison, orthographe, lexique et production écrite. Réponds, puis clique sur « Corriger » pour voir la note et les corrections.</p>
+  </header>
+
+  <main>
+    <div class="score-box">
+      <div>
+        <strong>Note totale</strong>
+        <div class="score-value" id="scoreValue">0 / 48</div>
+        <p class="hint" id="scoreDetails">24 points pour les exercices, 24 points pour la production écrite.</p>
+      </div>
+      <div class="actions">
+        <button class="primary" type="button" onclick="corriger()">Corriger</button>
+        <button class="secondary" type="button" onclick="reinitialiser()">Recommencer</button>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>Partie A: exercices corrigés automatiquement</h2>
+        <p>Chaque réponse correcte vaut 1 point.</p>
+      </div>
+
+      <div class="category">
+        <h3>Grammaire</h3>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <label for="q1">1. Dans « Le matin, nous travaillons au laboratoire », « Le matin » et « au laboratoire » sont:</label>
+            <select id="q1" data-answer="CCT / CCL" data-correction="« Le matin » indique le temps: CCT. « Au laboratoire » indique le lieu: CCL.">
+              <option value="">Choisir une réponse</option>
+              <option>CCT / CCL</option>
+              <option>CCL / CCT</option>
+              <option>CCM / CCL</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q2">2. Quelle phrase est une réduction de « La petite fille courageuse traverse la rue calme »?</label>
+            <select id="q2" data-answer="La fille traverse la rue." data-correction="On enlève les expansions: « petite », « courageuse » et « calme ».">
+              <option value="">Choisir une réponse</option>
+              <option>La petite fille courageuse traverse.</option>
+              <option>La fille traverse la rue.</option>
+              <option>La rue calme traverse la fille.</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q3">3. Dans « Il parle avec gentillesse », « avec gentillesse » est un:</label>
+            <select id="q3" data-answer="CCM" data-correction="« Avec gentillesse » indique la manière: c'est un CCM.">
+              <option value="">Choisir une réponse</option>
+              <option>CCL</option>
+              <option>CCT</option>
+              <option>CCM</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q4">4. Mets à la voix passive: « Les élèves nettoient la classe. »</label>
+            <select id="q4" data-answer="La classe est nettoyée par les élèves." data-correction="Au présent passif: sujet + est/sont + participe passé + par...">
+              <option value="">Choisir une réponse</option>
+              <option>La classe nettoie les élèves.</option>
+              <option>La classe est nettoyée par les élèves.</option>
+              <option>Les élèves sont nettoyés par la classe.</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q5">5. Complète la comparaison: « Mina est ___ sérieuse ___ son frère. »</label>
+            <select id="q5" data-answer="aussi / que" data-correction="Pour exprimer l'égalité, on utilise « aussi ... que ».">
+              <option value="">Choisir une réponse</option>
+              <option>aussi / que</option>
+              <option>plus / de</option>
+              <option>moins / comme</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q6">6. Mets au discours indirect: Sara dit: « Je suis fatiguée. »</label>
+            <select id="q6" data-answer="Sara dit qu'elle est fatiguée." data-correction="« Je » devient « elle » et on introduit la phrase par « que ».">
+              <option value="">Choisir une réponse</option>
+              <option>Sara dit qu'elle est fatiguée.</option>
+              <option>Sara dit: elle est fatiguée.</option>
+              <option>Sara dit que je suis fatiguée.</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>Conjugaison</h3>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <label for="q7">7. Conditionnel présent: « Si j'avais le temps, je ___ et je ___. »</label>
+            <select id="q7" data-answer="viendrais / me reposerais" data-correction="Venir: je viendrais. Se reposer: je me reposerais.">
+              <option value="">Choisir une réponse</option>
+              <option>viendrai / me reposerai</option>
+              <option>viendrais / me reposerais</option>
+              <option>venais / me reposais</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q8">8. Impératif du 2e groupe: « ___ ton exercice! »</label>
+            <select id="q8" data-answer="Finis" data-correction="Avec « tu », finir donne: finis.">
+              <option value="">Choisir une réponse</option>
+              <option>Finis</option>
+              <option>Finissez</option>
+              <option>Finir</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q9">9. Présent des verbes pronominaux: « Nous ___ tôt. »</label>
+            <select id="q9" data-answer="nous levons" data-correction="Se lever au présent: nous nous levons.">
+              <option value="">Choisir une réponse</option>
+              <option>se levons</option>
+              <option>nous levons</option>
+              <option>nous levions</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q10">10. Passé composé: « Elle ___ à sept heures. »</label>
+            <select id="q10" data-answer="s'est réveillée" data-correction="Avec un verbe pronominal, on utilise être: elle s'est réveillée.">
+              <option value="">Choisir une réponse</option>
+              <option>s'est réveillée</option>
+              <option>s'a réveillé</option>
+              <option>se réveillait</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q11">11. Impératif du 3e groupe et pronominal: « ___ vite et ___! »</label>
+            <select id="q11" data-answer="Va / tais-toi" data-correction="Aller: va. Se taire à l'impératif: tais-toi.">
+              <option value="">Choisir une réponse</option>
+              <option>Vas / te tais</option>
+              <option>Va / tais-toi</option>
+              <option>Alles / tais-toi</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q12">12. Imparfait: « Quand j'étais petit, je ___ souvent au parc. »</label>
+            <select id="q12" data-answer="me promenais" data-correction="Se promener à l'imparfait: je me promenais.">
+              <option value="">Choisir une réponse</option>
+              <option>me promenais</option>
+              <option>me promène</option>
+              <option>me suis promené</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>Orthographe</h3>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <label for="q13">13. Mets au pluriel: « un journal, un travail ».</label>
+            <select id="q13" data-answer="des journaux, des travaux" data-correction="Les noms en -al et certains noms en -ail font souvent leur pluriel en -aux.">
+              <option value="">Choisir une réponse</option>
+              <option>des journals, des travails</option>
+              <option>des journaux, des travaux</option>
+              <option>des journales, des travailes</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q14">14. Complète: « ___ belle affiche! Je crois ___ attire les élèves. »</label>
+            <select id="q14" data-answer="Quelle / qu'elle" data-correction="« Quelle » accompagne un nom féminin. « Qu'elle » signifie « que elle ».">
+              <option value="">Choisir une réponse</option>
+              <option>Quel / quelle</option>
+              <option>Quelle / qu'elle</option>
+              <option>Qu'elle / quel</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q15">15. Mets au pluriel: « un bijou, un jeu ».</label>
+            <select id="q15" data-answer="des bijoux, des jeux" data-correction="Bijou prend -x. Jeu devient jeux.">
+              <option value="">Choisir une réponse</option>
+              <option>des bijoux, des jeux</option>
+              <option>des bijous, des jeus</option>
+              <option>des bijouxs, des jeuxs</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q16">16. Complète: « Tu ___ venir; il reste ___ de temps. »</label>
+            <select id="q16" data-answer="peux / peu" data-correction="« Peux » vient du verbe pouvoir. « Peu » signifie une petite quantité.">
+              <option value="">Choisir une réponse</option>
+              <option>peu / peut</option>
+              <option>peux / peu</option>
+              <option>peut / peux</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q17">17. Mets au pluriel: « un chou-fleur ».</label>
+            <select id="q17" data-answer="des choux-fleurs" data-correction="Les deux noms prennent souvent la marque du pluriel: des choux-fleurs.">
+              <option value="">Choisir une réponse</option>
+              <option>des chou-fleur</option>
+              <option>des choux-fleurs</option>
+              <option>des chous-fleurs</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q18">18. Quel mot est invariable?</label>
+            <select id="q18" data-answer="toujours" data-correction="« Toujours » ne change pas: il est invariable.">
+              <option value="">Choisir une réponse</option>
+              <option>heureux</option>
+              <option>toujours</option>
+              <option>petite</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category">
+        <h3>Lexique</h3>
+        <div class="exercise-grid">
+          <article class="exercise">
+            <label for="q19">19. Que signifie le préfixe « re- » dans « relire »?</label>
+            <select id="q19" data-answer="lire encore" data-correction="Le préfixe « re- » exprime souvent la répétition.">
+              <option value="">Choisir une réponse</option>
+              <option>lire encore</option>
+              <option>lire vite</option>
+              <option>ne pas lire</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q20">20. Quelle énergie est renouvelable?</label>
+            <select id="q20" data-answer="l'énergie solaire" data-correction="L'énergie solaire vient du soleil: elle est renouvelable.">
+              <option value="">Choisir une réponse</option>
+              <option>le charbon</option>
+              <option>le pétrole</option>
+              <option>l'énergie solaire</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q21">21. Trouve le mot étiquette: rose, tulipe, jasmin.</label>
+            <select id="q21" data-answer="fleurs" data-correction="Rose, tulipe et jasmin sont des fleurs.">
+              <option value="">Choisir une réponse</option>
+              <option>meubles</option>
+              <option>fleurs</option>
+              <option>métiers</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q22">22. Pollution, chômage et cyberharcèlement sont des exemples de:</label>
+            <select id="q22" data-answer="défis contemporains" data-correction="Ce sont des problèmes actuels de la vie contemporaine.">
+              <option value="">Choisir une réponse</option>
+              <option>défis contemporains</option>
+              <option>loisirs anciens</option>
+              <option>outils scolaires</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q23">23. Sculpter, peindre et composer veulent dire:</label>
+            <select id="q23" data-answer="créer une oeuvre" data-correction="Ces verbes appartiennent au lexique de l'art et de la créativité.">
+              <option value="">Choisir une réponse</option>
+              <option>réparer une machine</option>
+              <option>créer une oeuvre</option>
+              <option>calculer une somme</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise">
+            <label for="q24">24. Quel mot est un nom composé?</label>
+            <select id="q24" data-answer="ouvre-boîte" data-correction="« Ouvre-boîte » est formé de deux éléments: c'est un nom composé.">
+              <option value="">Choisir une réponse</option>
+              <option>rapidement</option>
+              <option>ouvre-boîte</option>
+              <option>maison</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Partie B: production écrite avec grille de notation</h2>
+        <p>Écris ton texte, compare-le avec le modèle, puis coche les critères réussis. Chaque critère coché vaut 1 point.</p>
+      </div>
+
+      <div class="writing-grid">
+        <article class="writing-card">
+          <p class="prompt">1. Compléter un texte explicatif</p>
+          <p>Explique en 4 phrases pourquoi il faut économiser l'eau.</p>
+          <textarea placeholder="Écris ton texte ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point /> J'ai donné une explication claire.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé un connecteur: car, parce que, donc.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai écrit au moins 4 phrases.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai respecté la ponctuation.</label>
+          </div>
+          <button class="small-btn" type="button" onclick="toggleModel('m1')">Voir un exemple corrigé</button>
+          <p class="model" id="m1">L'eau est indispensable à la vie. Il faut l'économiser parce que certaines régions souffrent de sécheresse. Quand nous fermons le robinet, nous protégeons cette richesse. Donc, chacun doit utiliser l'eau avec responsabilité.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">2. Écrire des slogans de sensibilisation</p>
+          <p>Écris deux slogans pour protéger l'environnement.</p>
+          <textarea placeholder="Slogan 1&#10;Slogan 2"></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point /> Mes slogans sont courts.</label>
+            <label><input type="checkbox" data-writing-point /> Le message est clair.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé l'impératif ou l'appel à l'action.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai ajouté une ponctuation expressive.</label>
+          </div>
+          <button class="small-btn" type="button" onclick="toggleModel('m2')">Voir un exemple corrigé</button>
+          <p class="model" id="m2">Protégeons la nature, protégeons notre avenir! Économise l'énergie, la planète te remercie!</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">3. Produire un récit</p>
+          <p>Raconte un souvenir ou un événement important.</p>
+          <textarea placeholder="Écris ton récit ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point /> J'ai indiqué le lieu et le moment.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé des connecteurs: d'abord, ensuite, enfin.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé des verbes au passé.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai exprimé un sentiment.</label>
+          </div>
+          <button class="small-btn" type="button" onclick="toggleModel('m3')">Voir un exemple corrigé</button>
+          <p class="model" id="m3">L'année dernière, j'ai participé à une sortie scolaire à la montagne. D'abord, nous avons marché avec notre professeur. Ensuite, nous avons observé les arbres et les oiseaux. Enfin, nous sommes rentrés très contents, car cette journée était inoubliable.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">4. Produire un article de journal</p>
+          <p>Écris un court article sur une activité organisée dans ton école.</p>
+          <textarea placeholder="Titre&#10;Article..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point /> J'ai écrit un titre informatif.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai répondu à: qui? quoi? où? quand?</label>
+            <label><input type="checkbox" data-writing-point /> Mon style est neutre et clair.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai ajouté un détail utile.</label>
+          </div>
+          <button class="small-btn" type="button" onclick="toggleModel('m4')">Voir un exemple corrigé</button>
+          <p class="model" id="m4">Une journée de lecture au collège. Mardi matin, les élèves de deuxième année ont participé à une activité de lecture dans la bibliothèque. Cette rencontre a été organisée par les professeurs de français. Les élèves ont lu des histoires et présenté leurs avis devant leurs camarades.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">5. Produire un texte descriptif: portrait</p>
+          <p>Décris une personne que tu admires.</p>
+          <textarea placeholder="Écris ton portrait ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point /> J'ai présenté la personne.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai décrit son aspect physique.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai décrit son caractère.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé des adjectifs variés.</label>
+          </div>
+          <button class="small-btn" type="button" onclick="toggleModel('m5')">Voir un exemple corrigé</button>
+          <p class="model" id="m5">Ma professeure de français est une personne que j'admire beaucoup. Elle est souriante, élégante et toujours calme. Elle a une voix douce et un regard encourageant. Elle est patiente avec les élèves et explique les leçons avec clarté.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">6. Produire un texte descriptif: lieu</p>
+          <p>Décris un lieu que tu aimes.</p>
+          <textarea placeholder="Écris ta description ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point /> J'ai situé le lieu.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé des détails visuels ou sonores.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai utilisé des adjectifs précis.</label>
+            <label><input type="checkbox" data-writing-point /> J'ai terminé par une impression personnelle.</label>
+          </div>
+          <button class="small-btn" type="button" onclick="toggleModel('m6')">Voir un exemple corrigé</button>
+          <p class="model" id="m6">J'aime beaucoup le jardin de mon quartier. Il se trouve près de l'école et il est entouré de grands arbres. Le matin, on entend le chant des oiseaux et on voit des fleurs colorées. Ce lieu calme me donne envie de lire et de me reposer.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Page d'entraînement simple pour réviser les leçons de français.
+  </footer>
+
+  <script>
+    function normaliser(texte) {
+      return String(texte)
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’']/g, "'")
+        .replace(/[.!?;:]/g, "")
+        .replace(/\s+/g, " ");
+    }
+
+    function corriger() {
+      let pointsAuto = 0;
+      let totalAuto = 0;
+
+      document.querySelectorAll("[data-answer]").forEach((champ) => {
+        const exercice = champ.closest(".exercise");
+        const feedback = exercice.querySelector(".feedback");
+        const reponses = champ.dataset.answer.split("|").map(normaliser);
+        const valeur = normaliser(champ.value);
+        const point = Number(champ.dataset.points || 1);
+
+        totalAuto += point;
+        exercice.classList.remove("correct", "wrong");
+        feedback.className = "feedback";
+
+        if (!valeur) {
+          exercice.classList.add("wrong");
+          feedback.classList.add("bad");
+          feedback.textContent = "Réponse manquante. Correction: " + champ.dataset.correction;
+          return;
+        }
+
+        if (reponses.includes(valeur)) {
+          pointsAuto += point;
+          exercice.classList.add("correct");
+          feedback.classList.add("good");
+          feedback.textContent = "Correct. " + champ.dataset.correction;
+        } else {
+          exercice.classList.add("wrong");
+          feedback.classList.add("bad");
+          feedback.textContent = "À revoir. Correction: " + champ.dataset.correction;
+        }
+      });
+
+      let pointsProduction = 0;
+      let totalProduction = 0;
+
+      document.querySelectorAll("[data-writing-point]").forEach((caseCritere) => {
+        totalProduction += 1;
+        if (caseCritere.checked) {
+          pointsProduction += 1;
+        }
+      });
+
+      const total = totalAuto + totalProduction;
+      const points = pointsAuto + pointsProduction;
+      document.getElementById("scoreValue").textContent = points + " / " + total;
+      document.getElementById("scoreDetails").textContent =
+        "Exercices: " + pointsAuto + " / " + totalAuto +
+        " | Production écrite: " + pointsProduction + " / " + totalProduction;
+    }
+
+    function reinitialiser() {
+      document.querySelectorAll("select").forEach((select) => {
+        select.value = "";
+      });
+
+      document.querySelectorAll("textarea").forEach((zone) => {
+        zone.value = "";
+      });
+
+      document.querySelectorAll("input[type='checkbox']").forEach((caseCritere) => {
+        caseCritere.checked = false;
+      });
+
+      document.querySelectorAll(".exercise").forEach((exercice) => {
+        exercice.classList.remove("correct", "wrong");
+      });
+
+      document.querySelectorAll(".feedback").forEach((feedback) => {
+        feedback.textContent = "";
+        feedback.className = "feedback";
+      });
+
+      document.querySelectorAll(".model").forEach((model) => {
+        model.classList.remove("show");
+      });
+
+      document.getElementById("scoreValue").textContent = "0 / 48";
+      document.getElementById("scoreDetails").textContent = "24 points pour les exercices, 24 points pour la production écrite.";
+    }
+
+    function toggleModel(id) {
+      document.getElementById(id).classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
