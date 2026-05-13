@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📐 الرياضيات — تمارين تفاعلية</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📐</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #0b1e4a;
+  --blue:   #1b51bd;
+  --blue2:  #2563eb;
+  --cyan:   #38bdf8;
+  --gold:   #f59e0b;
+  --purple: #9b59b6;
+  --white:  #f8faff;
+  --card:   rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.10);
+  --radius: 22px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* BG */
+.bg-layer {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(142,68,173,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.15) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(11,30,74,1) 0%, #060e24 100%);
+  pointer-events: none;
+}
+.grid-overlay {
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(142,68,173,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142,68,173,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+.particle { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; animation: floatUp linear infinite; opacity: 0; }
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .5; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+.wrapper { position: relative; z-index: 1; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,30,74,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 62px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Amiri', serif; font-size: 18px; font-weight: 700;
+  color: var(--white); text-decoration: none;
+}
+.nav-logo span { color: var(--purple); }
+.nav-back {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(142,68,173,0.15);
+  border: 1px solid rgba(142,68,173,0.3);
+  padding: 7px 18px; border-radius: 50px;
+  font-size: 13px; font-weight: 700; color: #ce9ef7;
+  text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+.nav-back:hover { background: rgba(142,68,173,0.3); transform: translateX(4px); }
+.nav-tabs {
+  display: flex; gap: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  padding: 4px; border-radius: 50px;
+}
+.nav-tab {
+  padding: 6px 16px; border-radius: 50px; border: none;
+  background: transparent; color: rgba(255,255,255,0.45);
+  font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.nav-tab.active { background: var(--purple); color: white; }
+.nav-tab:hover:not(.active) { color: white; background: rgba(255,255,255,0.08); }
+
+/* HERO */
+.hero {
+  padding: 70px 28px 60px;
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: center; gap: 48px; flex-wrap: wrap;
+}
+.hero-left { flex: 1; min-width: 280px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(142,68,173,0.15);
+  border: 1px solid rgba(142,68,173,0.35);
+  padding: 6px 20px; border-radius: 50px;
+  font-size: 12px; font-weight: 700; color: #ce9ef7;
+  letter-spacing: 1px; margin-bottom: 22px;
+  animation: fadeDown .7s ease both;
+}
+.hero-badge::before { content:''; width:7px; height:7px; background:#ce9ef7; border-radius:50%; animation:blink 1.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(22px)}  to{opacity:1;transform:translateY(0)} }
+
+.hero h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(28px, 4vw, 50px);
+  font-weight: 700; line-height: 1.3; margin-bottom: 14px;
+  background: linear-gradient(135deg, #fff 20%, #ce9ef7 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: fadeDown .8s .1s ease both;
+}
+.hero-sub { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 28px; animation: fadeDown .9s .2s ease both; }
+.hero-stats {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 1s .3s ease both;
+}
+.hstat {
+  background: var(--card); border: 1px solid var(--border);
+  backdrop-filter: blur(12px); padding: 12px 22px;
+  border-radius: 14px; text-align: center;
+}
+.hstat-num { font-size: 22px; font-weight: 900; color: #ce9ef7; line-height: 1; }
+.hstat-lbl { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+
+.hero-right {
+  flex-shrink: 0;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(142,68,173,0.25), rgba(56,189,248,0.15));
+  border: 1px solid rgba(142,68,173,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 90px;
+  box-shadow: 0 0 60px rgba(142,68,173,0.25);
+  animation: fadeDown .9s .15s ease both, spin 20s linear infinite;
+}
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* SCORE BAR */
+.score-bar {
+  max-width: 1160px; margin: 0 auto 40px; padding: 0 28px;
+}
+.score-inner {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 18px; padding: 20px 28px;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  backdrop-filter: blur(12px);
+}
+.score-label { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); white-space: nowrap; }
+.score-track {
+  flex: 1; height: 10px; background: rgba(255,255,255,0.08);
+  border-radius: 10px; overflow: hidden; min-width: 120px;
+}
+.score-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  transition: width .6s cubic-bezier(.34,1.56,.64,1);
+  width: 0%;
+}
+.score-val { font-size: 18px; font-weight: 900; color: #ce9ef7; white-space: nowrap; }
+.score-reset {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; padding: 7px 16px; color: rgba(255,255,255,0.5);
+  font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.score-reset:hover { background: rgba(255,255,255,0.12); color: white; }
+
+/* UNIT SECTION */
+.units-wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px 80px; }
+
+.unit-block { margin-bottom: 60px; }
+
+.unit-header {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px; padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+.unit-num {
+  width: 52px; height: 52px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; flex-shrink: 0;
+  font-family: 'Amiri', serif;
+}
+.u4 .unit-num { background: rgba(245,158,11,0.2); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.u5 .unit-num { background: rgba(142,68,173,0.2); color: #ce9ef7; border: 1px solid rgba(142,68,173,0.3); }
+.u6 .unit-num { background: rgba(56,189,248,0.2); color: var(--cyan); border: 1px solid rgba(56,189,248,0.3); }
+
+.unit-info h2 { font-family: 'Amiri', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+.unit-info span { font-size: 13px; color: rgba(255,255,255,0.4); }
+.unit-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.upill {
+  font-size: 11px; font-weight: 700; padding: 3px 11px; border-radius: 50px;
+  background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.09);
+}
+
+/* EXERCISES GRID */
+.ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 20px; }
+
+/* QUESTION CARD */
+.qcard {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 24px 22px;
+  backdrop-filter: blur(14px); position: relative; overflow: hidden;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s, border-color .3s;
+}
+.qcard::before {
+  content: ''; position: absolute; inset: 0; border-radius: 20px;
+  background: var(--qc-grad); opacity: 0; transition: opacity .3s;
+}
+.qcard:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.qcard:hover::before { opacity: 1; }
+.qcard.answered-ok { border-color: rgba(39,174,96,0.45); }
+.qcard.answered-ko { border-color: rgba(192,57,43,0.45); }
+
+.u4 .qcard { --qc-grad: linear-gradient(135deg,rgba(245,158,11,0.08),transparent); }
+.u4 .qcard:hover { border-color: rgba(245,158,11,0.4); }
+.u5 .qcard { --qc-grad: linear-gradient(135deg,rgba(142,68,173,0.08),transparent); }
+.u5 .qcard:hover { border-color: rgba(142,68,173,0.4); }
+.u6 .qcard { --qc-grad: linear-gradient(135deg,rgba(56,189,248,0.08),transparent); }
+.u6 .qcard:hover { border-color: rgba(56,189,248,0.4); }
+
+.qcard-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 16px; position: relative; z-index: 1; }
+.qcard-meta { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.qcard-lesson {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.u4 .qcard-lesson { color: #fbbf24; }
+.u5 .qcard-lesson { color: #ce9ef7; }
+.u6 .qcard-lesson { color: var(--cyan); }
+
+.qcard-q {
+  font-size: 15px; font-weight: 700; line-height: 1.6; color: var(--white);
+}
+.qcard-pts {
+  font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 50px;
+  background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;
+}
+
+/* OPTIONS */
+.opts-list { display: flex; flex-direction: column; gap: 9px; position: relative; z-index: 1; }
+.opt-btn {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 15px; border-radius: 13px;
+  border: 1.5px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.75); font-family: 'Tajawal', sans-serif;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: all .18s; text-align: right; width: 100%;
+}
+.opt-btn:hover:not(:disabled) { border-color: rgba(255,255,255,0.22); background: rgba(255,255,255,0.08); color: white; }
+.opt-btn .opt-letter {
+  width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800;
+}
+.opt-btn.selected { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: white; }
+.opt-btn.selected .opt-letter { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+.opt-btn.correct { border-color: rgba(39,174,96,0.7); background: rgba(39,174,96,0.12); color: #4ade80; }
+.opt-btn.correct .opt-letter { background: rgba(39,174,96,0.25); border-color: rgba(39,174,96,0.5); color: #4ade80; }
+.opt-btn.wrong { border-color: rgba(239,68,68,0.6); background: rgba(239,68,68,0.08); color: #f87171; }
+.opt-btn.wrong .opt-letter { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.5); color: #f87171; }
+.opt-btn:disabled { cursor: default; }
+
+/* FILL INPUT */
+.fill-wrap { display: flex; gap: 10px; align-items: center; position: relative; z-index: 1; flex-wrap: wrap; }
+.fill-inp {
+  flex: 1; min-width: 0;
+  background: rgba(255,255,255,0.05); border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 11px 16px;
+  font-family: 'Tajawal', sans-serif; font-size: 14px; font-weight: 600; color: var(--white);
+  outline: none; transition: border-color .2s, box-shadow .2s;
+  direction: rtl;
+}
+.fill-inp::placeholder { color: rgba(255,255,255,0.2); }
+.fill-inp:focus { border-color: rgba(142,68,173,0.6); box-shadow: 0 0 0 3px rgba(142,68,173,0.12); }
+.fill-inp.correct { border-color: rgba(39,174,96,0.7); background: rgba(39,174,96,0.08); color: #4ade80; }
+.fill-inp.wrong   { border-color: rgba(239,68,68,0.6); background: rgba(239,68,68,0.08); color: #f87171; }
+
+.chk-btn {
+  padding: 11px 20px; border-radius: 12px; border: none;
+  background: linear-gradient(135deg, var(--purple), #7c3aed);
+  color: white; font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; white-space: nowrap;
+  transition: transform .2s, box-shadow .2s;
+}
+.chk-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(142,68,173,0.4); }
+.chk-btn:disabled { opacity: .4; cursor: default; }
+
+/* FEEDBACK */
+.fb-msg {
+  display: none; margin-top: 13px; padding: 10px 14px;
+  border-radius: 12px; font-size: 13px; font-weight: 600; line-height: 1.5;
+  position: relative; z-index: 1;
+}
+.fb-msg.show { display: block; }
+.fb-msg.ok { background: rgba(39,174,96,0.12); border: 1px solid rgba(39,174,96,0.25); color: #4ade80; }
+.fb-msg.ko { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #f87171; }
+
+/* RESULT CARD */
+.final-result {
+  display: none; max-width: 1160px; margin: 0 auto 60px; padding: 0 28px;
+}
+.final-result.show { display: block; }
+.result-inner {
+  border-radius: 22px; padding: 40px 36px; text-align: center;
+  border: 1px solid;
+}
+.result-inner.excellent { background: rgba(39,174,96,0.1); border-color: rgba(39,174,96,0.3); }
+.result-inner.good      { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+.result-inner.retry     { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.25); }
+.result-big { font-family: 'Amiri', serif; font-size: 60px; font-weight: 700; line-height: 1; margin-bottom: 10px; }
+.result-inner.excellent .result-big { color: #4ade80; }
+.result-inner.good      .result-big { color: #fbbf24; }
+.result-inner.retry     .result-big { color: #f87171; }
+.result-msg { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.result-sub { font-size: 14px; color: rgba(255,255,255,0.5); }
+
+/* GLOBAL SUBMIT */
+.global-actions {
+  max-width: 1160px; margin: 0 auto 40px; padding: 0 28px;
+  display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+}
+.gbtn {
+  padding: 14px 40px; border-radius: 14px; border: none;
+  font-family: 'Tajawal', sans-serif; font-size: 16px; font-weight: 800;
+  cursor: pointer; transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+}
+.gbtn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+.gbtn-submit { background: linear-gradient(135deg, #7c3aed, #38bdf8); color: white; }
+.gbtn-reset  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.12); }
+.gbtn-reset:hover { color: white; border-color: rgba(255,255,255,0.3); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 28px; text-align: center; position: relative; z-index: 1;
+}
+.footer-logo { font-family: 'Amiri', serif; font-size: 20px; color: var(--white); margin-bottom: 8px; }
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.3); }
+.wave-divider { height: 2px; background: linear-gradient(90deg, transparent, #7c3aed, var(--cyan), #7c3aed, transparent); max-width: 300px; margin: 0 auto 32px; border-radius: 2px; opacity: .5; }
+
+@media(max-width:640px) {
+  .nav-tabs { display: none; }
+  .hero { padding: 50px 20px 40px; }
+  .hero-right { display: none; }
+  .ex-grid { grid-template-columns: 1fr; }
+  .units-wrap { padding: 0 16px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-overlay"></div>
+<div id="particles"></div>
+
+<div class="wrapper">
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">📐 <span>الأستاذ لحسن</span> الماضي</a>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="filterUnit('all',this)">الكل</button>
+    <button class="nav-tab" onclick="filterUnit('u4',this)">الوحدة الرابعة</button>
+    <button class="nav-tab" onclick="filterUnit('u5',this)">الوحدة الخامسة</button>
+    <button class="nav-tab" onclick="filterUnit('u6',this)">الوحدة السادسة</button>
+  </div>
+  <a class="nav-back" href="index.html">← الرئيسية</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">📐 الرياضيات التفاعلية</div>
+    <h1>تمارين الرياضيات<br>السنة الدراسية 2025–2026</h1>
+    <p class="hero-sub">تمارين تفاعلية شاملة للوحدات الرابعة والخامسة والسادسة مع تصحيح فوري وتقييم ذاتي. صُممت لتقوية الكفايات الأساسية في الرياضيات.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">3</div><div class="hstat-lbl">وحدات</div></div>
+      <div class="hstat"><div class="hstat-num">24</div><div class="hstat-lbl">تمريناً</div></div>
+      <div class="hstat"><div class="hstat-num">24</div><div class="hstat-lbl">نقطة</div></div>
+    </div>
+  </div>
+  <div class="hero-right">📐</div>
+</div>
+
+<!-- SCORE BAR -->
+<div class="score-bar">
+  <div class="score-inner">
+    <span class="score-label">النتيجة الحالية</span>
+    <div class="score-track"><div class="score-fill" id="score-fill"></div></div>
+    <span class="score-val" id="score-val">0 / 24</span>
+    <button class="score-reset" onclick="resetAll()">↺ إعادة</button>
+  </div>
+</div>
+
+<!-- UNITS -->
+<div class="units-wrap">
+
+<!-- ========== الوحدة الرابعة ========== -->
+<div class="unit-block u4 reveal" id="unit-u4">
+  <div class="unit-header">
+    <div class="unit-num">٤</div>
+    <div class="unit-info">
+      <h2>الوحدة الرابعة</h2>
+      <span>الأسابيع 18 – 22</span>
+      <div class="unit-pills">
+        <span class="upill">التناسبية</span>
+        <span class="upill">الزوايا</span>
+        <span class="upill">الإنشاءات الهندسية</span>
+        <span class="upill">الكتلة الحجمية</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-grid">
+
+    <!-- د13: التناسبية - الرأسمال وسعر الفائدة -->
+    <div class="qcard" data-id="q1" data-type="mcq" data-ans="b">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 13 • التناسبية: الرأسمال وسعر الفائدة</div>
+          <div class="qcard-q">وُضع رأسمال قدره 10 000 درهم بنسبة فائدة 5% سنوياً. ما مقدار الفائدة بعد سنة واحدة؟</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 50 درهم</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 500 درهم</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 5000 درهم</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 200 درهم</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د13: التناسبية -->
+    <div class="qcard" data-id="q2" data-type="fill" data-ans="600">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 13 • التناسبية</div>
+          <div class="qcard-q">وُضع رأسمال 8 000 درهم بنسبة فائدة 7.5% سنوياً. احسب الفائدة بعد سنة. الجواب: ________ درهم</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د14: الزوايا -->
+    <div class="qcard" data-id="q3" data-type="mcq" data-ans="c">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 14 • الزوايا (منصف الزاوية)</div>
+          <div class="qcard-q">منصف الزاوية هو المستقيم الذي يُقسّم الزاوية إلى:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> زاويتين غير متساويتين</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> ثلاث زوايا متساوية</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> زاويتين متساويتين</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> زاوية قائمة وزاوية منفرجة</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د14: الزوايا - تطبيق -->
+    <div class="qcard" data-id="q4" data-type="mcq" data-ans="a">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 14 • الزوايا</div>
+          <div class="qcard-q">زاوية قياسها 120°. ما قياس كل زاوية بعد تنصيفها؟</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 60°</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 90°</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 30°</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 45°</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د15: إنشاءات هندسية -->
+    <div class="qcard" data-id="q5" data-type="mcq" data-ans="b">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 15 • إنشاءات هندسية (1)</div>
+          <div class="qcard-q">لرسم المثلث القائم، يجب أن يكون أحد زواياه قياسه:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 45°</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 90°</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 60°</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 180°</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د16: الكتلة الحجمية -->
+    <div class="qcard" data-id="q6" data-type="fill" data-ans="3" data-alt="3 كغ">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 16 • التناسبية: الكتلة الحجمية وسلم التصاميم</div>
+          <div class="qcard-q">الكتلة الحجمية لمادة ما هي 1.5 كغ/لتر. ما كتلة 2 لتر منها؟ الجواب: ________ كغ</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د16: سلم التصاميم -->
+    <div class="qcard" data-id="q7" data-type="mcq" data-ans="c">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 16 • سلم التصاميم</div>
+          <div class="qcard-q">خريطة بسلم 1/500. مسافة على الخريطة 4 سم. ما المسافة الحقيقية؟</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 4 متر</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 200 م</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 20 متر</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 2000 م</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- تقويم الوحدة الرابعة -->
+    <div class="qcard" data-id="q8" data-type="mcq" data-ans="d">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">تقويم الوحدة الرابعة</div>
+          <div class="qcard-q">رأسمال 5 000 درهم وُضع لمدة سنتين بنسبة 4% سنوياً. الفائدة الإجمالية هي:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 100 درهم</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 200 درهم</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 300 درهم</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 400 درهم</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+  </div><!-- /ex-grid u4 -->
+</div><!-- /unit u4 -->
+
+<!-- ========== الوحدة الخامسة ========== -->
+<div class="unit-block u5 reveal" id="unit-u5">
+  <div class="unit-header">
+    <div class="unit-num">٥</div>
+    <div class="unit-info">
+      <h2>الوحدة الخامسة</h2>
+      <span>الأسابيع 23 – 27</span>
+      <div class="unit-pills">
+        <span class="upill">القوى والمكعب</span>
+        <span class="upill">الأعداد الستينية</span>
+        <span class="upill">حجم الموشور والأسطوانة</span>
+        <span class="upill">تنظيم البيانات</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-grid">
+
+    <!-- د17-18: القوى -->
+    <div class="qcard" data-id="q9" data-type="fill" data-ans="8">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 17-18 • القوى: مربع عدد ومكعب عدد</div>
+          <div class="qcard-q">احسب: 2³ = ________</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د17-18: المربع -->
+    <div class="qcard" data-id="q10" data-type="fill" data-ans="25">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 17-18 • القوى</div>
+          <div class="qcard-q">احسب: 5² = ________</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د19-20: إنشاءات هندسية 2 -->
+    <div class="qcard" data-id="q11" data-type="mcq" data-ans="b">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 19-20 • إنشاءات هندسية (2)</div>
+          <div class="qcard-q">لقياس محيط الدائرة، نستخدم الصيغة:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> C = π × r²</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> C = 2 × π × r</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> C = π × d²</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> C = 4 × r</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- محيط الدائرة تطبيق -->
+    <div class="qcard" data-id="q12" data-type="fill" data-ans="62.8" data-alt="62,8">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 19-20 • محيط الدائرة</div>
+          <div class="qcard-q">دائرة نصف قطرها 10 سم. احسب محيطها (π ≈ 3.14). الجواب: ________ سم</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د21-22: الأعداد الستينية -->
+    <div class="qcard" data-id="q13" data-type="fill" data-ans="90">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 21-22 • الأعداد الستينية: الجمع والطرح</div>
+          <div class="qcard-q">1 ساعة و 30 دقيقة = ________ دقيقة</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د21-22: طرح الأعداد الستينية -->
+    <div class="qcard" data-id="q14" data-type="mcq" data-ans="c">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 21-22 • الأعداد الستينية</div>
+          <div class="qcard-q">من 2ساعة 15دقيقة طرحنا 45 دقيقة. النتيجة هي:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 1ساعة 30دقيقة</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 1ساعة 45دقيقة</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 1ساعة 30دقيقة</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 2ساعة 00دقيقة</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د23-24: حجم الموشور القائم -->
+    <div class="qcard" data-id="q15" data-type="fill" data-ans="60">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 23-24 • حجم الموشور القائم والأسطوانة القائمة</div>
+          <div class="qcard-q">موشور قائم قاعدته مستطيل 4سم × 3سم وارتفاعه 5سم. حجمه: ________ سم³</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- تقويم الوحدة الخامسة -->
+    <div class="qcard" data-id="q16" data-type="mcq" data-ans="a">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">تقويم الوحدة الخامسة</div>
+          <div class="qcard-q">التمثيل المحوري هو تحويل هندسي يُبقي على:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> الشكل والحجم (التطابق)</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> اللون فقط</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> يُغيّر الحجم</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> يُغيّر الشكل</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+  </div><!-- /ex-grid u5 -->
+</div><!-- /unit u5 -->
+
+<!-- ========== الوحدة السادسة ========== -->
+<div class="unit-block u6 reveal" id="unit-u6">
+  <div class="unit-header">
+    <div class="unit-num">٦</div>
+    <div class="unit-info">
+      <h2>الوحدة السادسة</h2>
+      <span>الأسابيع 28 – 31</span>
+      <div class="unit-pills">
+        <span class="upill">القسمة الإقليدية</span>
+        <span class="upill">زوايا الأشكال</span>
+        <span class="upill">القسمة العشرية</span>
+        <span class="upill">التكبير والتصغير</span>
+        <span class="upill">النسبة المئوية والسرعة</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-grid">
+
+    <!-- د25-26: القسمة الإقليدية -->
+    <div class="qcard" data-id="q17" data-type="fill" data-ans="3" data-alt="باقي 3">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 25-26 • القسمة الإقليدية (2)</div>
+          <div class="qcard-q">27 ÷ 8 = 3 والباقي = ________</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د27-28: العلاقات بين الزوايا -->
+    <div class="qcard" data-id="q18" data-type="mcq" data-ans="b">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 27-28 • العلاقات بين زوايا الأشكال الاعتيادية</div>
+          <div class="qcard-q">مجموع زوايا المثلث يساوي:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 90°</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 180°</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 270°</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 360°</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د27-28: زوايا الرباعي -->
+    <div class="qcard" data-id="q19" data-type="fill" data-ans="360">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 27-28 • زوايا الأشكال</div>
+          <div class="qcard-q">مجموع زوايا الشكل الرباعي يساوي ________ درجة</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د29-30: القسمة العشرية -->
+    <div class="qcard" data-id="q20" data-type="mcq" data-ans="c">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 29-30 • القسمة: الخارج العشري المضبوط والخارج المقرّب</div>
+          <div class="qcard-q">7 ÷ 2 = ؟</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 3</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 3.2</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 3.5</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 4</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د31: التكبير والتصغير -->
+    <div class="qcard" data-id="q21" data-type="mcq" data-ans="a">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 30 • التكبير والتصغير، الإزاحة والانزلاق</div>
+          <div class="qcard-q">مستطيل أبعاده 3سم × 5سم. بعد تكبيره مرتين، تصبح أبعاده:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> 6سم × 10سم</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> 3سم × 10سم</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> 5سم × 5سم</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> 6سم × 5سم</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- د31-32: النسبة المئوية -->
+    <div class="qcard" data-id="q22" data-type="fill" data-ans="15">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 31-32 • التناسبية: النسبة المئوية والسرعة المتوسطة</div>
+          <div class="qcard-q">احسب 30% من 50. الجواب: ________</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- السرعة المتوسطة -->
+    <div class="qcard" data-id="q23" data-type="fill" data-ans="80">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">الدرس 31-32 • السرعة المتوسطة</div>
+          <div class="qcard-q">سيارة قطعت مسافة 240 كم في 3 ساعات. السرعة المتوسطة: ________ كم/س</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="fill-wrap">
+        <input class="fill-inp" type="text" placeholder="اكتب جوابك...">
+        <button class="chk-btn">تحقق</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+    <!-- تقويم الوحدة السادسة -->
+    <div class="qcard" data-id="q24" data-type="mcq" data-ans="d">
+      <div class="qcard-top">
+        <div class="qcard-meta">
+          <div class="qcard-lesson">تقويم الوحدة السادسة</div>
+          <div class="qcard-q">في تمثيل البيانات، المدرج التكراري يُمثَّل على شكل:</div>
+        </div>
+        <span class="qcard-pts">1 ن</span>
+      </div>
+      <div class="opts-list">
+        <button class="opt-btn" data-v="a"><span class="opt-letter">أ</span> دائرة مقسّمة</button>
+        <button class="opt-btn" data-v="b"><span class="opt-letter">ب</span> خط منكسر</button>
+        <button class="opt-btn" data-v="c"><span class="opt-letter">ج</span> نقاط متفرقة</button>
+        <button class="opt-btn" data-v="d"><span class="opt-letter">د</span> أعمدة مستطيلة</button>
+      </div>
+      <div class="fb-msg"></div>
+    </div>
+
+  </div><!-- /ex-grid u6 -->
+</div><!-- /unit u6 -->
+
+</div><!-- /units-wrap -->
+
+<!-- GLOBAL ACTIONS -->
+<div class="global-actions">
+  <button class="gbtn gbtn-submit" onclick="submitAll()">✅ تصحيح الكل</button>
+  <button class="gbtn gbtn-reset" onclick="resetAll()">↺ إعادة المحاولة</button>
+</div>
+
+<!-- FINAL RESULT -->
+<div class="final-result" id="final-result">
+  <div class="result-inner" id="result-inner">
+    <div class="result-big" id="result-big"></div>
+    <div class="result-msg" id="result-msg"></div>
+    <div class="result-sub" id="result-sub"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wave-divider"></div>
+  <div class="footer-logo">📐 الأستاذ لحسن الماضي</div>
+  <div class="footer-sub">مجموعة مدارس الزعفران • الرياضيات • السنة الدراسية 2025–2026</div>
+</footer>
+
+</div><!-- /wrapper -->
+
+<script>
+/* ===== PARTICLES ===== */
+(function(){
+  const c = document.getElementById('particles');
+  const colors = ['#ce9ef7','#9b59b6','#38bdf8','#f59e0b','#4ade80'];
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const sz=2+Math.random()*4;
+    p.style.cssText=`width:${sz}px;height:${sz}px;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}vw;animation-duration:${9+Math.random()*11}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(p);
+  }
+})();
+
+/* ===== REVEAL ===== */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*100);
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ===== STATE ===== */
+let score=0, answered={};
+
+function updateScore(){
+  const total=24;
+  score=Object.values(answered).filter(v=>v===true).length;
+  document.getElementById('score-val').textContent=score+' / '+total;
+  document.getElementById('score-fill').style.width=(score/total*100)+'%';
+}
+
+/* ===== MCQ ===== */
+document.querySelectorAll('.qcard[data-type="mcq"] .opt-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const card=this.closest('.qcard');
+    if(card.dataset.locked) return;
+    card.querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+/* ===== FILL ===== */
+document.querySelectorAll('.qcard[data-type="fill"] .chk-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const card=this.closest('.qcard');
+    if(card.dataset.locked) return;
+    const inp=card.querySelector('.fill-inp');
+    const val=inp.value.trim();
+    const ans=card.dataset.ans;
+    const alts=(card.dataset.alt||'').split('|').filter(Boolean);
+    const ok=val===ans||alts.includes(val);
+    inp.classList.add(ok?'correct':'wrong');
+    showFeedback(card,ok,ans);
+    lockCard(card,ok);
+    this.disabled=true; inp.disabled=true;
+    answered[card.dataset.id]=ok;
+    updateScore();
+  });
+});
+
+function showFeedback(card,ok,ans){
+  const fb=card.querySelector('.fb-msg');
+  fb.className='fb-msg show '+(ok?'ok':'ko');
+  fb.textContent=ok?'✅ إجابة صحيحة! أحسنت 🎉':'❌ إجابة خاطئة. الجواب الصحيح: '+ans;
+}
+
+function lockCard(card,ok){
+  card.dataset.locked='1';
+  card.classList.add(ok?'answered-ok':'answered-ko');
+}
+
+/* ===== SUBMIT ALL ===== */
+function submitAll(){
+  document.querySelectorAll('.qcard').forEach(card=>{
+    if(card.dataset.locked) return;
+    const type=card.dataset.type;
+    const ans=card.dataset.ans;
+    if(type==='mcq'){
+      const sel=card.querySelector('.opt-btn.selected');
+      const ok=sel&&sel.dataset.v===ans;
+      card.querySelectorAll('.opt-btn').forEach(b=>{
+        if(b.dataset.v===ans) b.classList.add('correct');
+        else if(b.classList.contains('selected')) b.classList.add('wrong');
+        b.disabled=true;
+      });
+      showFeedback(card,ok,card.querySelector('.opt-btn[data-v="'+ans+'"]').textContent.trim());
+      lockCard(card,ok);
+      answered[card.dataset.id]=ok;
+    } else {
+      const inp=card.querySelector('.fill-inp');
+      const val=inp.value.trim();
+      const alts=(card.dataset.alt||'').split('|').filter(Boolean);
+      const ok=val===ans||alts.includes(val);
+      inp.classList.add(ok?'correct':'wrong');
+      showFeedback(card,ok,ans);
+      lockCard(card,ok);
+      inp.disabled=true;
+      const btn=card.querySelector('.chk-btn'); if(btn) btn.disabled=true;
+      answered[card.dataset.id]=ok;
+    }
+  });
+  updateScore();
+  showFinalResult();
+}
+
+/* ===== FINAL RESULT ===== */
+function showFinalResult(){
+  const total=24;
+  const s=Object.values(answered).filter(v=>v===true).length;
+  const pct=Math.round(s/total*100);
+  const box=document.getElementById('final-result');
+  const inner=document.getElementById('result-inner');
+  const big=document.getElementById('result-big');
+  const msg=document.getElementById('result-msg');
+  const sub=document.getElementById('result-sub');
+  big.textContent=s+' / '+total;
+  if(s>=20){
+    inner.className='result-inner excellent';
+    msg.textContent='ممتاز! أداء رائع 🌟';
+    sub.textContent='لقد أظهرت إتقاناً عالياً لدروس الوحدات الثلاث. استمر!';
+  } else if(s>=12){
+    inner.className='result-inner good';
+    msg.textContent='جيد! نتيجة مقبولة 👍';
+    sub.textContent='يمكنك تحقيق نتيجة أفضل بمراجعة الدروس التي أخطأت فيها.';
+  } else {
+    inner.className='result-inner retry';
+    msg.textContent='يستوجب المزيد من المراجعة 📚';
+    sub.textContent='راجع دروسك جيداً وأعد المحاولة. الاجتهاد مفتاح النجاح!';
+  }
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+/* ===== RESET ===== */
+function resetAll(){
+  answered={};
+  document.querySelectorAll('.qcard').forEach(card=>{
+    delete card.dataset.locked;
+    card.classList.remove('answered-ok','answered-ko');
+    card.querySelectorAll('.opt-btn').forEach(b=>{
+      b.classList.remove('selected','correct','wrong');
+      b.disabled=false;
+    });
+    const inp=card.querySelector('.fill-inp');
+    if(inp){inp.value='';inp.className='fill-inp';inp.disabled=false;}
+    const btn=card.querySelector('.chk-btn');
+    if(btn) btn.disabled=false;
+    const fb=card.querySelector('.fb-msg');
+    if(fb) fb.className='fb-msg';
+  });
+  score=0;
+  document.getElementById('score-val').textContent='0 / 24';
+  document.getElementById('score-fill').style.width='0%';
+  document.getElementById('final-result').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===== UNIT FILTER ===== */
+function filterUnit(u, tabEl){
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  tabEl.classList.add('active');
+  document.querySelectorAll('.unit-block').forEach(block=>{
+    if(u==='all'||block.id==='unit-'+u){
+      block.style.display=''; 
+    } else {
+      block.style.display='none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
