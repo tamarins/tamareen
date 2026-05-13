@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercices de Français</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf6ee;
+  --card: #ffffff;
+  --gram: #c0392b;
+  --conj: #1a6fa8;
+  --orth: #0e8a5f;
+  --lexi: #7d3c98;
+  --prod: #b7770d;
+  --text: #1c1c1e;
+  --muted: #6b6b6b;
+  --border: #e0d8cc;
+  --shadow: 0 6px 28px rgba(0,0,0,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px 16px 48px; }
+header { max-width: 900px; margin: 0 auto 36px; text-align: center; padding: 36px 24px; background: var(--text); border-radius: 22px; color: #fff; position: relative; overflow: hidden; }
+header::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 20px); }
+header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; margin-bottom: 8px; position: relative; }
+header p { font-size: 0.95rem; opacity: 0.7; position: relative; }
+.scoreboard { max-width: 900px; margin: 0 auto 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.sbox { background: var(--card); border-radius: 14px; padding: 16px; text-align: center; box-shadow: var(--shadow); border-top: 4px solid var(--text); }
+.sbox .lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 4px; }
+.sbox .val { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--text); }
+.tabs { max-width: 900px; margin: 0 auto 24px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.tab { padding: 8px 18px; border-radius: 30px; border: 2px solid var(--border); background: white; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; color: var(--muted); }
+.tab:hover, .tab.active { color: white; border-color: transparent; }
+.tab[data-cat="all"].active { background: var(--text); }
+.tab[data-cat="gram"].active { background: var(--gram); }
+.tab[data-cat="conj"].active { background: var(--conj); }
+.tab[data-cat="orth"].active { background: var(--orth); }
+.tab[data-cat="lexi"].active { background: var(--lexi); }
+.tab[data-cat="prod"].active { background: var(--prod); }
+.section { max-width: 900px; margin: 0 auto 30px; }
+.sec-title { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding: 12px 18px; border-radius: 12px; color: white; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+.sec-title .badge { background: rgba(255,255,255,0.25); border-radius: 20px; padding: 2px 10px; font-size: 0.75rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+.gram .sec-title { background: var(--gram); }
+.conj .sec-title { background: var(--conj); }
+.orth .sec-title { background: var(--orth); }
+.lexi .sec-title { background: var(--lexi); }
+.prod .sec-title { background: var(--prod); }
+.qcard { background: var(--card); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow); border-left: 5px solid var(--border); transition: border-color 0.2s; }
+.gram .qcard { border-left-color: var(--gram); }
+.conj .qcard { border-left-color: var(--conj); }
+.orth .qcard { border-left-color: var(--orth); }
+.lexi .qcard { border-left-color: var(--lexi); }
+.prod .qcard { border-left-color: var(--prod); }
+.qcard.correct { border-left-color: #2f9e44; background: #f4fdf6; }
+.qcard.wrong { border-left-color: #c92a2a; background: #fff5f5; }
+.qtop { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.qtext { font-size: 0.95rem; font-weight: 600; line-height: 1.6; flex: 1; }
+.qpts { font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--text); color: white; white-space: nowrap; flex-shrink: 0; }
+.opts { display: flex; flex-direction: column; gap: 8px; }
+.opt { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 9px; border: 2px solid var(--border); background: #fafafa; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.15s; user-select: none; }
+.opt:hover:not(.disabled) { border-color: #999; background: #f0f0f0; }
+.opt.selected { border-color: #555; background: #f0f0f0; }
+.opt.correct { border-color: #2f9e44; background: #ebfbee; color: #2f9e44; font-weight: 700; }
+.opt.wrong { border-color: #c92a2a; background: #fff5f5; color: #c92a2a; }
+.opt .letter { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; }
+.opt.selected .letter { border-color: #555; background: #555; color: white; }
+.opt.correct .letter { border-color: #2f9e44; background: #2f9e44; color: white; }
+.opt.wrong .letter { border-color: #c92a2a; background: #c92a2a; color: white; }
+.fill-wrap { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+.fill-in { border: 2px solid var(--border); border-radius: 8px; padding: 8px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600; width: 260px; outline: none; background: #fafafa; transition: border-color 0.15s; }
+.fill-in:focus { border-color: #888; }
+.fill-in.correct { border-color: #2f9e44; background: #ebfbee; color: #2f9e44; }
+.fill-in.wrong { border-color: #c92a2a; background: #fff5f5; color: #c92a2a; }
+.vbtn { padding: 8px 18px; border-radius: 9px; border: none; background: var(--text); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.vbtn:hover { opacity: 0.8; }
+.vbtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.prod-area { width: 100%; border: 2px solid var(--border); border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; line-height: 1.6; resize: vertical; min-height: 90px; outline: none; background: #fafafa; transition: border-color 0.15s; }
+.prod-area:focus { border-color: #888; }
+.prod-hint { margin-top: 8px; padding: 10px 14px; border-radius: 8px; background: #fffbe6; border-left: 4px solid var(--prod); font-size: 0.83rem; color: #6b4f00; display: none; }
+.prod-hint.show { display: block; }
+.fb { display: none; margin-top: 12px; padding: 10px 14px; border-radius: 9px; font-size: 0.86rem; font-weight: 600; line-height: 1.5; }
+.fb.show { display: block; }
+.fb.ok { background: #ebfbee; color: #2f9e44; border-left: 4px solid #2f9e44; }
+.fb.ko { background: #fff5f5; color: #c92a2a; border-left: 4px solid #c92a2a; }
+.actions { max-width: 900px; margin: 0 auto 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.abtn { padding: 14px 32px; border-radius: 12px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.abtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.abtn-submit { background: var(--text); color: white; }
+.abtn-reset { background: white; color: var(--text); border: 2px solid var(--text); }
+.result { display: none; max-width: 900px; margin: 0 auto 30px; padding: 28px; border-radius: 18px; text-align: center; font-family: 'DM Sans', sans-serif; font-weight: 700; }
+.result.show { display: block; }
+.result .big { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 8px; }
+.result .sub { font-size: 1rem; }
+.result.ex { background: #ebfbee; color: #2f9e44; border: 3px solid #2f9e44; }
+.result.ok { background: #fff9db; color: #856404; border: 3px solid #f59f00; }
+.result.ko { background: #fff5f5; color: #c92a2a; border: 3px solid #c92a2a; }
+.section.hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Exercices de Francais</h1>
+  <p>Grammaire - Conjugaison - Orthographe - Lexique - Production | note sur 25</p>
+</header>
+<div class="scoreboard">
+  <div class="sbox"><div class="lbl">Score</div><div class="val" id="sc">0</div></div>
+  <div class="sbox"><div class="lbl">Reponses</div><div class="val" id="sa">0/25</div></div>
+  <div class="sbox"><div class="lbl">Points</div><div class="val" id="sp">0/25</div></div>
+</div>
+<div class="tabs">
+  <button class="tab active" data-cat="all">Tout</button>
+  <button class="tab" data-cat="gram">Grammaire</button>
+  <button class="tab" data-cat="conj">Conjugaison</button>
+  <button class="tab" data-cat="orth">Orthographe</button>
+  <button class="tab" data-cat="lexi">Lexique</button>
+  <button class="tab" data-cat="prod">Production</button>
+</div>
+
+<!-- GRAMMAIRE -->
+<div class="section gram" data-cat="gram">
+  <div class="sec-title">Grammaire <span class="badge">5 questions</span></div>
+
+  <div class="qcard" data-id="g1" data-type="mcq" data-ans="b">
+    <div class="qtop"><div class="qtext">1. Qu'est-ce qu'un CCL (Complement Circonstanciel de Lieu) ?</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Un complement qui indique le temps</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Un complement qui indique ou se deroule l'action</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Un complement qui indique la cause</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Un complement du nom</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="g2" data-type="mcq" data-ans="c">
+    <div class="qtop"><div class="qtext">2. Dans « Il travaille pour reussir », le groupe souligné est un...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> CCL (lieu)</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> CCT (temps)</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> CCB (but)</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Sujet</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="g3" data-type="fill" data-ans="reduction" data-alt="réduction">
+    <div class="qtop"><div class="qtext">3. L'expansion de la phrase consiste a l'allonger ; son contraire est la ________ de la phrase.</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="Votre reponse..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="g4" data-type="mcq" data-ans="d">
+    <div class="qtop"><div class="qtext">4. « Elle chante magnifiquement. » Le mot souligné est...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Un adjectif qualificatif</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Un nom commun</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Un verbe</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Un adverbe</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="g5" data-type="mcq" data-ans="a">
+    <div class="qtop"><div class="qtext">5. Dans la voix passive, le sujet...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Subit l'action</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Fait l'action</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Est supprime</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Est toujours au pluriel</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+</div>
+
+<!-- CONJUGAISON -->
+<div class="section conj" data-cat="conj">
+  <div class="sec-title">Conjugaison <span class="badge">5 questions</span></div>
+
+  <div class="qcard" data-id="c1" data-type="fill" data-ans="finirais" data-alt="finirais">
+    <div class="qtop"><div class="qtext">1. Conjuguez FINIR (2e gr) au conditionnel present, 1re pers. du singulier : Je ________.</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="Je..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="c2" data-type="mcq" data-ans="b">
+    <div class="qtop"><div class="qtext">2. Le conditionnel present se forme avec le radical du futur + les terminaisons de...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Le present de l'indicatif</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> L'imparfait de l'indicatif</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Le subjonctif present</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Le passe compose</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="c3" data-type="fill" data-ans="finissons">
+    <div class="qtop"><div class="qtext">3. Impératif présent, 1re pers. du pluriel : ________ ce travail ! (finir)</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="Votre reponse..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="c4" data-type="fill" data-ans="se leve" data-alt="se lève">
+    <div class="qtop"><div class="qtext">4. Conjuguez au present : Il ________ (se lever) tot chaque matin.</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="Il..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="c5" data-type="mcq" data-ans="c">
+    <div class="qtop"><div class="qtext">5. « Ils se sont laves. » Le participe passe s'accorde parce que...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Le verbe est a l'imparfait</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Le pronom « se » est COI</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Le pronom « se » est COD place avant le verbe</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Tous les verbes pronominaux s'accordent toujours</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+</div>
+
+<!-- ORTHOGRAPHE -->
+<div class="section orth" data-cat="orth">
+  <div class="sec-title">Orthographe <span class="badge">5 questions</span></div>
+
+  <div class="qcard" data-id="o1" data-type="mcq" data-ans="b">
+    <div class="qtop"><div class="qtext">1. Quel est le pluriel correct de « cheval » ?</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Chevals</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Chevaux</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Chevales</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Chevauls</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="o2" data-type="mcq" data-ans="c">
+    <div class="qtop"><div class="qtext">2. La regle generale pour les noms en « al » est qu'au pluriel ils deviennent...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> -als</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> -alles</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> -aux</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> -ales</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="o3" data-type="fill" data-ans="genou" data-alt="bijou|chou|caillou|pou|hibou|joujou">
+    <div class="qtop"><div class="qtext">3. Parmi les noms en « ou » qui font « -oux » au pluriel, donnez un exemple : ________.</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="bijou, genou, chou..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="o4" data-type="mcq" data-ans="b">
+    <div class="qtop"><div class="qtext">4. Choisissez la forme correcte : « Je ___ venir, mais je ne ___ pas. »</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> peut / peu</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> peux / peux</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> peu / peut</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> peu / peux</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="o5" data-type="mcq" data-ans="a">
+    <div class="qtop"><div class="qtext">5. Quel est le pluriel correct de « bal » ? (Attention : exception !)</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Bals (exception a la regle)</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Baux</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Bales</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Bales ou baux</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+</div>
+
+<!-- LEXIQUE -->
+<div class="section lexi" data-cat="lexi">
+  <div class="sec-title">Lexique <span class="badge">5 questions</span></div>
+
+  <div class="qcard" data-id="l1" data-type="mcq" data-ans="b">
+    <div class="qtop"><div class="qtext">1. Un prefixe est un element que l'on place...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Apres le radical du mot</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Avant le radical du mot</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Au milieu du mot</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> A la place du mot</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="l2" data-type="fill" data-ans="inegal" data-alt="inégal">
+    <div class="qtop"><div class="qtext">2. Ajoutez le prefixe negatif pour former le contraire de « egal » : ________.</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="Votre reponse..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="l3" data-type="mcq" data-ans="c">
+    <div class="qtop"><div class="qtext">3. Le lexique thematique de l'energie inclut...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Fleur, arbre, foret</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Chagrin, bonheur, tristesse</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Electricite, combustible, renouvelable, watt</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Stylo, cahier, cartable</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="l4" data-type="fill" data-ans="contemporaine" data-alt="moderne|actuelle">
+    <div class="qtop"><div class="qtext">4. Donnez un synonyme de « actuelle » dans : « vie ________ » (vie d'aujourd'hui).</div><div class="qpts">1 pt</div></div>
+    <div class="fill-wrap"><input class="fill-in" type="text" placeholder="Votre reponse..."><button class="vbtn">Verifier</button></div>
+    <div class="fb"></div>
+  </div>
+
+  <div class="qcard" data-id="l5" data-type="mcq" data-ans="d">
+    <div class="qtop"><div class="qtext">5. Un mot etiquette est un mot...</div><div class="qpts">1 pt</div></div>
+    <div class="opts">
+      <div class="opt" data-v="a"><span class="letter">A</span> Tres rare et precis</div>
+      <div class="opt" data-v="b"><span class="letter">B</span> Invente par l'auteur</div>
+      <div class="opt" data-v="c"><span class="letter">C</span> Appartenant au registre argotique</div>
+      <div class="opt" data-v="d"><span class="letter">D</span> Generique designant une categorie (ex : « animal » pour chien, chat...)</div>
+    </div>
+    <div class="fb"></div>
+  </div>
+</div>
+
+<!-- PRODUCTION -->
+<div class="section prod" data-cat="prod">
+  <div class="sec-title">Production ecrite <span class="badge">5 questions</span></div>
+
+  <div class="qcard" data-id="p1" data-type="prod">
+    <div class="qtop"><div class="qtext">1. Completez ce texte explicatif avec une phrase expliquant comment fonctionne l'energie solaire.</div><div class="qpts">1 pt</div></div>
+    <p style="font-size:0.88rem;color:#555;margin-bottom:8px;">« L'energie solaire est une source d'energie renouvelable. [Votre phrase ici.] Elle est respectueuse de l'environnement. »</p>
+    <textarea class="prod-area" placeholder="Redigez votre phrase explicative ici..."></textarea>
+    <button class="vbtn" style="margin-top:8px;" onclick="showHint(this,'h1')">Voir le modele</button>
+    <div class="prod-hint" id="h1">Modele : « Les panneaux photovoltaiques captent la lumiere du soleil et la transforment en electricite. »</div>
+  </div>
+
+  <div class="qcard" data-id="p2" data-type="prod">
+    <div class="qtop"><div class="qtext">2. Redigez un slogan pour une affiche de sensibilisation a l'economie d'eau (2 lignes max).</div><div class="qpts">1 pt</div></div>
+    <textarea class="prod-area" placeholder="Votre slogan ici..." style="min-height:60px;"></textarea>
+    <button class="vbtn" style="margin-top:8px;" onclick="showHint(this,'h2')">Voir le modele</button>
+    <div class="prod-hint" id="h2">Modele : « Chaque goutte compte — Economisons l'eau aujourd'hui pour demain ! »</div>
+  </div>
+
+  <div class="qcard" data-id="p3" data-type="prod">
+    <div class="qtop"><div class="qtext">3. Transformez cette phrase a la voix passive : « Le vent secoue les feuilles. »</div><div class="qpts">1 pt</div></div>
+    <textarea class="prod-area" placeholder="Les feuilles sont..." style="min-height:55px;"></textarea>
+    <button class="vbtn" style="margin-top:8px;" onclick="showHint(this,'h3')">Voir la correction</button>
+    <div class="prod-hint" id="h3">Correction : « Les feuilles sont secouees par le vent. »</div>
+  </div>
+
+  <div class="qcard" data-id="p4" data-type="prod">
+    <div class="qtop"><div class="qtext">4. Redigez 2-3 phrases de recit de souvenir (un evenement memorable de votre vie).</div><div class="qpts">1 pt</div></div>
+    <textarea class="prod-area" placeholder="Redigez votre recit ici..."></textarea>
+    <button class="vbtn" style="margin-top:8px;" onclick="showHint(this,'h4')">Voir le modele</button>
+    <div class="prod-hint" id="h4">Modele : « Je me souviens de ce matin d'hiver ou j'ai vu la mer pour la premiere fois. Le soleil brillait sur l'eau et une joie immense m'envahissait. Ce moment reste grave dans ma memoire. »</div>
+  </div>
+
+  <div class="qcard" data-id="p5" data-type="prod">
+    <div class="qtop"><div class="qtext">5. Faites une comparaison entre la ville et la campagne avec « plus... que » ou « moins... que ».</div><div class="qpts">1 pt</div></div>
+    <textarea class="prod-area" placeholder="La ville est... que la campagne..." style="min-height:55px;"></textarea>
+    <button class="vbtn" style="margin-top:8px;" onclick="showHint(this,'h5')">Voir le modele</button>
+    <div class="prod-hint" id="h5">Modele : « La ville est plus animee que la campagne, mais elle est moins calme et moins verdoyante. »</div>
+  </div>
+</div>
+
+<div class="actions">
+  <button class="abtn abtn-submit" onclick="submitAll()">Corriger tout</button>
+  <button class="abtn abtn-reset" onclick="resetAll()">Recommencer</button>
+</div>
+
+<div class="result" id="result">
+  <div class="big" id="rbig"></div>
+  <div class="sub" id="rsub"></div>
+</div>
+
+<script>
+const answered = {};
+const TOTAL = 25;
+const PROD_IDS = ['p1','p2','p3','p4','p5'];
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    const cat = this.dataset.cat;
+    document.querySelectorAll('.section').forEach(sec => {
+      if (cat === 'all' || sec.dataset.cat === cat) sec.classList.remove('hidden');
+      else sec.classList.add('hidden');
+    });
+  });
+});
+
+document.querySelectorAll('.qcard[data-type="mcq"] .opt').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const q = this.closest('.qcard');
+    if (q.dataset.locked) return;
+    q.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+    this.classList.add('selected');
+    answered[q.dataset.id] = this.dataset.v;
+    updateLive();
+  });
+});
+
+document.querySelectorAll('.qcard[data-type="fill"] .vbtn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const q = this.closest('.qcard');
+    if (q.dataset.locked) return;
+    const inp = q.querySelector('.fill-in');
+    const val = inp.value.trim().toLowerCase();
+    const ans = q.dataset.ans.toLowerCase();
+    const alts = (q.dataset.alt||'').toLowerCase().split('|').filter(Boolean);
+    const ok = val === ans || alts.includes(val);
+    inp.classList.add(ok ? 'correct' : 'wrong');
+    const fb = q.querySelector('.fb');
+    fb.className = 'fb show ' + (ok ? 'ok' : 'ko');
+    fb.textContent = ok ? 'Bonne reponse !' : 'Reponse correcte : « ' + q.dataset.ans + ' »';
+    q.classList.add(ok ? 'correct' : 'wrong');
+    q.dataset.locked = '1';
+    this.disabled = true;
+    inp.disabled = true;
+    answered[q.dataset.id] = val;
+    updateLive();
+  });
+});
+
+function updateLive() {
+  document.getElementById('sa').textContent = Object.keys(answered).length + '/' + TOTAL;
+}
+
+function showHint(btn, hid) {
+  document.getElementById(hid).classList.toggle('show');
+  const q = btn.closest('.qcard');
+  if (!answered[q.dataset.id]) { answered[q.dataset.id] = 'seen'; updateLive(); }
+}
+
+function submitAll() {
+  let score = 0;
+  document.querySelectorAll('.qcard[data-type="mcq"]').forEach(q => {
+    if (q.dataset.locked) { if (q.classList.contains('correct')) score++; return; }
+    const sel = q.querySelector('.opt.selected');
+    const ans = q.dataset.ans;
+    const ok = sel && sel.dataset.v === ans;
+    q.querySelectorAll('.opt').forEach(o => {
+      if (o.dataset.v === ans) o.classList.add('correct');
+      else if (o.classList.contains('selected')) o.classList.add('wrong');
+    });
+    const fb = q.querySelector('.fb');
+    if (ok) { score++; fb.className='fb show ok'; fb.textContent='Bonne reponse !'; }
+    else {
+      const ct = q.querySelector('.opt[data-v="'+ans+'"]').textContent.trim();
+      fb.className='fb show ko'; fb.textContent='Bonne reponse : ' + ct;
+    }
+    q.classList.add(ok ? 'correct' : 'wrong');
+    q.dataset.locked = '1';
+    answered[q.dataset.id] = sel ? sel.dataset.v : null;
+  });
+  document.querySelectorAll('.qcard[data-type="fill"]').forEach(q => {
+    if (q.dataset.locked) { if (q.classList.contains('correct')) score++; return; }
+    const inp = q.querySelector('.fill-in');
+    const val = inp.value.trim().toLowerCase();
+    const ans = q.dataset.ans.toLowerCase();
+    const alts = (q.dataset.alt||'').toLowerCase().split('|').filter(Boolean);
+    const ok = val === ans || alts.includes(val);
+    inp.classList.add(ok ? 'correct' : 'wrong');
+    const fb = q.querySelector('.fb');
+    fb.className = 'fb show ' + (ok ? 'ok' : 'ko');
+    fb.textContent = ok ? 'Bonne reponse !' : 'Reponse correcte : « ' + q.dataset.ans + ' »';
+    q.classList.add(ok ? 'correct' : 'wrong');
+    q.dataset.locked = '1';
+    const vb = q.querySelector('.vbtn'); if (vb) vb.disabled = true;
+    inp.disabled = true;
+    answered[q.dataset.id] = val;
+    if (ok) score++;
+  });
+  PROD_IDS.forEach(id => {
+    const q = document.querySelector('[data-id="'+id+'"]');
+    const ta = q.querySelector('.prod-area');
+    if (ta && ta.value.trim().length > 10) { score++; answered[id]='done'; }
+  });
+  document.getElementById('sc').textContent = score;
+  document.getElementById('sp').textContent = score + '/25';
+  document.getElementById('sa').textContent = TOTAL + '/' + TOTAL;
+  showResult(score);
+}
+
+function showResult(s) {
+  const r = document.getElementById('result');
+  document.getElementById('rbig').textContent = s + ' / 25';
+  let cls, msg;
+  if (s >= 20) { cls='ex'; msg='Excellent ! Bravo, tu maitrises tres bien ces lecons !'; }
+  else if (s >= 12) { cls='ok'; msg='Bien ! Continue a reviser pour progresser encore.'; }
+  else { cls='ko'; msg='Courage ! Relis tes cours et reessaie.'; }
+  r.className = 'result show ' + cls;
+  document.getElementById('rsub').textContent = msg;
+  r.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  Object.keys(answered).forEach(k => delete answered[k]);
+  document.querySelectorAll('.qcard').forEach(q => {
+    delete q.dataset.locked;
+    q.classList.remove('correct','wrong');
+    q.querySelectorAll('.opt').forEach(o => o.className = 'opt');
+    const fb = q.querySelector('.fb'); if (fb) fb.className = 'fb';
+    const inp = q.querySelector('.fill-in');
+    if (inp) { inp.value=''; inp.className='fill-in'; inp.disabled=false; }
+    const vb = q.querySelector('.vbtn'); if (vb) vb.disabled = false;
+    const ta = q.querySelector('.prod-area'); if (ta) ta.value='';
+  });
+  document.querySelectorAll('.prod-hint').forEach(h => h.classList.remove('show'));
+  document.getElementById('sc').textContent = '0';
+  document.getElementById('sa').textContent = '0/25';
+  document.getElementById('sp').textContent = '0/25';
+  document.getElementById('result').className = 'result';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
