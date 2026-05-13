@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇫🇷 Français - Modèle 2</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇫🇷</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0b1e4a;
+  --blue: #1b51bd;
+  --blue2: #2563eb;
+  --cyan: #38bdf8;
+  --gold: #f59e0b;
+  --white: #f8faff;
+  --card: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.10);
+  --radius: 22px;
+  --green: #27ae60;
+  --red: #e74c3c;
+  --violet: #a855f7;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', Arial, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(11,30,74,1) 0%, #060e24 100%);
+  pointer-events: none;
+}
+
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: .6; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { from { transform: translate(-50%,-50%) scale(.9); } to { transform: translate(-50%,-50%) scale(1.1); } }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+.wrapper { position: relative; z-index: 1; }
+
+.top-nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: min(1060px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+}
+
+.brand-link,
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.62);
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: color .2s, background .2s;
+}
+
+.nav-links a:hover {
+  color: var(--cyan);
+  background: rgba(56,189,248,0.10);
+}
+
+header {
+  min-height: 82vh;
+  padding: 92px 24px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.3);
+  padding: 7px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: .5px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  animation: fadeDown .8s ease both;
+}
+
+.badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: var(--cyan);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+.avatar-ring {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue2), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  margin: 0 auto 30px;
+  box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5);
+  animation: fadeDown .9s .1s ease both, ringRotate 8s linear infinite;
+  position: relative;
+}
+
+@keyframes ringRotate {
+  0% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), -4px 0 15px rgba(245,158,11,0.3); }
+  100% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+}
+
+header h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(34px, 5.5vw, 62px);
+  font-weight: 700;
+  line-height: 1.18;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeDown 1s .2s ease both;
+}
+
+.header-sub {
+  font-size: clamp(15px, 2.2vw, 20px);
+  color: rgba(255,255,255,0.62);
+  font-weight: 500;
+  max-width: 820px;
+  margin-bottom: 12px;
+  animation: fadeDown 1s .3s ease both;
+}
+
+.school-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 5px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 42px;
+  animation: fadeDown 1s .4s ease both;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 46px;
+  animation: fadeUp 1s .5s ease both;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 14px 26px;
+  border-radius: 14px;
+  text-align: center;
+  min-width: 110px;
+}
+
+.stat-num { font-size: 26px; font-weight: 900; color: var(--cyan); line-height: 1; }
+.stat-lbl { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: 700; }
+
+.scroll-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.44);
+  font-size: 13px;
+  animation: fadeUp 1s .8s ease both;
+  cursor: pointer;
+}
+
+.scroll-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  animation: bounce 1.6s ease-in-out infinite;
+}
+
+.section {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 74px 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 30px;
+  background: var(--cyan);
+  opacity: .4;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(25px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.54);
+  margin-bottom: 34px;
+  max-width: 700px;
+}
+
+.score-panel,
+.unit-card,
+.mission,
+.writing-card,
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.score-panel {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  position: sticky;
+  top: 92px;
+  z-index: 4;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.score-main strong {
+  display: block;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.score-value {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 900;
+  color: var(--cyan);
+  line-height: 1;
+}
+
+.score-details,
+.mini-note {
+  color: rgba(255,255,255,0.48);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Tajawal', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+button:hover { transform: translateY(-2px); }
+button:active { transform: scale(.98); }
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  box-shadow: 0 8px 28px rgba(37,99,235,0.35);
+}
+
+.ghost-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.82);
+}
+
+.model-btn {
+  background: rgba(245,158,11,0.14);
+  border: 1px solid rgba(245,158,11,0.26);
+  color: var(--gold);
+  padding: 10px 13px;
+  font-size: 13px;
+}
+
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 18px;
+}
+
+.unit-card {
+  padding: 22px;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.unit-card:hover,
+.writing-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56,189,248,0.26);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+}
+
+.unit-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.20);
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.unit-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+
+.unit-card p {
+  color: rgba(255,255,255,0.52);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.missions-list {
+  display: grid;
+  gap: 20px;
+}
+
+.mission {
+  padding: 0;
+}
+
+.mission summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.mission summary::-webkit-details-marker { display: none; }
+
+.mission-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mission-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex: 0 0 auto;
+}
+
+.mission h3 {
+  font-size: 19px;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+.mission small {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mission-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.55);
+  transition: transform .25s ease, color .25s ease;
+}
+
+.mission[open] .mission-arrow {
+  transform: rotate(180deg);
+  color: var(--cyan);
+}
+
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.question {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  transition: border-color .2s, background .2s;
+}
+
+.question.correct {
+  border-color: rgba(39,174,96,0.55);
+  background: rgba(39,174,96,0.09);
+}
+
+.question.wrong {
+  border-color: rgba(231,76,60,0.55);
+  background: rgba(231,76,60,0.09);
+}
+
+.question label,
+.prompt {
+  display: block;
+  color: var(--white);
+  font-weight: 800;
+  line-height: 1.55;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+select,
+textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--white);
+  outline: none;
+  font-family: 'Tajawal', Arial, sans-serif;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+select option {
+  color: #0b1e4a;
+  background: #f8faff;
+}
+
+select:focus,
+textarea:focus {
+  border-color: rgba(56,189,248,0.55);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.10);
+}
+
+textarea {
+  min-height: 116px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+textarea::placeholder { color: rgba(255,255,255,0.32); }
+
+.feedback {
+  min-height: 38px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.50);
+}
+
+.feedback.good { color: #8ff0b0; font-weight: 800; }
+.feedback.bad { color: #ffb4aa; font-weight: 800; }
+
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.writing-card {
+  padding: 22px 20px;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.writing-card p:not(.prompt):not(.model) {
+  color: rgba(255,255,255,0.52);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.criteria {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.criteria label {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.criteria input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  accent-color: var(--cyan);
+}
+
+.model {
+  display: none;
+  margin-top: 12px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(245,158,11,0.10);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: rgba(255,255,255,0.76);
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.model.show { display: block; }
+
+.summary-card {
+  padding: 26px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.summary-text strong {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.summary-text span {
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 1px;
+}
+
+.wave-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue2), var(--cyan), var(--blue2), transparent);
+  margin: 0 auto;
+  max-width: 300px;
+  border-radius: 2px;
+  opacity: .5;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 50px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  direction: rtl;
+}
+
+.footer-logo {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 22px; }
+.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--cyan); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media(max-width:760px) {
+  .top-nav {
+    position: static;
+    transform: none;
+    width: calc(100% - 24px);
+    margin: 12px auto 0;
+    flex-direction: column;
+  }
+
+  header {
+    min-height: auto;
+    padding: 52px 18px 44px;
+  }
+
+  .score-panel {
+    position: static;
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions button {
+    flex: 1 1 140px;
+  }
+
+  .mission summary {
+    align-items: flex-start;
+  }
+
+  .section {
+    padding: 52px 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-overlay"></div>
+<div id="particles"></div>
+
+<div class="wrapper">
+  <nav class="top-nav" dir="rtl">
+    <a class="brand-link" href="index.html">📐 فضاء التمارين</a>
+    <div class="nav-links">
+      <a href="#units">الدروس</a>
+      <a href="#missions">الاختبار</a>
+      <a href="#writing">الإنتاج الكتابي</a>
+      <a href="#score">النقطة</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-glow"></div>
+    <div class="badge">Modèle 2 - Parcours de révision</div>
+    <div class="avatar-ring">🇫🇷</div>
+    <h1>Français: révision guidée</h1>
+    <p class="header-sub">Un autre modèle pour réviser les leçons sous forme de missions: je lis, je choisis, je corrige et je m'améliore.</p>
+    <div class="school-tag">Unités 4 et 5 • Note sur 40 • Correction immédiate</div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-lbl">missions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">20</div>
+        <div class="stat-lbl">questions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-lbl">écrits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">40</div>
+        <div class="stat-lbl">points</div>
+      </div>
+    </div>
+
+    <div class="scroll-cta" onclick="document.getElementById('score').scrollIntoView({behavior:'smooth'})">
+      <span>Commencer le parcours</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="score">
+      <div class="score-panel reveal">
+        <div class="score-main">
+          <strong>Note du parcours</strong>
+          <div class="score-value" id="scoreValue">0 / 40</div>
+          <p class="score-details" id="scoreDetails">Questions: 0 / 20 | Production écrite: 0 / 20</p>
+        </div>
+        <div class="actions">
+          <button class="primary-btn" type="button" onclick="corriger()">Corriger</button>
+          <button class="ghost-btn" type="button" onclick="reinitialiser()">Recommencer</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="units">
+      <div class="reveal">
+        <div class="section-label">Aperçu</div>
+        <h2 class="section-title">Les leçons travaillées</h2>
+        <p class="section-desc">Ce modèle reprend les notions de grammaire, conjugaison, orthographe, lexique et production écrite vues dans le tableau.</p>
+      </div>
+
+      <div class="units-grid reveal">
+        <article class="unit-card">
+          <div class="unit-icon">📘</div>
+          <h3>Grammaire</h3>
+          <p>CCL, CCT, CCM, expansion et réduction, voix active/passive, comparaison et discours indirect.</p>
+        </article>
+        <article class="unit-card">
+          <div class="unit-icon">🧩</div>
+          <h3>Conjugaison</h3>
+          <p>Conditionnel présent, impératif, présent, passé composé et imparfait des verbes pronominaux.</p>
+        </article>
+        <article class="unit-card">
+          <div class="unit-icon">🔤</div>
+          <h3>Orthographe</h3>
+          <p>Pluriel des noms en -al, -ail, -ou, -eu, mots composés, peu/peux/peut et mots invariables.</p>
+        </article>
+        <article class="unit-card">
+          <div class="unit-icon">💬</div>
+          <h3>Lexique</h3>
+          <p>Préfixes, suffixes, énergie, défis contemporains, art, créativité, noms composés et mots étiquettes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="missions">
+      <div class="reveal">
+        <div class="section-label">Partie A</div>
+        <h2 class="section-title">Missions à correction automatique</h2>
+        <p class="section-desc">Ouvre chaque mission, choisis la réponse correcte, puis clique sur « Corriger » pour voir la correction.</p>
+      </div>
+
+      <div class="missions-list reveal">
+        <details class="mission" open>
+          <summary>
+            <div class="mission-title">
+              <span class="mission-icon">📘</span>
+              <div>
+                <h3>Mission 1: Grammaire</h3>
+                <small>CC, phrase, voix passive, comparaison</small>
+              </div>
+            </div>
+            <span class="mission-arrow">⌄</span>
+          </summary>
+          <div class="questions-grid">
+            <article class="question">
+              <label for="q1">1. « Dans la bibliothèque, les élèves lisent en silence. » Le groupe « Dans la bibliothèque » est:</label>
+              <select id="q1" data-answer="CCL" data-correction="« Dans la bibliothèque » indique le lieu: c'est un CCL.">
+                <option value="">Choisir</option>
+                <option>CCL</option>
+                <option>CCT</option>
+                <option>CCM</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q2">2. Réduis la phrase: « Le jeune garçon intelligent écrit une longue lettre. »</label>
+              <select id="q2" data-answer="Le garçon écrit une lettre." data-correction="On garde l'essentiel: sujet, verbe et complément.">
+                <option value="">Choisir</option>
+                <option>Le jeune garçon intelligent écrit.</option>
+                <option>Le garçon écrit une lettre.</option>
+                <option>Une longue lettre écrit le garçon.</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q3">3. Mets à la voix passive: « Le professeur explique la leçon. »</label>
+              <select id="q3" data-answer="La leçon est expliquée par le professeur." data-correction="Voix passive au présent: la leçon est expliquée par le professeur.">
+                <option value="">Choisir</option>
+                <option>La leçon est expliquée par le professeur.</option>
+                <option>Le professeur est expliqué par la leçon.</option>
+                <option>La leçon explique le professeur.</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q4">4. Complète: « Cette activité est ___ intéressante ___ l'autre. »</label>
+              <select id="q4" data-answer="aussi / que" data-correction="Pour l'égalité, on emploie: aussi ... que.">
+                <option value="">Choisir</option>
+                <option>aussi / que</option>
+                <option>plus / de</option>
+                <option>moins / comme</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+          </div>
+        </details>
+
+        <details class="mission" open>
+          <summary>
+            <div class="mission-title">
+              <span class="mission-icon">🧩</span>
+              <div>
+                <h3>Mission 2: Conjugaison</h3>
+                <small>Conditionnel, impératif et verbes pronominaux</small>
+              </div>
+            </div>
+            <span class="mission-arrow">⌄</span>
+          </summary>
+          <div class="questions-grid">
+            <article class="question">
+              <label for="q5">5. Conditionnel présent: « Nous ___ plus tôt si possible. »</label>
+              <select id="q5" data-answer="partirions" data-correction="Au conditionnel présent: nous partirions.">
+                <option value="">Choisir</option>
+                <option>partirons</option>
+                <option>partirions</option>
+                <option>partions</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q6">6. Impératif du 2e groupe: « ___ votre travail! »</label>
+              <select id="q6" data-answer="Finissez" data-correction="Avec « vous », finir donne: finissez.">
+                <option value="">Choisir</option>
+                <option>Finis</option>
+                <option>Finissez</option>
+                <option>Finir</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q7">7. Présent: « Ils ___ avant la classe. »</label>
+              <select id="q7" data-answer="se préparent" data-correction="Se préparer au présent: ils se préparent.">
+                <option value="">Choisir</option>
+                <option>se préparent</option>
+                <option>préparent se</option>
+                <option>se préparons</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q8">8. Imparfait: « Chaque soir, tu ___ calmement. »</label>
+              <select id="q8" data-answer="te reposais" data-correction="Se reposer à l'imparfait: tu te reposais.">
+                <option value="">Choisir</option>
+                <option>te reposais</option>
+                <option>t'es reposé</option>
+                <option>te reposes</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+          </div>
+        </details>
+
+        <details class="mission" open>
+          <summary>
+            <div class="mission-title">
+              <span class="mission-icon">🔤</span>
+              <div>
+                <h3>Mission 3: Orthographe</h3>
+                <small>Pluriel, homophones et mots invariables</small>
+              </div>
+            </div>
+            <span class="mission-arrow">⌄</span>
+          </summary>
+          <div class="questions-grid">
+            <article class="question">
+              <label for="q9">9. Mets au pluriel: « un cheval ».</label>
+              <select id="q9" data-answer="des chevaux" data-correction="La plupart des noms en -al font leur pluriel en -aux.">
+                <option value="">Choisir</option>
+                <option>des chevals</option>
+                <option>des chevaux</option>
+                <option>des chevales</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q10">10. Complète: « Tu ___ résoudre ce problème. »</label>
+              <select id="q10" data-answer="peux" data-correction="Avec « tu », le verbe pouvoir donne: tu peux.">
+                <option value="">Choisir</option>
+                <option>peu</option>
+                <option>peut</option>
+                <option>peux</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q11">11. Quel est le pluriel de « un porte-clé »?</label>
+              <select id="q11" data-answer="des porte-clés" data-correction="Dans ce cas, « clé » prend la marque du pluriel: des porte-clés.">
+                <option value="">Choisir</option>
+                <option>des portes-clé</option>
+                <option>des porte-clés</option>
+                <option>des portes-clés</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q12">12. Quel mot est invariable?</label>
+              <select id="q12" data-answer="beaucoup" data-correction="« Beaucoup » ne varie pas.">
+                <option value="">Choisir</option>
+                <option>beaucoup</option>
+                <option>petits</option>
+                <option>heureuse</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+          </div>
+        </details>
+
+        <details class="mission" open>
+          <summary>
+            <div class="mission-title">
+              <span class="mission-icon">💬</span>
+              <div>
+                <h3>Mission 4: Lexique</h3>
+                <small>Préfixes, énergie, art et mots étiquettes</small>
+              </div>
+            </div>
+            <span class="mission-arrow">⌄</span>
+          </summary>
+          <div class="questions-grid">
+            <article class="question">
+              <label for="q13">13. Dans « impossible », le préfixe « im- » exprime:</label>
+              <select id="q13" data-answer="la négation" data-correction="Le préfixe « im- » signifie souvent « non » ou « pas ».">
+                <option value="">Choisir</option>
+                <option>la répétition</option>
+                <option>la négation</option>
+                <option>la petitesse</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q14">14. Le vent permet de produire:</label>
+              <select id="q14" data-answer="l'énergie éolienne" data-correction="L'énergie produite grâce au vent est l'énergie éolienne.">
+                <option value="">Choisir</option>
+                <option>l'énergie solaire</option>
+                <option>l'énergie éolienne</option>
+                <option>l'énergie hydraulique</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q15">15. Tableau, sculpture, chanson: le mot étiquette est:</label>
+              <select id="q15" data-answer="oeuvres d'art" data-correction="Ce sont des œuvres d'art.">
+                <option value="">Choisir</option>
+                <option>outils</option>
+                <option>oeuvres d'art</option>
+                <option>vêtements</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q16">16. Quel mot appartient au lexique des défis contemporains?</label>
+              <select id="q16" data-answer="la pollution" data-correction="La pollution est un défi de la vie contemporaine.">
+                <option value="">Choisir</option>
+                <option>la pollution</option>
+                <option>la récréation</option>
+                <option>la règle</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+          </div>
+        </details>
+
+        <details class="mission" open>
+          <summary>
+            <div class="mission-title">
+              <span class="mission-icon">✍️</span>
+              <div>
+                <h3>Mission 5: Production écrite</h3>
+                <small>Types de textes et organisation</small>
+              </div>
+            </div>
+            <span class="mission-arrow">⌄</span>
+          </summary>
+          <div class="questions-grid">
+            <article class="question">
+              <label for="q17">17. Pour expliquer un phénomène, on écrit surtout:</label>
+              <select id="q17" data-answer="un texte explicatif" data-correction="Un texte explicatif sert à expliquer et à donner des raisons.">
+                <option value="">Choisir</option>
+                <option>un texte explicatif</option>
+                <option>un portrait</option>
+                <option>un dialogue</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q18">18. Dans un article de journal, on répond souvent à:</label>
+              <select id="q18" data-answer="qui? quoi? où? quand?" data-correction="Un article informatif répond aux questions essentielles.">
+                <option value="">Choisir</option>
+                <option>qui? quoi? où? quand?</option>
+                <option>combien de rimes?</option>
+                <option>quel pronom?</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q19">19. Pour décrire un lieu, on utilise surtout:</label>
+              <select id="q19" data-answer="des adjectifs précis" data-correction="Les adjectifs précis rendent la description plus claire.">
+                <option value="">Choisir</option>
+                <option>des adjectifs précis</option>
+                <option>seulement des nombres</option>
+                <option>seulement des verbes à l'impératif</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+
+            <article class="question">
+              <label for="q20">20. Un slogan de sensibilisation doit être:</label>
+              <select id="q20" data-answer="court et clair" data-correction="Un slogan efficace est court, clair et facile à retenir.">
+                <option value="">Choisir</option>
+                <option>long et difficile</option>
+                <option>court et clair</option>
+                <option>sans message</option>
+              </select>
+              <p class="feedback"></p>
+            </article>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="writing">
+      <div class="reveal">
+        <div class="section-label">Partie B</div>
+        <h2 class="section-title">Mini-productions avec modèle corrigé</h2>
+        <p class="section-desc">Écris un court texte, puis coche les critères réussis. Chaque critère vaut 1 point.</p>
+      </div>
+
+      <div class="writing-grid reveal">
+        <article class="writing-card">
+          <p class="prompt">1. Texte explicatif</p>
+          <p>Explique pourquoi il faut économiser l'énergie.</p>
+          <textarea placeholder="Écris 4 phrases..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai expliqué le problème.</label>
+            <label><input type="checkbox" data-writing-point> J'ai donné au moins deux raisons.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé un connecteur logique.</label>
+            <label><input type="checkbox" data-writing-point> Mes phrases sont claires.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m1')">Voir le modèle</button>
+          <p class="model" id="m1">Il faut économiser l'énergie parce qu'elle est précieuse. Quand nous éteignons les lampes inutiles, nous protégeons la nature. Nous diminuons aussi la pollution. Donc, chaque personne doit faire attention à sa consommation.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">2. Slogans</p>
+          <p>Écris deux slogans pour sensibiliser tes camarades.</p>
+          <textarea placeholder="Slogan 1&#10;Slogan 2"></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> Les slogans sont courts.</label>
+            <label><input type="checkbox" data-writing-point> Le message est facile à comprendre.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé l'impératif.</label>
+            <label><input type="checkbox" data-writing-point> La ponctuation est correcte.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m2')">Voir le modèle</button>
+          <p class="model" id="m2">Protège ton école, respecte ton avenir! Un geste propre aujourd'hui, une planète meilleure demain!</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">3. Récit</p>
+          <p>Raconte une activité scolaire qui t'a plu.</p>
+          <textarea placeholder="Raconte l'événement..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai indiqué le temps et le lieu.</label>
+            <label><input type="checkbox" data-writing-point> J'ai respecté l'ordre des événements.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé le passé.</label>
+            <label><input type="checkbox" data-writing-point> J'ai exprimé mon avis ou mon sentiment.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m3')">Voir le modèle</button>
+          <p class="model" id="m3">Vendredi dernier, notre classe a organisé une activité de lecture à la bibliothèque. D'abord, nous avons choisi des histoires. Ensuite, chaque élève a présenté son livre préféré. J'étais très heureux parce que j'ai appris de nouveaux mots.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">4. Article de journal</p>
+          <p>Écris un court article sur une campagne de propreté.</p>
+          <textarea placeholder="Titre&#10;Article..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai proposé un titre.</label>
+            <label><input type="checkbox" data-writing-point> J'ai répondu à qui, quoi, où, quand.</label>
+            <label><input type="checkbox" data-writing-point> Les informations sont précises.</label>
+            <label><input type="checkbox" data-writing-point> Le style est informatif.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m4')">Voir le modèle</button>
+          <p class="model" id="m4">Campagne de propreté à l'école. Mardi matin, les élèves de la cinquième année ont participé à une campagne de propreté dans la cour. L'activité a été organisée par les enseignants. Les élèves ont ramassé les déchets et planté quelques fleurs.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">5. Description</p>
+          <p>Décris un lieu que tu aimes.</p>
+          <textarea placeholder="Décris le lieu..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai situé le lieu.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé des adjectifs.</label>
+            <label><input type="checkbox" data-writing-point> J'ai ajouté des détails visuels.</label>
+            <label><input type="checkbox" data-writing-point> J'ai donné mon impression personnelle.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m5')">Voir le modèle</button>
+          <p class="model" id="m5">J'aime beaucoup la bibliothèque de mon école. Elle est calme, propre et bien organisée. Les livres sont rangés sur de grandes étagères colorées. Dans ce lieu, je me sens tranquille et motivé pour lire.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="summary-card reveal">
+        <div class="summary-item">
+          <div class="summary-icon">🎯</div>
+          <div class="summary-text">
+            <strong>Objectif</strong>
+            <span>Réviser rapidement les notions essentielles</span>
+          </div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-icon">✅</div>
+          <div class="summary-text">
+            <strong>Correction</strong>
+            <span>Affichage immédiat des réponses et des explications</span>
+          </div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-icon">📊</div>
+          <div class="summary-text">
+            <strong>Notation</strong>
+            <span>20 points questions + 20 points production écrite</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wave-divider" style="margin-bottom:40px"></div>
+    <div class="footer-logo">📐 الأستاذ لحسن الماضي</div>
+    <div class="footer-sub">مجموعة مدارس الزعفران • المرحلة الابتدائية</div>
+    <div class="footer-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="french.html">Français modèle 1</a>
+      <a href="french-modele-2.html">Français modèle 2</a>
+      <a href="math.html">الرياضيات</a>
+      <a href="updates.html">المستجدات</a>
+    </div>
+    <div class="footer-copy">تم التطوير بكل فخر للأغراض التعليمية &copy; 2026 - جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('particles');
+  const colors = ['#38bdf8','#2563eb','#f59e0b','#a855f7','#22d3ee'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = 2 + Math.random() * 4;
+    p.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}vw;
+      animation-duration:${8 + Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    c.appendChild(p);
+  }
+})();
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 90);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+function normaliser(texte) {
+  return String(texte)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, "'")
+    .replace(/[.!?;:]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+function corriger() {
+  let pointsAuto = 0;
+  let totalAuto = 0;
+
+  document.querySelectorAll('[data-answer]').forEach((champ) => {
+    const question = champ.closest('.question');
+    const feedback = question.querySelector('.feedback');
+    const reponses = champ.dataset.answer.split('|').map(normaliser);
+    const valeur = normaliser(champ.value);
+    const point = Number(champ.dataset.points || 1);
+
+    totalAuto += point;
+    question.classList.remove('correct', 'wrong');
+    feedback.className = 'feedback';
+
+    if (!valeur) {
+      question.classList.add('wrong');
+      feedback.classList.add('bad');
+      feedback.textContent = 'Réponse manquante. Correction: ' + champ.dataset.correction;
+      return;
+    }
+
+    if (reponses.includes(valeur)) {
+      pointsAuto += point;
+      question.classList.add('correct');
+      feedback.classList.add('good');
+      feedback.textContent = 'Correct. ' + champ.dataset.correction;
+    } else {
+      question.classList.add('wrong');
+      feedback.classList.add('bad');
+      feedback.textContent = 'À revoir. Correction: ' + champ.dataset.correction;
+    }
+  });
+
+  let pointsProduction = 0;
+  let totalProduction = 0;
+
+  document.querySelectorAll('[data-writing-point]').forEach((critere) => {
+    totalProduction += 1;
+    if (critere.checked) {
+      pointsProduction += 1;
+    }
+  });
+
+  const total = totalAuto + totalProduction;
+  const points = pointsAuto + pointsProduction;
+  document.getElementById('scoreValue').textContent = points + ' / ' + total;
+  document.getElementById('scoreDetails').textContent =
+    'Questions: ' + pointsAuto + ' / ' + totalAuto +
+    ' | Production écrite: ' + pointsProduction + ' / ' + totalProduction;
+}
+
+function reinitialiser() {
+  document.querySelectorAll('select').forEach((select) => {
+    select.value = '';
+  });
+
+  document.querySelectorAll('textarea').forEach((zone) => {
+    zone.value = '';
+  });
+
+  document.querySelectorAll("input[type='checkbox']").forEach((critere) => {
+    critere.checked = false;
+  });
+
+  document.querySelectorAll('.question').forEach((question) => {
+    question.classList.remove('correct', 'wrong');
+  });
+
+  document.querySelectorAll('.feedback').forEach((feedback) => {
+    feedback.textContent = '';
+    feedback.className = 'feedback';
+  });
+
+  document.querySelectorAll('.model').forEach((model) => {
+    model.classList.remove('show');
+  });
+
+  document.getElementById('scoreValue').textContent = '0 / 40';
+  document.getElementById('scoreDetails').textContent = 'Questions: 0 / 20 | Production écrite: 0 / 20';
+}
+
+function toggleModel(id) {
+  document.getElementById(id).classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
