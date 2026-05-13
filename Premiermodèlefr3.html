@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇫🇷 Langue Française - Exercices interactifs</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇫🇷</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #0b1e4a;
+  --blue:    #1b51bd;
+  --blue2:   #2563eb;
+  --cyan:    #38bdf8;
+  --gold:    #f59e0b;
+  --white:   #f8faff;
+  --card:    rgba(255,255,255,0.06);
+  --border:  rgba(255,255,255,0.10);
+  --radius:  22px;
+  --green:   #27ae60;
+  --red:     #e74c3c;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', Arial, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(11,30,74,1) 0%, #060e24 100%);
+  pointer-events: none;
+}
+
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .6; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+.wrapper { position: relative; z-index: 1; }
+
+.top-nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: min(1060px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+}
+
+.brand-link,
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.62);
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: color .2s, background .2s;
+}
+
+.nav-links a:hover {
+  color: var(--cyan);
+  background: rgba(56,189,248,0.10);
+}
+
+header {
+  padding: 90px 24px 48px;
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes pulse { from{transform:translate(-50%,-50%) scale(.9)} to{transform:translate(-50%,-50%) scale(1.1)} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.3);
+  padding: 7px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: .5px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  animation: fadeDown .8s ease both;
+}
+.badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: var(--cyan);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.avatar-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue2), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  margin: 0 auto 30px;
+  box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5);
+  animation: fadeDown .9s .1s ease both, ringRotate 8s linear infinite;
+  position: relative;
+}
+@keyframes ringRotate {
+  0% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), -4px 0 15px rgba(245,158,11,0.3); }
+  100% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+}
+
+header h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(34px, 5.5vw, 62px);
+  font-weight: 700;
+  line-height: 1.18;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeDown 1s .2s ease both;
+}
+
+.header-sub {
+  font-size: clamp(15px, 2.2vw, 20px);
+  color: rgba(255,255,255,0.62);
+  font-weight: 500;
+  margin-bottom: 12px;
+  max-width: 780px;
+  animation: fadeDown 1s .3s ease both;
+}
+
+.school-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 5px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 44px;
+  animation: fadeDown 1s .4s ease both;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 48px;
+  animation: fadeUp 1s .5s ease both;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 14px 26px;
+  border-radius: 14px;
+  text-align: center;
+  min-width: 110px;
+}
+.stat-num { font-size: 26px; font-weight: 900; color: var(--cyan); line-height: 1; }
+.stat-lbl { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: 600; }
+
+.scroll-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.44);
+  font-size: 13px;
+  animation: fadeUp 1s .8s ease both;
+  cursor: pointer;
+}
+.scroll-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  animation: bounce 1.6s ease-in-out infinite;
+}
+
+.section {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 76px 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+.section-label::before,
+.section-label::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 30px;
+  background: var(--cyan);
+  opacity: .4;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(25px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.section-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.54);
+  margin-bottom: 36px;
+  max-width: 650px;
+}
+
+.score-panel {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 92px;
+  z-index: 4;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.score-text strong {
+  display: block;
+  color: var(--white);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.score-value {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: var(--cyan);
+  line-height: 1;
+}
+.score-details {
+  color: rgba(255,255,255,0.48);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Tajawal', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+}
+button:hover { transform: translateY(-2px); }
+button:active { transform: scale(.98); }
+.send-btn {
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  box-shadow: 0 8px 28px rgba(37,99,235,0.35);
+}
+.reset-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.82);
+}
+.model-btn {
+  background: rgba(245,158,11,0.14);
+  border: 1px solid rgba(245,158,11,0.26);
+  color: var(--gold);
+  padding: 10px 13px;
+  font-size: 13px;
+}
+
+.category {
+  margin-top: 22px;
+}
+
+.category-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 900;
+  color: var(--white);
+}
+
+.category-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.category-pill {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.56);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.exercise-grid,
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+  gap: 18px;
+}
+
+.exercise-card,
+.writing-card,
+.info-strip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.exercise-card {
+  padding: 20px 18px;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.exercise-card::before,
+.writing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(56,189,248,0.10), transparent);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+
+.exercise-card:hover,
+.writing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56,189,248,0.25);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+}
+.exercise-card:hover::before,
+.writing-card:hover::before { opacity: 1; }
+
+.exercise-card.correct {
+  border-color: rgba(39,174,96,0.55);
+  background: rgba(39,174,96,0.09);
+}
+.exercise-card.wrong {
+  border-color: rgba(231,76,60,0.55);
+  background: rgba(231,76,60,0.09);
+}
+
+.exercise-card label,
+.prompt {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.55;
+  color: var(--white);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+select,
+textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--white);
+  outline: none;
+  font-family: 'Tajawal', Arial, sans-serif;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+  position: relative;
+  z-index: 1;
+}
+
+select option {
+  color: #0b1e4a;
+  background: #f8faff;
+}
+
+select:focus,
+textarea:focus {
+  border-color: rgba(56,189,248,0.55);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.10);
+}
+
+textarea {
+  min-height: 118px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+textarea::placeholder {
+  color: rgba(255,255,255,0.32);
+}
+
+.feedback {
+  min-height: 42px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.50);
+  position: relative;
+  z-index: 1;
+}
+.feedback.good { color: #8ff0b0; font-weight: 800; }
+.feedback.bad { color: #ffb4aa; font-weight: 800; }
+
+.writing-card {
+  padding: 22px 20px;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.writing-card p:not(.model):not(.prompt) {
+  color: rgba(255,255,255,0.55);
+  font-size: 14px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.criteria {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.criteria label {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.criteria input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  accent-color: var(--cyan);
+}
+
+.model {
+  display: none;
+  margin-top: 12px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(245,158,11,0.10);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: rgba(255,255,255,0.76);
+  line-height: 1.65;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+.model.show { display: block; }
+
+.info-strip {
+  padding: 26px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  margin-top: 38px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.info-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(56,189,248,0.1);
+  border: 1px solid rgba(56,189,248,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.info-text strong { font-size: 14px; font-weight: 800; color: var(--white); }
+.info-text span { display: block; font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+.wave-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue2), var(--cyan), var(--blue2), transparent);
+  margin: 0 auto;
+  max-width: 300px;
+  border-radius: 2px;
+  opacity: .5;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 50px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  direction: rtl;
+}
+.footer-logo {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 22px; }
+.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--cyan); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media(max-width:760px) {
+  .top-nav {
+    position: static;
+    transform: none;
+    width: calc(100% - 24px);
+    margin: 12px auto 0;
+    flex-direction: column;
+  }
+  header {
+    min-height: auto;
+    padding: 52px 18px 44px;
+  }
+  .score-panel {
+    position: static;
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    justify-content: stretch;
+  }
+  .actions button {
+    flex: 1 1 140px;
+  }
+  .category-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .section {
+    padding: 52px 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-overlay"></div>
+<div id="particles"></div>
+
+<div class="wrapper">
+  <nav class="top-nav" dir="rtl">
+    <a class="brand-link" href="index.html">📐 فضاء التمارين</a>
+    <div class="nav-links">
+      <a href="#auto">تمارين مصححة</a>
+      <a href="#writing">إنتاج كتابي</a>
+      <a href="#score">النقطة</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-glow"></div>
+    <div class="badge">Langue Française</div>
+    <div class="avatar-ring">🇫🇷</div>
+    <h1>Exercices de français interactifs</h1>
+    <p class="header-sub">Grammaire, conjugaison, orthographe, lexique et production écrite pour réviser simplement les unités 4 et 5.</p>
+    <div class="school-tag">5AEP • 6AEP • Correction immédiate</div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">24</div>
+        <div class="stat-lbl">questions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-lbl">productions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">48</div>
+        <div class="stat-lbl">points</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-lbl">unités</div>
+      </div>
+    </div>
+
+    <div class="scroll-cta" onclick="document.getElementById('score').scrollIntoView({behavior:'smooth'})">
+      <span>Commencer</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="score">
+      <div class="score-panel reveal">
+        <div class="score-text">
+          <strong>Note totale</strong>
+          <div class="score-value" id="scoreValue">0 / 48</div>
+          <p class="score-details" id="scoreDetails">Exercices: 0 / 24 | Production écrite: 0 / 24</p>
+        </div>
+        <div class="actions">
+          <button class="send-btn" type="button" onclick="corriger()">Corriger</button>
+          <button class="reset-btn" type="button" onclick="reinitialiser()">Recommencer</button>
+        </div>
+      </div>
+
+      <div class="info-strip reveal">
+        <div class="info-item">
+          <div class="info-icon">🎯</div>
+          <div class="info-text">
+            <strong>Réponses au choix</strong>
+            <span>Une correction simple après chaque question</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✍️</div>
+          <div class="info-text">
+            <strong>Production écrite</strong>
+            <span>Une grille de notation et un modèle corrigé</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📱</div>
+          <div class="info-text">
+            <strong>Page responsive</strong>
+            <span>Adaptée au téléphone, à la tablette et à l'ordinateur</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="auto">
+      <div class="reveal">
+        <div class="section-label">Partie A</div>
+        <h2 class="section-title">Exercices avec correction automatique</h2>
+        <p class="section-desc">Chaque bonne réponse vaut 1 point. Les corrections apparaissent après la validation.</p>
+      </div>
+
+      <div class="category reveal">
+        <div class="category-head">
+          <div class="category-title"><span class="category-icon">📘</span> Grammaire</div>
+          <span class="category-pill">6 points</span>
+        </div>
+        <div class="exercise-grid">
+          <article class="exercise-card">
+            <label for="q1">1. Dans « Le matin, nous travaillons au laboratoire », « Le matin » et « au laboratoire » sont:</label>
+            <select id="q1" data-answer="CCT / CCL" data-correction="« Le matin » indique le temps: CCT. « Au laboratoire » indique le lieu: CCL.">
+              <option value="">Choisir une réponse</option>
+              <option>CCT / CCL</option>
+              <option>CCL / CCT</option>
+              <option>CCM / CCL</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q2">2. Quelle phrase est une réduction de « La petite fille courageuse traverse la rue calme »?</label>
+            <select id="q2" data-answer="La fille traverse la rue." data-correction="On enlève les expansions: « petite », « courageuse » et « calme ».">
+              <option value="">Choisir une réponse</option>
+              <option>La petite fille courageuse traverse.</option>
+              <option>La fille traverse la rue.</option>
+              <option>La rue calme traverse la fille.</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q3">3. Dans « Il parle avec gentillesse », « avec gentillesse » est un:</label>
+            <select id="q3" data-answer="CCM" data-correction="« Avec gentillesse » indique la manière: c'est un CCM.">
+              <option value="">Choisir une réponse</option>
+              <option>CCL</option>
+              <option>CCT</option>
+              <option>CCM</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q4">4. Mets à la voix passive: « Les élèves nettoient la classe. »</label>
+            <select id="q4" data-answer="La classe est nettoyée par les élèves." data-correction="Au présent passif: sujet + est/sont + participe passé + par...">
+              <option value="">Choisir une réponse</option>
+              <option>La classe nettoie les élèves.</option>
+              <option>La classe est nettoyée par les élèves.</option>
+              <option>Les élèves sont nettoyés par la classe.</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q5">5. Complète la comparaison: « Mina est ___ sérieuse ___ son frère. »</label>
+            <select id="q5" data-answer="aussi / que" data-correction="Pour exprimer l'égalité, on utilise « aussi ... que ».">
+              <option value="">Choisir une réponse</option>
+              <option>aussi / que</option>
+              <option>plus / de</option>
+              <option>moins / comme</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q6">6. Mets au discours indirect: Sara dit: « Je suis fatiguée. »</label>
+            <select id="q6" data-answer="Sara dit qu'elle est fatiguée." data-correction="« Je » devient « elle » et on introduit la phrase par « que ».">
+              <option value="">Choisir une réponse</option>
+              <option>Sara dit qu'elle est fatiguée.</option>
+              <option>Sara dit: elle est fatiguée.</option>
+              <option>Sara dit que je suis fatiguée.</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category reveal">
+        <div class="category-head">
+          <div class="category-title"><span class="category-icon">🧩</span> Conjugaison</div>
+          <span class="category-pill">6 points</span>
+        </div>
+        <div class="exercise-grid">
+          <article class="exercise-card">
+            <label for="q7">7. Conditionnel présent: « Si j'avais le temps, je ___ et je ___. »</label>
+            <select id="q7" data-answer="viendrais / me reposerais" data-correction="Venir: je viendrais. Se reposer: je me reposerais.">
+              <option value="">Choisir une réponse</option>
+              <option>viendrai / me reposerai</option>
+              <option>viendrais / me reposerais</option>
+              <option>venais / me reposais</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q8">8. Impératif du 2e groupe: « ___ ton exercice! »</label>
+            <select id="q8" data-answer="Finis" data-correction="Avec « tu », finir donne: finis.">
+              <option value="">Choisir une réponse</option>
+              <option>Finis</option>
+              <option>Finissez</option>
+              <option>Finir</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q9">9. Présent des verbes pronominaux: « Nous ___ tôt. »</label>
+            <select id="q9" data-answer="nous levons" data-correction="Se lever au présent: nous nous levons.">
+              <option value="">Choisir une réponse</option>
+              <option>se levons</option>
+              <option>nous levons</option>
+              <option>nous levions</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q10">10. Passé composé: « Elle ___ à sept heures. »</label>
+            <select id="q10" data-answer="s'est réveillée" data-correction="Avec un verbe pronominal, on utilise être: elle s'est réveillée.">
+              <option value="">Choisir une réponse</option>
+              <option>s'est réveillée</option>
+              <option>s'a réveillé</option>
+              <option>se réveillait</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q11">11. Impératif du 3e groupe et pronominal: « ___ vite et ___! »</label>
+            <select id="q11" data-answer="Va / tais-toi" data-correction="Aller: va. Se taire à l'impératif: tais-toi.">
+              <option value="">Choisir une réponse</option>
+              <option>Vas / te tais</option>
+              <option>Va / tais-toi</option>
+              <option>Alles / tais-toi</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q12">12. Imparfait: « Quand j'étais petit, je ___ souvent au parc. »</label>
+            <select id="q12" data-answer="me promenais" data-correction="Se promener à l'imparfait: je me promenais.">
+              <option value="">Choisir une réponse</option>
+              <option>me promenais</option>
+              <option>me promène</option>
+              <option>me suis promené</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category reveal">
+        <div class="category-head">
+          <div class="category-title"><span class="category-icon">🔤</span> Orthographe</div>
+          <span class="category-pill">6 points</span>
+        </div>
+        <div class="exercise-grid">
+          <article class="exercise-card">
+            <label for="q13">13. Mets au pluriel: « un journal, un travail ».</label>
+            <select id="q13" data-answer="des journaux, des travaux" data-correction="Les noms en -al et certains noms en -ail font souvent leur pluriel en -aux.">
+              <option value="">Choisir une réponse</option>
+              <option>des journals, des travails</option>
+              <option>des journaux, des travaux</option>
+              <option>des journales, des travailes</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q14">14. Complète: « ___ belle affiche! Je crois ___ attire les élèves. »</label>
+            <select id="q14" data-answer="Quelle / qu'elle" data-correction="« Quelle » accompagne un nom féminin. « Qu'elle » signifie « que elle ».">
+              <option value="">Choisir une réponse</option>
+              <option>Quel / quelle</option>
+              <option>Quelle / qu'elle</option>
+              <option>Qu'elle / quel</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q15">15. Mets au pluriel: « un bijou, un jeu ».</label>
+            <select id="q15" data-answer="des bijoux, des jeux" data-correction="Bijou prend -x. Jeu devient jeux.">
+              <option value="">Choisir une réponse</option>
+              <option>des bijoux, des jeux</option>
+              <option>des bijous, des jeus</option>
+              <option>des bijouxs, des jeuxs</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q16">16. Complète: « Tu ___ venir; il reste ___ de temps. »</label>
+            <select id="q16" data-answer="peux / peu" data-correction="« Peux » vient du verbe pouvoir. « Peu » signifie une petite quantité.">
+              <option value="">Choisir une réponse</option>
+              <option>peu / peut</option>
+              <option>peux / peu</option>
+              <option>peut / peux</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q17">17. Mets au pluriel: « un chou-fleur ».</label>
+            <select id="q17" data-answer="des choux-fleurs" data-correction="Les deux noms prennent souvent la marque du pluriel: des choux-fleurs.">
+              <option value="">Choisir une réponse</option>
+              <option>des chou-fleur</option>
+              <option>des choux-fleurs</option>
+              <option>des chous-fleurs</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q18">18. Quel mot est invariable?</label>
+            <select id="q18" data-answer="toujours" data-correction="« Toujours » ne change pas: il est invariable.">
+              <option value="">Choisir une réponse</option>
+              <option>heureux</option>
+              <option>toujours</option>
+              <option>petite</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+
+      <div class="category reveal">
+        <div class="category-head">
+          <div class="category-title"><span class="category-icon">💬</span> Lexique</div>
+          <span class="category-pill">6 points</span>
+        </div>
+        <div class="exercise-grid">
+          <article class="exercise-card">
+            <label for="q19">19. Que signifie le préfixe « re- » dans « relire »?</label>
+            <select id="q19" data-answer="lire encore" data-correction="Le préfixe « re- » exprime souvent la répétition.">
+              <option value="">Choisir une réponse</option>
+              <option>lire encore</option>
+              <option>lire vite</option>
+              <option>ne pas lire</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q20">20. Quelle énergie est renouvelable?</label>
+            <select id="q20" data-answer="l'énergie solaire" data-correction="L'énergie solaire vient du soleil: elle est renouvelable.">
+              <option value="">Choisir une réponse</option>
+              <option>le charbon</option>
+              <option>le pétrole</option>
+              <option>l'énergie solaire</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q21">21. Trouve le mot étiquette: rose, tulipe, jasmin.</label>
+            <select id="q21" data-answer="fleurs" data-correction="Rose, tulipe et jasmin sont des fleurs.">
+              <option value="">Choisir une réponse</option>
+              <option>meubles</option>
+              <option>fleurs</option>
+              <option>métiers</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q22">22. Pollution, chômage et cyberharcèlement sont des exemples de:</label>
+            <select id="q22" data-answer="défis contemporains" data-correction="Ce sont des problèmes actuels de la vie contemporaine.">
+              <option value="">Choisir une réponse</option>
+              <option>défis contemporains</option>
+              <option>loisirs anciens</option>
+              <option>outils scolaires</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q23">23. Sculpter, peindre et composer veulent dire:</label>
+            <select id="q23" data-answer="créer une oeuvre" data-correction="Ces verbes appartiennent au lexique de l'art et de la créativité.">
+              <option value="">Choisir une réponse</option>
+              <option>réparer une machine</option>
+              <option>créer une oeuvre</option>
+              <option>calculer une somme</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="exercise-card">
+            <label for="q24">24. Quel mot est un nom composé?</label>
+            <select id="q24" data-answer="ouvre-boîte" data-correction="« Ouvre-boîte » est formé de deux éléments: c'est un nom composé.">
+              <option value="">Choisir une réponse</option>
+              <option>rapidement</option>
+              <option>ouvre-boîte</option>
+              <option>maison</option>
+            </select>
+            <p class="feedback"></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="writing">
+      <div class="reveal">
+        <div class="section-label">Partie B</div>
+        <h2 class="section-title">Production écrite avec grille de notation</h2>
+        <p class="section-desc">Chaque critère coché vaut 1 point. Les modèles aident à comparer et corriger le texte.</p>
+      </div>
+
+      <div class="writing-grid reveal">
+        <article class="writing-card">
+          <p class="prompt">1. Compléter un texte explicatif</p>
+          <p>Explique en 4 phrases pourquoi il faut économiser l'eau.</p>
+          <textarea placeholder="Écris ton texte ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai donné une explication claire.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé un connecteur: car, parce que, donc.</label>
+            <label><input type="checkbox" data-writing-point> J'ai écrit au moins 4 phrases.</label>
+            <label><input type="checkbox" data-writing-point> J'ai respecté la ponctuation.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m1')">Voir un exemple corrigé</button>
+          <p class="model" id="m1">L'eau est indispensable à la vie. Il faut l'économiser parce que certaines régions souffrent de sécheresse. Quand nous fermons le robinet, nous protégeons cette richesse. Donc, chacun doit utiliser l'eau avec responsabilité.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">2. Écrire des slogans de sensibilisation</p>
+          <p>Écris deux slogans pour protéger l'environnement.</p>
+          <textarea placeholder="Slogan 1&#10;Slogan 2"></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> Mes slogans sont courts.</label>
+            <label><input type="checkbox" data-writing-point> Le message est clair.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé l'impératif ou l'appel à l'action.</label>
+            <label><input type="checkbox" data-writing-point> J'ai ajouté une ponctuation expressive.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m2')">Voir un exemple corrigé</button>
+          <p class="model" id="m2">Protégeons la nature, protégeons notre avenir! Économise l'énergie, la planète te remercie!</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">3. Produire un récit</p>
+          <p>Raconte un souvenir ou un événement important.</p>
+          <textarea placeholder="Écris ton récit ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai indiqué le lieu et le moment.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé des connecteurs: d'abord, ensuite, enfin.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé des verbes au passé.</label>
+            <label><input type="checkbox" data-writing-point> J'ai exprimé un sentiment.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m3')">Voir un exemple corrigé</button>
+          <p class="model" id="m3">L'année dernière, j'ai participé à une sortie scolaire à la montagne. D'abord, nous avons marché avec notre professeur. Ensuite, nous avons observé les arbres et les oiseaux. Enfin, nous sommes rentrés très contents, car cette journée était inoubliable.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">4. Produire un article de journal</p>
+          <p>Écris un court article sur une activité organisée dans ton école.</p>
+          <textarea placeholder="Titre&#10;Article..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai écrit un titre informatif.</label>
+            <label><input type="checkbox" data-writing-point> J'ai répondu à: qui? quoi? où? quand?</label>
+            <label><input type="checkbox" data-writing-point> Mon style est neutre et clair.</label>
+            <label><input type="checkbox" data-writing-point> J'ai ajouté un détail utile.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m4')">Voir un exemple corrigé</button>
+          <p class="model" id="m4">Une journée de lecture au collège. Mardi matin, les élèves de deuxième année ont participé à une activité de lecture dans la bibliothèque. Cette rencontre a été organisée par les professeurs de français. Les élèves ont lu des histoires et présenté leurs avis devant leurs camarades.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">5. Produire un texte descriptif: portrait</p>
+          <p>Décris une personne que tu admires.</p>
+          <textarea placeholder="Écris ton portrait ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai présenté la personne.</label>
+            <label><input type="checkbox" data-writing-point> J'ai décrit son aspect physique.</label>
+            <label><input type="checkbox" data-writing-point> J'ai décrit son caractère.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé des adjectifs variés.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m5')">Voir un exemple corrigé</button>
+          <p class="model" id="m5">Ma professeure de français est une personne que j'admire beaucoup. Elle est souriante, élégante et toujours calme. Elle a une voix douce et un regard encourageant. Elle est patiente avec les élèves et explique les leçons avec clarté.</p>
+        </article>
+
+        <article class="writing-card">
+          <p class="prompt">6. Produire un texte descriptif: lieu</p>
+          <p>Décris un lieu que tu aimes.</p>
+          <textarea placeholder="Écris ta description ici..."></textarea>
+          <div class="criteria">
+            <label><input type="checkbox" data-writing-point> J'ai situé le lieu.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé des détails visuels ou sonores.</label>
+            <label><input type="checkbox" data-writing-point> J'ai utilisé des adjectifs précis.</label>
+            <label><input type="checkbox" data-writing-point> J'ai terminé par une impression personnelle.</label>
+          </div>
+          <button class="model-btn" type="button" onclick="toggleModel('m6')">Voir un exemple corrigé</button>
+          <p class="model" id="m6">J'aime beaucoup le jardin de mon quartier. Il se trouve près de l'école et il est entouré de grands arbres. Le matin, on entend le chant des oiseaux et on voit des fleurs colorées. Ce lieu calme me donne envie de lire et de me reposer.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wave-divider" style="margin-bottom:40px"></div>
+    <div class="footer-logo">📐 الأستاذ لحسن الماضي</div>
+    <div class="footer-sub">مجموعة مدارس الزعفران • المرحلة الابتدائية</div>
+    <div class="footer-links">
+      <a href="arabic.html">اللغة العربية</a>
+      <a href="islamic.html">التربية الإسلامية</a>
+      <a href="french.html">Français</a>
+      <a href="math.html">الرياضيات</a>
+      <a href="updates.html">المستجدات</a>
+      <a href="index.html#about">من نحن</a>
+      <a href="index.html#contact">تواصل معنا</a>
+    </div>
+    <div class="footer-copy">تم التطوير بكل فخر للأغراض التعليمية &copy; 2026 - جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('particles');
+  const colors = ['#38bdf8','#2563eb','#f59e0b','#a855f7','#22d3ee'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = 2 + Math.random() * 4;
+    p.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}vw;
+      animation-duration:${8 + Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    c.appendChild(p);
+  }
+})();
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 90);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+function normaliser(texte) {
+  return String(texte)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, "'")
+    .replace(/[.!?;:]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+function corriger() {
+  let pointsAuto = 0;
+  let totalAuto = 0;
+
+  document.querySelectorAll('[data-answer]').forEach((champ) => {
+    const exercice = champ.closest('.exercise-card');
+    const feedback = exercice.querySelector('.feedback');
+    const reponses = champ.dataset.answer.split('|').map(normaliser);
+    const valeur = normaliser(champ.value);
+    const point = Number(champ.dataset.points || 1);
+
+    totalAuto += point;
+    exercice.classList.remove('correct', 'wrong');
+    feedback.className = 'feedback';
+
+    if (!valeur) {
+      exercice.classList.add('wrong');
+      feedback.classList.add('bad');
+      feedback.textContent = 'Réponse manquante. Correction: ' + champ.dataset.correction;
+      return;
+    }
+
+    if (reponses.includes(valeur)) {
+      pointsAuto += point;
+      exercice.classList.add('correct');
+      feedback.classList.add('good');
+      feedback.textContent = 'Correct. ' + champ.dataset.correction;
+    } else {
+      exercice.classList.add('wrong');
+      feedback.classList.add('bad');
+      feedback.textContent = 'À revoir. Correction: ' + champ.dataset.correction;
+    }
+  });
+
+  let pointsProduction = 0;
+  let totalProduction = 0;
+
+  document.querySelectorAll('[data-writing-point]').forEach((caseCritere) => {
+    totalProduction += 1;
+    if (caseCritere.checked) {
+      pointsProduction += 1;
+    }
+  });
+
+  const total = totalAuto + totalProduction;
+  const points = pointsAuto + pointsProduction;
+  document.getElementById('scoreValue').textContent = points + ' / ' + total;
+  document.getElementById('scoreDetails').textContent =
+    'Exercices: ' + pointsAuto + ' / ' + totalAuto +
+    ' | Production écrite: ' + pointsProduction + ' / ' + totalProduction;
+}
+
+function reinitialiser() {
+  document.querySelectorAll('select').forEach((select) => {
+    select.value = '';
+  });
+
+  document.querySelectorAll('textarea').forEach((zone) => {
+    zone.value = '';
+  });
+
+  document.querySelectorAll("input[type='checkbox']").forEach((caseCritere) => {
+    caseCritere.checked = false;
+  });
+
+  document.querySelectorAll('.exercise-card').forEach((exercice) => {
+    exercice.classList.remove('correct', 'wrong');
+  });
+
+  document.querySelectorAll('.feedback').forEach((feedback) => {
+    feedback.textContent = '';
+    feedback.className = 'feedback';
+  });
+
+  document.querySelectorAll('.model').forEach((model) => {
+    model.classList.remove('show');
+  });
+
+  document.getElementById('scoreValue').textContent = '0 / 48';
+  document.getElementById('scoreDetails').textContent = 'Exercices: 0 / 24 | Production écrite: 0 / 24';
+}
+
+function toggleModel(id) {
+  document.getElementById(id).classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
