@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇫🇷 Français 6 AEP — Exercices Interactifs</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇫🇷</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&family=Amiri:wght@400;700&family=DM+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:  #0b1e4a;
+  --blue2: #2563eb;
+  --cyan:  #38bdf8;
+  --gold:  #f59e0b;
+  --white: #f8faff;
+  --card:  rgba(255,255,255,0.055);
+  --brd:   rgba(255,255,255,0.10);
+  --r:     20px;
+  --gram:  #e74c3c;
+  --conj:  #2980b9;
+  --orth:  #27ae60;
+  --lexi:  #8e44ad;
+  --prod:  #e67e22;
+  --read:  #16a085;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+
+/* BG */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 15% 8%,rgba(41,128,185,.26) 0%,transparent 60%),
+             radial-gradient(ellipse 55% 45% at 85% 85%,rgba(231,76,60,.15) 0%,transparent 55%),
+             radial-gradient(ellipse 50% 40% at 50% 50%,rgba(11,30,74,1) 0%,#060e24 100%);}
+.grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(41,128,185,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(41,128,185,.04) 1px,transparent 1px);
+  background-size:50px 50px;}
+.particle{position:fixed;border-radius:50%;pointer-events:none;z-index:0;animation:fUp linear infinite;opacity:0;}
+@keyframes fUp{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:.5}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+.w{position:relative;z-index:1;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(11,30,74,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--brd);padding:0 24px;height:62px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.nlogo{display:flex;align-items:center;gap:9px;font-family:'Amiri',serif;font-size:17px;font-weight:700;color:var(--white);text-decoration:none;}
+.nlogo span{color:var(--cyan);}
+.nback{display:flex;align-items:center;gap:7px;background:rgba(41,128,185,.15);border:1px solid rgba(41,128,185,.35);
+  padding:7px 18px;border-radius:50px;font-size:13px;font-weight:700;color:#7ec8f7;text-decoration:none;transition:.2s;}
+.nback:hover{background:rgba(41,128,185,.3);transform:translateX(-3px);}
+.ntabs{display:flex;gap:3px;background:rgba(255,255,255,.04);border:1px solid var(--brd);padding:4px;border-radius:50px;flex-wrap:wrap;}
+.ntab{padding:5px 13px;border-radius:50px;border:none;background:transparent;color:rgba(255,255,255,.4);
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;}
+.ntab.on{color:#fff;}
+.ntab[data-u="all"].on{background:rgba(255,255,255,.15);}
+.ntab[data-u="u1"].on{background:#e74c3c;}
+.ntab[data-u="u2"].on{background:#2980b9;}
+.ntab[data-u="u3"].on{background:#27ae60;}
+.ntab[data-u="u4"].on{background:#8e44ad;}
+.ntab[data-u="u5"].on{background:#e67e22;}
+.ntab[data-u="u6"].on{background:#16a085;}
+.ntab:hover:not(.on){color:#fff;background:rgba(255,255,255,.07);}
+@media(max-width:700px){.ntabs{display:none;}}
+
+/* HERO */
+.hero{max-width:1180px;margin:0 auto;padding:65px 24px 50px;display:flex;align-items:center;gap:44px;flex-wrap:wrap;}
+.hl{flex:1;min-width:260px;}
+.hbadge{display:inline-flex;align-items:center;gap:8px;background:rgba(41,128,185,.14);border:1px solid rgba(41,128,185,.4);
+  padding:6px 20px;border-radius:50px;font-size:12px;font-weight:700;color:#7ec8f7;letter-spacing:.7px;margin-bottom:18px;
+  animation:fD .7s ease both;}
+.hbadge::before{content:'';width:7px;height:7px;background:#7ec8f7;border-radius:50%;animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fD{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fU{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:clamp(24px,4vw,46px);font-weight:800;line-height:1.25;margin-bottom:12px;
+  background:linear-gradient(135deg,#fff 20%,#7ec8f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fD .8s .1s ease both;}
+.hsub{font-size:14px;color:rgba(255,255,255,.5);line-height:1.75;margin-bottom:22px;animation:fD .9s .2s ease both;}
+.hpills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;animation:fU 1s .3s ease both;}
+.hp{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 13px;border-radius:50px;border:1px solid;}
+.hp.gram{background:rgba(231,76,60,.12);border-color:rgba(231,76,60,.35);color:#f1948a;}
+.hp.conj{background:rgba(41,128,185,.12);border-color:rgba(41,128,185,.35);color:#7ec8f7;}
+.hp.orth{background:rgba(39,174,96,.12);border-color:rgba(39,174,96,.35);color:#6bcf9b;}
+.hp.lexi{background:rgba(142,68,173,.12);border-color:rgba(142,68,173,.35);color:#c39bd3;}
+.hp.prod{background:rgba(230,126,34,.12);border-color:rgba(230,126,34,.35);color:#f0b27a;}
+.hp.read{background:rgba(22,160,133,.12);border-color:rgba(22,160,133,.35);color:#76d7c4;}
+.hstats{display:flex;gap:12px;flex-wrap:wrap;animation:fU 1s .4s ease both;}
+.hs{background:var(--card);border:1px solid var(--brd);backdrop-filter:blur(12px);padding:12px 20px;border-radius:14px;text-align:center;}
+.hs-n{font-size:22px;font-weight:800;color:#7ec8f7;line-height:1;}
+.hs-l{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;}
+.hr{flex-shrink:0;width:200px;height:200px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(41,128,185,.2),rgba(231,76,60,.15));
+  border:1px solid rgba(41,128,185,.3);display:flex;align-items:center;justify-content:center;font-size:82px;
+  box-shadow:0 0 60px rgba(41,128,185,.2);animation:fD .9s .15s ease both,spin 25s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media(max-width:640px){.hr{display:none;}}
+
+/* SCORE BAR */
+.sbar{max-width:1180px;margin:0 auto 36px;padding:0 24px;}
+.sbarin{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:18px 26px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;backdrop-filter:blur(12px);}
+.slbl{font-size:13px;font-weight:700;color:rgba(255,255,255,.42);white-space:nowrap;}
+.strk{flex:1;height:10px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;min-width:100px;}
+.sfil{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--blue2),var(--cyan));transition:width .6s cubic-bezier(.34,1.56,.64,1);width:0%;}
+.sval{font-size:18px;font-weight:800;color:#7ec8f7;white-space:nowrap;}
+.srst{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;
+  padding:7px 16px;color:rgba(255,255,255,.42);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.2s;}
+.srst:hover{background:rgba(255,255,255,.12);color:#fff;}
+
+/* UNIT BLOCK */
+.uw{max-width:1180px;margin:0 auto;padding:0 24px 80px;}
+.ub{margin-bottom:52px;}
+.uhd{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--brd);}
+.unum{width:50px;height:50px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;}
+.u1 .unum{background:rgba(231,76,60,.18);color:#f1948a;border:1px solid rgba(231,76,60,.35);}
+.u2 .unum{background:rgba(41,128,185,.18);color:#7ec8f7;border:1px solid rgba(41,128,185,.35);}
+.u3 .unum{background:rgba(39,174,96,.18);color:#6bcf9b;border:1px solid rgba(39,174,96,.35);}
+.u4 .unum{background:rgba(142,68,173,.18);color:#c39bd3;border:1px solid rgba(142,68,173,.35);}
+.u5 .unum{background:rgba(230,126,34,.18);color:#f0b27a;border:1px solid rgba(230,126,34,.35);}
+.u6 .unum{background:rgba(22,160,133,.18);color:#76d7c4;border:1px solid rgba(22,160,133,.35);}
+.uinf h2{font-size:19px;font-weight:800;color:var(--white);margin-bottom:2px;}
+.uinf p{font-size:12px;color:rgba(255,255,255,.38);}
+.upills{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px;}
+.upl{font-size:10px;font-weight:700;padding:2px 10px;border-radius:50px;
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.08);}
+
+/* DOMAIN SECTION */
+.ds{margin-bottom:30px;}
+.dlbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:14px;padding:9px 15px;border-radius:11px;border-left:4px solid;}
+.dg{background:rgba(231,76,60,.09);border-color:var(--gram);color:#f1948a;}
+.dc{background:rgba(41,128,185,.09);border-color:var(--conj);color:#7ec8f7;}
+.do{background:rgba(39,174,96,.09);border-color:var(--orth);color:#6bcf9b;}
+.dl{background:rgba(142,68,173,.09);border-color:var(--lexi);color:#c39bd3;}
+.dp{background:rgba(230,126,34,.09);border-color:var(--prod);color:#f0b27a;}
+.dr{background:rgba(22,160,133,.09);border-color:var(--read);color:#76d7c4;}
+
+/* GRID */
+.qg{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;}
+
+/* QUESTION CARD */
+.qc{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:20px 18px;
+  backdrop-filter:blur(14px);position:relative;overflow:hidden;
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s,border-color .28s;}
+.qc::before{content:'';position:absolute;inset:0;border-radius:var(--r);opacity:0;transition:opacity .3s;}
+.qc:hover{transform:translateY(-5px);box-shadow:0 18px 46px rgba(0,0,0,.3);}
+.qc:hover::before{opacity:1;}
+.qc.vok{border-color:rgba(39,174,96,.45);background:rgba(39,174,96,.04);}
+.qc.vko{border-color:rgba(231,76,60,.4);background:rgba(231,76,60,.04);}
+/* per-domain hover */
+.qc.gram{--qg:linear-gradient(135deg,rgba(231,76,60,.09),transparent);}
+.qc.gram:hover{border-color:rgba(231,76,60,.4);}.qc.gram::before{background:var(--qg);}
+.qc.conj{--qg:linear-gradient(135deg,rgba(41,128,185,.09),transparent);}
+.qc.conj:hover{border-color:rgba(41,128,185,.4);}.qc.conj::before{background:var(--qg);}
+.qc.orth{--qg:linear-gradient(135deg,rgba(39,174,96,.09),transparent);}
+.qc.orth:hover{border-color:rgba(39,174,96,.4);}.qc.orth::before{background:var(--qg);}
+.qc.lexi{--qg:linear-gradient(135deg,rgba(142,68,173,.09),transparent);}
+.qc.lexi:hover{border-color:rgba(142,68,173,.4);}.qc.lexi::before{background:var(--qg);}
+.qc.prod{--qg:linear-gradient(135deg,rgba(230,126,34,.09),transparent);}
+.qc.prod:hover{border-color:rgba(230,126,34,.4);}.qc.prod::before{background:var(--qg);}
+
+.qtop{display:flex;justify-content:space-between;align-items:flex-start;gap:9px;margin-bottom:13px;position:relative;z-index:1;}
+.qmeta{flex:1;}
+.qtag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  padding:2px 9px;border-radius:20px;margin-bottom:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);}
+.gram .qtag{color:#f1948a;background:rgba(231,76,60,.12);border-color:rgba(231,76,60,.2);}
+.conj .qtag{color:#7ec8f7;background:rgba(41,128,185,.12);border-color:rgba(41,128,185,.2);}
+.orth .qtag{color:#6bcf9b;background:rgba(39,174,96,.12);border-color:rgba(39,174,96,.2);}
+.lexi .qtag{color:#c39bd3;background:rgba(142,68,173,.12);border-color:rgba(142,68,173,.2);}
+.prod .qtag{color:#f0b27a;background:rgba(230,126,34,.12);border-color:rgba(230,126,34,.2);}
+.qtxt{font-size:13.5px;font-weight:700;line-height:1.6;color:var(--white);}
+.qtxt em{color:rgba(255,255,255,.5);font-style:italic;font-weight:500;font-size:12.5px;}
+.qpts{font-size:11px;font-weight:700;padding:2px 10px;border-radius:50px;background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.09);flex-shrink:0;}
+
+/* OPTIONS */
+.opts{display:flex;flex-direction:column;gap:7px;position:relative;z-index:1;}
+.opt{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:12px;
+  border:1.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.68);
+  transition:.15s;width:100%;text-align:left;}
+.opt:hover:not(:disabled){border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;}
+.ol{width:23px;height:23px;border-radius:7px;flex-shrink:0;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;transition:.15s;}
+.opt.sel{border-color:rgba(255,255,255,.26);background:rgba(255,255,255,.09);color:#fff;}
+.opt.sel .ol{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28);}
+.opt.cor{border-color:rgba(39,174,96,.7);background:rgba(39,174,96,.1);color:#6bcf9b;}
+.opt.cor .ol{background:rgba(39,174,96,.25);border-color:rgba(39,174,96,.5);color:#6bcf9b;}
+.opt.wrg{border-color:rgba(231,76,60,.65);background:rgba(231,76,60,.07);color:#f1948a;}
+.opt.wrg .ol{background:rgba(231,76,60,.2);border-color:rgba(231,76,60,.5);color:#f1948a;}
+.opt:disabled{cursor:default;}
+
+/* FILL */
+.frow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;position:relative;z-index:1;}
+.finp{flex:1;min-width:0;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:11px;padding:9px 13px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--white);outline:none;transition:.2s;}
+.finp::placeholder{color:rgba(255,255,255,.18);}
+.finp:focus{border-color:rgba(41,128,185,.6);box-shadow:0 0 0 3px rgba(41,128,185,.1);}
+.finp.cor{border-color:rgba(39,174,96,.7);background:rgba(39,174,96,.08);color:#6bcf9b;}
+.finp.wrg{border-color:rgba(231,76,60,.6);background:rgba(231,76,60,.07);color:#f1948a;}
+.cbtn{padding:9px 17px;border-radius:11px;border:none;background:linear-gradient(135deg,#1a6fa8,#38bdf8);
+  color:#fff;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;
+  transition:.2s;}
+.cbtn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 18px rgba(41,128,185,.4);}
+.cbtn:disabled{opacity:.35;cursor:default;}
+
+/* PROD */
+.pta{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:11px 13px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  color:var(--white);outline:none;resize:vertical;min-height:75px;transition:.2s;position:relative;z-index:1;}
+.pta::placeholder{color:rgba(255,255,255,.18);}
+.pta:focus{border-color:rgba(230,126,34,.55);box-shadow:0 0 0 3px rgba(230,126,34,.1);}
+.pmbtn{margin-top:9px;padding:7px 15px;border-radius:10px;background:rgba(230,126,34,.1);
+  border:1px solid rgba(230,126,34,.28);color:#f0b27a;font-family:'DM Sans',sans-serif;
+  font-size:11px;font-weight:700;cursor:pointer;transition:.2s;position:relative;z-index:1;}
+.pmbtn:hover{background:rgba(230,126,34,.2);}
+.pmbox{display:none;margin-top:9px;padding:11px 13px;border-radius:11px;
+  background:rgba(230,126,34,.08);border:1px solid rgba(230,126,34,.22);
+  font-size:12px;color:#f0b27a;line-height:1.6;position:relative;z-index:1;}
+.pmbox.show{display:block;}
+
+/* FEEDBACK */
+.fb{display:none;margin-top:11px;padding:9px 13px;border-radius:11px;font-size:12px;font-weight:700;
+  line-height:1.5;position:relative;z-index:1;}
+.fb.show{display:block;}
+.fb.ok{background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);color:#6bcf9b;}
+.fb.ko{background:rgba(231,76,60,.09);border:1px solid rgba(231,76,60,.22);color:#f1948a;}
+
+/* ACTIONS */
+.ga{max-width:1180px;margin:0 auto 34px;padding:0 24px;display:flex;justify-content:center;gap:13px;flex-wrap:wrap;}
+.gbtn{padding:13px 36px;border-radius:14px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:800;
+  cursor:pointer;transition:.2s;box-shadow:0 4px 16px rgba(0,0,0,.2);}
+.gbtn:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.gbtn.go{background:linear-gradient(135deg,#1a6fa8,#38bdf8);color:#fff;}
+.gbtn.rst{background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.12);}
+.gbtn.rst:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+
+/* FINAL */
+.fin{display:none;max-width:1180px;margin:0 auto 58px;padding:0 24px;}
+.fin.show{display:block;}
+.finin{border-radius:22px;padding:38px;text-align:center;border:1px solid;}
+.finin.ex{background:rgba(39,174,96,.09);border-color:rgba(39,174,96,.3);}
+.finin.gd{background:rgba(245,158,11,.09);border-color:rgba(245,158,11,.3);}
+.finin.ko{background:rgba(231,76,60,.07);border-color:rgba(231,76,60,.25);}
+.fbig{font-size:60px;font-weight:800;line-height:1;margin-bottom:9px;}
+.finin.ex .fbig{color:#6bcf9b;}.finin.gd .fbig{color:#fbbf24;}.finin.ko .fbig{color:#f1948a;}
+.fmsg{font-size:17px;font-weight:800;margin-bottom:5px;}
+.fsub{font-size:13px;color:rgba(255,255,255,.42);}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease;}
+.rv.vis{opacity:1;transform:none;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--brd);padding:38px 24px;text-align:center;}
+.wdiv{height:2px;background:linear-gradient(90deg,transparent,#1a6fa8,#38bdf8,#1a6fa8,transparent);max-width:280px;margin:0 auto 28px;border-radius:2px;opacity:.5;}
+.flogo{font-family:'Amiri',serif;font-size:19px;color:var(--white);margin-bottom:5px;}
+.fsub2{font-size:12px;color:rgba(255,255,255,.27);}
+
+@media(max-width:600px){.qg{grid-template-columns:1fr;}.hero{padding:48px 18px 38px;}.uw{padding:0 14px 60px;}}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="grid"></div>
+<div id="pts"></div>
+
+<div class="w">
+
+<!-- NAV -->
+<nav>
+  <a class="nlogo" href="index.html">📐 <span>Prof Lahcen</span> El Madi</a>
+  <div class="ntabs">
+    <button class="ntab on" data-u="all" onclick="fu('all',this)">Tout</button>
+    <button class="ntab" data-u="u1"  onclick="fu('u1',this)">Unité 1</button>
+    <button class="ntab" data-u="u2"  onclick="fu('u2',this)">Unité 2</button>
+    <button class="ntab" data-u="u3"  onclick="fu('u3',this)">Unité 3</button>
+    <button class="ntab" data-u="u4"  onclick="fu('u4',this)">Unité 4</button>
+    <button class="ntab" data-u="u5"  onclick="fu('u5',this)">Unité 5</button>
+    <button class="ntab" data-u="u6"  onclick="fu('u6',this)">Unité 6</button>
+  </div>
+  <a class="nback" href="index.html">← Accueil</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hl">
+    <div class="hbadge">🇫🇷 Langue Française 6 AEP — Exercices Interactifs</div>
+    <h1>Français — 6 AEP<br>Année 2025 / 2026</h1>
+    <p class="hsub">Exercices interactifs complets pour les 6 unités (2 semestres) : Grammaire, Conjugaison, Orthographe, Lexique, Production écrite et Compréhension de lecture — avec correction immédiate.</p>
+    <div class="hpills">
+      <span class="hp gram">Grammaire</span>
+      <span class="hp conj">Conjugaison</span>
+      <span class="hp orth">Orthographe</span>
+      <span class="hp lexi">Lexique</span>
+      <span class="hp prod">Production</span>
+    </div>
+    <div class="hstats">
+      <div class="hs"><div class="hs-n">6</div><div class="hs-l">Unités</div></div>
+      <div class="hs"><div class="hs-n">48</div><div class="hs-l">Exercices</div></div>
+      <div class="hs"><div class="hs-n">48</div><div class="hs-l">Points</div></div>
+      <div class="hs"><div class="hs-n">2</div><div class="hs-l">Semestres</div></div>
+    </div>
+  </div>
+  <div class="hr">🇫🇷</div>
+</div>
+
+<!-- SCORE -->
+<div class="sbar">
+  <div class="sbarin">
+    <span class="slbl">Score actuel</span>
+    <div class="strk"><div class="sfil" id="sfil"></div></div>
+    <span class="sval" id="sval">0 / 48</span>
+    <button class="srst" onclick="resetAll()">↺ Réinitialiser</button>
+  </div>
+</div>
+
+<div class="uw">
+
+<!-- ═══════════════════════════════════════ UNITÉ 1 ═══════════ -->
+<div class="ub u1 rv" id="unit-u1">
+  <div class="uhd">
+    <div class="unum">1</div>
+    <div class="uinf">
+      <h2>Unité 1 — Des civilisations universelles</h2>
+      <p>Semaines 2–6 • Semestre 1 • L.D : Grenade</p>
+      <div class="upills">
+        <span class="upl">Phrase nominale / verbale</span><span class="upl">Présent des verbes usuels</span>
+        <span class="upl">Les accents</span><span class="upl">Dictionnaire</span>
+        <span class="upl">Texte narratif</span><span class="upl">Adjectif qualificatif</span>
+        <span class="upl">Imparfait usuels</span><span class="upl">Accord adjectif</span>
+        <span class="upl">Gentilés</span><span class="upl">Texte narratif/descriptif</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAMMAIRE U1 -->
+  <div class="ds">
+    <div class="dlbl dg">🔴 Grammaire</div>
+    <div class="qg">
+      <div class="qc gram" data-id="g1_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Phrase nominale / verbale</span>
+        <div class="qtxt">Laquelle de ces phrases est une <em>phrase nominale</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Les enfants jouent dans la cour.</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Magnifique journée de printemps !</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Elle mange une pomme.</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Le chat dort sur le canapé.</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc gram" data-id="g1_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Adjectif qualificatif — épithète / attribut</span>
+        <div class="qtxt">Dans « <em>Cette rose est belle</em> », l'adjectif est :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Épithète</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Apposé</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Attribut du sujet</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Complément du nom</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONJUGAISON U1 -->
+  <div class="ds">
+    <div class="dlbl dc">🔵 Conjugaison</div>
+    <div class="qg">
+      <div class="qc conj" data-id="c1_1" data-type="fill" data-ans="chante" data-alt="Chante">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Présent des verbes usuels</span>
+        <div class="qtxt">Conjuguez au présent (il) : Il ________ (chanter) sous la pluie.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="Il..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c1_2" data-type="fill" data-ans="lisait" data-alt="Lisait">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Imparfait des verbes usuels</span>
+        <div class="qtxt">Conjuguez à l'imparfait (elle) : Chaque soir, elle ________ (lire) un livre.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="elle..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORTHOGRAPHE U1 -->
+  <div class="ds">
+    <div class="dlbl do">🟢 Orthographe</div>
+    <div class="qg">
+      <div class="qc orth" data-id="o1_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Les accents</span>
+        <div class="qtxt">Quelle est l'orthographe correcte ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> un élève féroce</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> un élève féroce ✓ (repérez l'erreur dans les autres)</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> un elève feroce</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> un élêve fèroce</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc orth" data-id="o1_2" data-type="fill" data-ans="marocains" data-alt="Marocains">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Gentilés (accord)</span>
+        <div class="qtxt">Écrivez le gentilé au pluriel masculin pour le Maroc : ________</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="Les..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEXIQUE U1 -->
+  <div class="ds">
+    <div class="dlbl dl">🟣 Lexique</div>
+    <div class="qg">
+      <div class="qc lexi" data-id="l1_1" data-type="mcq" data-ans="a">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Utilisation du dictionnaire</span>
+        <div class="qtxt">Dans un dictionnaire, les mots sont classés dans quel ordre ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Ordre alphabétique</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Ordre chronologique</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Par thème</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Par longueur du mot</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTION U1 -->
+  <div class="ds">
+    <div class="dlbl dp">🟡 Production écrite</div>
+    <div class="qg">
+      <div class="qc prod" data-id="p1_1" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Mettre en ordre un texte narratif</span>
+        <div class="qtxt">Rédigez 3 phrases pour raconter un voyage ou un événement mémorable de votre vie. Utilisez des verbes au passé.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="L'année dernière, je suis allé(e)..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm1_1')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm1_1">✅ <strong>Modèle :</strong> « L'année dernière, nous avons visité Grenade, une ville andalouse magnifique. Nous avons admiré les jardins de l'Alhambra et ses fontaines cristallines. Ce voyage m'a appris l'importance de découvrir d'autres civilisations. »</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /u1 -->
+
+<!-- ═══════════════════════════════════════ UNITÉ 2 ═══════════ -->
+<div class="ub u2 rv" id="unit-u2">
+  <div class="uhd">
+    <div class="unum">2</div>
+    <div class="uinf">
+      <h2>Unité 2 — La citoyenneté et le comportement civique</h2>
+      <p>Semaines 7–11 • Semestre 1 • L.D : L'homme qui te ressemble</p>
+      <div class="upills">
+        <span class="upl">Pronominalisation du verbe</span><span class="upl">Passé composé</span>
+        <span class="upl">Accord verbe/sujet</span><span class="upl">Synonymes</span>
+        <span class="upl">BD (bulles)</span><span class="upl">Phrase interrogative</span>
+        <span class="upl">Futur simple</span><span class="upl">Accord participe passé</span>
+        <span class="upl">Lexique citoyenneté</span><span class="upl">Interview</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dg">🔴 Grammaire</div>
+    <div class="qg">
+      <div class="qc gram" data-id="g2_1" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Pronominalisation des compléments du verbe</span>
+        <div class="qtxt">Remplacez le COD : « Il lit <em>ce livre</em>. » → Il ________ lit.</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> lui</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> y</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> le</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> en</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc gram" data-id="g2_2" data-type="fill" data-ans="Est-ce que tu viens demain ?" data-alt="Viens-tu demain ?|Tu viens demain ?|Viens tu demain">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Phrase interrogative</span>
+        <div class="qtxt">Transformez en phrase interrogative : « Tu viens demain. » → ________</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dc">🔵 Conjugaison</div>
+    <div class="qg">
+      <div class="qc conj" data-id="c2_1" data-type="fill" data-ans="sont allés" data-alt="sont allées|sont allé">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Passé composé des verbes usuels</span>
+        <div class="qtxt">Conjuguez au passé composé (ils) : Ils ________ (aller) au marché hier.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="Ils..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c2_2" data-type="fill" data-ans="viendront" data-alt="Viendront">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Futur simple des verbes usuels</span>
+        <div class="qtxt">Conjuguez au futur simple (ils) : L'an prochain, ils ________ (venir) nous rendre visite.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="ils..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl do">🟢 Orthographe</div>
+    <div class="qg">
+      <div class="qc orth" data-id="o2_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Accord du verbe avec le sujet</span>
+        <div class="qtxt">Choisissez la bonne forme : « Les enfants ________ dans le parc. »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> joue</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> jouent</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> joues</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> jouez</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc orth" data-id="o2_2" data-type="mcq" data-ans="a">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Accord du participe passé avec « être »</span>
+        <div class="qtxt">Choisissez la bonne forme : « Les filles sont ________ à l'école. »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> allées</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> allés</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> allé</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> aller</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dl">🟣 Lexique</div>
+    <div class="qg">
+      <div class="qc lexi" data-id="l2_1" data-type="fill" data-ans="généreux" data-alt="généreux|courageux|solidaire|honnête">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Synonymes — Citoyenneté</span>
+        <div class="qtxt">Donnez un synonyme du mot <em>« altruiste »</em> (qui pense aux autres) : ________</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dp">🟡 Production écrite</div>
+    <div class="qg">
+      <div class="qc prod" data-id="p2_1" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Compléter une interview</span>
+        <div class="qtxt">Rédigez 2 questions et 2 réponses pour une interview sur <em>la solidarité dans votre quartier</em>.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Question 1 : ...&#10;Réponse 1 : ..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm2_1')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm2_1">✅ <strong>Modèle :</strong><br>« — Comment manifestez-vous votre solidarité avec vos voisins ?<br>— J'aide les personnes âgées à porter leurs courses et je participe aux journées de nettoyage du quartier. »</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /u2 -->
+
+<!-- ═══════════════════════════════════════ UNITÉ 3 ═══════════ -->
+<div class="ub u3 rv" id="unit-u3">
+  <div class="uhd">
+    <div class="unum">3</div>
+    <div class="uinf">
+      <h2>Unité 3 — Sciences et technologies</h2>
+      <p>Semaines 12–17 • Semestre 1 • L.D : Virtuel</p>
+      <div class="upills">
+        <span class="upl">La négation</span><span class="upl">Impératif 1er groupe</span>
+        <span class="upl">Mots en -euil/-aille</span><span class="upl">Antonymes</span>
+        <span class="upl">Texte informatif</span><span class="upl">La cause</span>
+        <span class="upl">Conditionnel 1er et 2e gr</span><span class="upl">Tout/toute/tous/toutes</span>
+        <span class="upl">Lexique sciences/technologies</span><span class="upl">Texte argumentatif</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dg">🔴 Grammaire</div>
+    <div class="qg">
+      <div class="qc gram" data-id="g3_1" data-type="mcq" data-ans="d">
+        <div class="qtop"><div class="qmeta"><span class="qtag">La négation</span>
+        <div class="qtxt">Mettez à la forme négative : « Il mange toujours. » →</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Il ne mange pas toujours.</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Il mange jamais.</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Il ne mange rien.</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Il ne mange jamais.</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc gram" data-id="g3_2" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">La cause</span>
+        <div class="qtxt">Quel connecteur introduit une cause ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> donc</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> parce que</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> mais</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> puis</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dc">🔵 Conjugaison</div>
+    <div class="qg">
+      <div class="qc conj" data-id="c3_1" data-type="fill" data-ans="Lisez" data-alt="lisez">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Impératif — 1er groupe (vous)</span>
+        <div class="qtxt">Mettez à l'impératif (vous) : ________ (lire) cet article avec attention !</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c3_2" data-type="fill" data-ans="utiliserait" data-alt="Utiliserait">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Conditionnel présent — 1er groupe</span>
+        <div class="qtxt">Au conditionnel présent (il) : Si internet n'existait pas, il ________ (utiliser) des encyclopédies.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="il..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl do">🟢 Orthographe</div>
+    <div class="qg">
+      <div class="qc orth" data-id="o3_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Mots terminés en -euil / -eille / -ail / -aille</span>
+        <div class="qtxt">Choisissez le mot bien orthographié :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> un abeille</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> une abeille</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> un abeil</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> une abellie</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc orth" data-id="o3_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Tout / toute / tous / toutes</span>
+        <div class="qtxt">Choisissez la bonne forme : « ________ les élèves ont réussi. »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Tout</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Toute</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Tous</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Toutes</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dl">🟣 Lexique</div>
+    <div class="qg">
+      <div class="qc lexi" data-id="l3_1" data-type="fill" data-ans="inutile" data-alt="Inutile|inefficace|Inefficace">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Antonymes</span>
+        <div class="qtxt">Donnez l'antonyme de <em>« utile »</em> : ________</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc lexi" data-id="l3_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Lexique thématique — Sciences et technologies</span>
+        <div class="qtxt">Quel mot appartient au champ lexical de la <em>technologie</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> roseau</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> montagne</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> algorithme</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> tendresse</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dp">🟡 Production écrite</div>
+    <div class="qg">
+      <div class="qc prod" data-id="p3_1" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Produire un texte argumentatif</span>
+        <div class="qtxt">Rédigez 3 phrases pour défendre le point de vue suivant : <em>« Les nouvelles technologies améliorent la vie. »</em></div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Selon moi, les technologies..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm3_1')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm3_1">✅ <strong>Modèle :</strong> « Selon moi, les nouvelles technologies améliorent considérablement la vie quotidienne. En effet, elles facilitent l'accès à l'information et permettent de communiquer avec le monde entier en quelques secondes. De plus, elles offrent de nombreuses solutions dans les domaines de la médecine, de l'éducation et de l'environnement. »</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /u3 -->
+
+<!-- ═══════════════════════════════════════ UNITÉ 4 ═══════════ -->
+<div class="ub u4 rv" id="unit-u4">
+  <div class="uhd">
+    <div class="unum">4</div>
+    <div class="uinf">
+      <h2>Unité 4 — L'énergie dans notre vie</h2>
+      <p>Semaines 18–22 • Semestre 2 • L.D : Le vieux moulin</p>
+      <div class="upills">
+        <span class="upl">CCL et CCT</span><span class="upl">Conditionnel présent (3e gr + pronominal)</span>
+        <span class="upl">Pluriel -al/-ail</span><span class="upl">Préfixes et suffixes</span>
+        <span class="upl">Texte explicatif</span><span class="upl">Expansion / Réduction</span>
+        <span class="upl">Impératif 2e groupe</span><span class="upl">Quel(s)/Quelle(s)/Qu'elle(s)</span>
+        <span class="upl">Lexique énergie</span><span class="upl">Slogan affiche</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dg">🔴 Grammaire</div>
+    <div class="qg">
+      <div class="qc gram" data-id="g4_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">CCL et CCT</span>
+        <div class="qtxt">Dans « <em>Il joue dans le jardin tous les soirs</em> », quel est le CCL ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> tous les soirs</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> dans le jardin</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Il joue</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> joue dans</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc gram" data-id="g4_2" data-type="mcq" data-ans="a">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Expansion et réduction de la phrase</span>
+        <div class="qtxt">Laquelle est la phrase réduite de « <em>La petite fille sage chante une belle chanson</em> » ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> La fille chante une chanson.</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Elle chante joyeusement.</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> La fille sage chante bien.</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Chanter une chanson.</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dc">🔵 Conjugaison</div>
+    <div class="qg">
+      <div class="qc conj" data-id="c4_1" data-type="fill" data-ans="partirait" data-alt="Partirait">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Conditionnel présent — 3e groupe</span>
+        <div class="qtxt">Conditionnel présent (il) : Si elle avait le temps, elle ________ (partir) en vacances.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="elle..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c4_2" data-type="fill" data-ans="finissez" data-alt="Finissez">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Impératif — 2e groupe (vous)</span>
+        <div class="qtxt">Impératif présent (vous) : ________ (finir) cet exercice maintenant !</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl do">🟢 Orthographe</div>
+    <div class="qg">
+      <div class="qc orth" data-id="o4_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Pluriel des noms en -al</span>
+        <div class="qtxt">Quel est le pluriel correct de <em>« journal »</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> journals</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> journaux</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> journales</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> journauls</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc orth" data-id="o4_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Quel(s) / Quelle(s) / Qu'elle(s)</span>
+        <div class="qtxt">Choisissez la bonne orthographe : « ________ belle journée ! »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Quel</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Qu'elle</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Quelle</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Quelles</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dl">🟣 Lexique</div>
+    <div class="qg">
+      <div class="qc lexi" data-id="l4_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Préfixes et suffixes</span>
+        <div class="qtxt">Le préfixe <em>« re- »</em> dans <em>« recharger »</em> signifie :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Charger avant</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Charger à nouveau</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Ne pas charger</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Charger rapidement</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc lexi" data-id="l4_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Lexique thématique — Énergie</span>
+        <div class="qtxt">Quel mot appartient au champ lexical de <em>l'énergie</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> fleur</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> cahier</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> combustible</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> chagrin</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dp">🟡 Production écrite</div>
+    <div class="qg">
+      <div class="qc prod" data-id="p4_1" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Compléter un texte explicatif</span>
+        <div class="qtxt">Ajoutez une phrase expliquant <em>comment fonctionne un panneau solaire</em>.<br><em style="font-size:11px;color:rgba(255,255,255,.4)">« L'énergie solaire est propre. [Votre phrase.] Elle est essentielle pour l'avenir. »</em></div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Les panneaux..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm4_1')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm4_1">✅ <strong>Modèle :</strong> « Les panneaux photovoltaïques captent la lumière du soleil et la transforment en électricité grâce à des cellules semi-conductrices. »</div>
+      </div>
+      <div class="qc prod" data-id="p4_2" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Écrire un slogan pour une affiche</span>
+        <div class="qtxt">Rédigez un slogan accrocheur pour une affiche de sensibilisation sur <em>les économies d'énergie</em>.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Votre slogan ici..." style="min-height:60px;"></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm4_2')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm4_2">✅ <strong>Modèle :</strong> « Éteins la lumière, allume l'avenir ! Chaque geste compte pour la planète. »</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /u4 -->
+
+<!-- ═══════════════════════════════════════ UNITÉ 5 ═══════════ -->
+<div class="ub u5 rv" id="unit-u5">
+  <div class="uhd">
+    <div class="unum">5</div>
+    <div class="uinf">
+      <h2>Unité 5 — Les défis de la vie contemporaine</h2>
+      <p>Semaines 23–27 • Semestre 2 • L.D : La paix sur terre</p>
+      <div class="upills">
+        <span class="upl">CCM</span><span class="upl">Présent verbes pronominaux</span>
+        <span class="upl">Pluriel -ou/-eu</span><span class="upl">Mot étiquette</span>
+        <span class="upl">Récit (souvenir)</span><span class="upl">Voix active / passive</span>
+        <span class="upl">Passé composé pronominal</span><span class="upl">Peu, peux, peut</span>
+        <span class="upl">Lexique vie contemporaine</span><span class="upl">Article informatif</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dg">🔴 Grammaire</div>
+    <div class="qg">
+      <div class="qc gram" data-id="g5_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Le CCM (Complément Circonstanciel de Manière)</span>
+        <div class="qtxt">Dans « <em>Il travaille avec soin</em> », le groupe souligné est un :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> CCL</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> CCM</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> CCT</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Sujet</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc gram" data-id="g5_2" data-type="mcq" data-ans="d">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Voix active et voix passive</span>
+        <div class="qtxt">Transformez à la voix passive : « <em>Le chat mange la souris.</em> »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Le chat est mangé par la souris.</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> La souris mange le chat.</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> La souris est mangée par elle.</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> La souris est mangée par le chat.</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dc">🔵 Conjugaison</div>
+    <div class="qg">
+      <div class="qc conj" data-id="c5_1" data-type="fill" data-ans="se réveille" data-alt="Se réveille|se reveille|Se reveille">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Présent des verbes pronominaux usuels</span>
+        <div class="qtxt">Conjuguez au présent (elle) : Chaque matin, elle ________ (se réveiller) à 7h.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="elle..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c5_2" data-type="mcq" data-ans="a">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Peu / Peux / Peut</span>
+        <div class="qtxt">« Je ne ________ pas venir, j'ai ________ de temps. »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> peux / peu</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> peut / peu</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> peu / peux</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> peux / peut</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl do">🟢 Orthographe</div>
+    <div class="qg">
+      <div class="qc orth" data-id="o5_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Pluriel des noms en -ou</span>
+        <div class="qtxt">Quel est le pluriel correct de <em>« genou »</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> genous</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> genoux</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> genoues</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> genou</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc orth" data-id="o5_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Pluriel des noms en -eu</span>
+        <div class="qtxt">Quel est le pluriel de <em>« feu »</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> feus</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> feues</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> feux</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> feaux</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dl">🟣 Lexique</div>
+    <div class="qg">
+      <div class="qc lexi" data-id="l5_1" data-type="mcq" data-ans="d">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Le mot étiquette</span>
+        <div class="qtxt">Un mot étiquette est un mot :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> très rare</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> inventé</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> familier</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> générique désignant une catégorie (ex: « animal »)</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc lexi" data-id="l5_2" data-type="fill" data-ans="contemporaine" data-alt="Contemporaine|moderne|actuelle">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Lexique thématique — Vie contemporaine</span>
+        <div class="qtxt">Donnez un synonyme de « actuelle » dans <em>« la vie ________ »</em>.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dp">🟡 Production écrite</div>
+    <div class="qg">
+      <div class="qc prod" data-id="p5_1" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Produire un récit (souvenir, événement)</span>
+        <div class="qtxt">Rédigez 3 phrases racontant un souvenir marquant : lieu, action, émotion ressentie.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Je me souviens de..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm5_1')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm5_1">✅ <strong>Modèle :</strong> « Je me souviens encore de ce matin d'hiver où j'ai vu la mer pour la première fois. L'eau scintillait sous le soleil et une joie immense m'envahissait. Ce moment reste gravé dans ma mémoire à jamais. »</div>
+      </div>
+      <div class="qc prod" data-id="p5_2" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Produire un article de journal à visée informative</span>
+        <div class="qtxt">Rédigez le chapeau d'un article informatif (2–3 phrases) sur <em>la famine dans le monde</em>.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Chaque jour dans le monde..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm5_2')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm5_2">✅ <strong>Modèle :</strong> « Chaque jour, des millions de personnes dans le monde souffrent de la faim. Cette situation alarmante touche principalement les pays en développement d'Afrique et d'Asie. Des organisations internationales se mobilisent pour apporter une aide d'urgence. »</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /u5 -->
+
+<!-- ═══════════════════════════════════════ UNITÉ 6 ═══════════ -->
+<div class="ub u6 rv" id="unit-u6">
+  <div class="uhd">
+    <div class="unum">6</div>
+    <div class="uinf">
+      <h2>Unité 6 — Art et créativité</h2>
+      <p>Semaines 28–32 • Semestre 2 • L.D : Mon théâtre</p>
+      <div class="upills">
+        <span class="upl">La comparaison</span><span class="upl">Impératif 3e gr + pronominal</span>
+        <span class="upl">Pluriel mots composés</span><span class="upl">Lexique art et créativité</span>
+        <span class="upl">Texte descriptif (portrait)</span><span class="upl">Discours direct et indirect</span>
+        <span class="upl">Imparfait verbes pronominaux</span><span class="upl">Mots invariables</span>
+        <span class="upl">Noms composés</span><span class="upl">Texte descriptif (lieu)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dg">🔴 Grammaire</div>
+    <div class="qg">
+      <div class="qc gram" data-id="g6_1" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">La comparaison</span>
+        <div class="qtxt">Construisez une phrase comparative correcte (ville / campagne / calme) :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> La ville est aussi calme que la campagne.</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> La campagne est moins belle que la ville.</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> La campagne est plus calme que la ville.</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> La ville est calme, la campagne aussi.</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc gram" data-id="g6_2" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Discours direct et indirect</span>
+        <div class="qtxt">Mettez au discours indirect : <br>Il dit : « <em>Je suis fatigué.</em> »</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Il dit qu'il est fatigué demain.</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Il dit qu'il est fatigué.</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Il dit que je suis fatigué.</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Il a dit : je suis fatigué.</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dc">🔵 Conjugaison</div>
+    <div class="qg">
+      <div class="qc conj" data-id="c6_1" data-type="fill" data-ans="Venez" data-alt="venez">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Impératif — 3e groupe (vous)</span>
+        <div class="qtxt">Impératif présent (vous) : ________ (venir) ici tout de suite !</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c6_2" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Impératif — Pronominal (tu)</span>
+        <div class="qtxt">« se dépêcher » à l'impératif présent (tu) :</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> Te dépêche !</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> Dépêche-toi !</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> Dépêche tu !</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> Te dépêches !</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc conj" data-id="c6_3" data-type="fill" data-ans="se promenait" data-alt="Se promenait">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Imparfait — Verbes pronominaux usuels</span>
+        <div class="qtxt">Imparfait (elle) : Chaque soir, elle ________ (se promener) dans le parc.</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="elle..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl do">🟢 Orthographe</div>
+    <div class="qg">
+      <div class="qc orth" data-id="o6_1" data-type="mcq" data-ans="a">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Pluriel des mots composés</span>
+        <div class="qtxt">Quel est le pluriel correct de <em>« un arc-en-ciel »</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> des arcs-en-ciel</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> des arc-en-ciels</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> des arcs-en-ciels</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> des arc-en-ciel</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc orth" data-id="o6_2" data-type="mcq" data-ans="c">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Les mots invariables</span>
+        <div class="qtxt">Lequel de ces mots est <em>invariable</em> (ne change jamais) ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> beau</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> grand</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> toujours</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> rapide</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dl">🟣 Lexique</div>
+    <div class="qg">
+      <div class="qc lexi" data-id="l6_1" data-type="mcq" data-ans="b">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Lexique thématique — Art et créativité</span>
+        <div class="qtxt">Quel mot appartient au champ lexical de <em>l'art</em> ?</div></div><span class="qpts">1 pt</span></div>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ol">A</span> tracteur</button>
+          <button class="opt" data-v="b"><span class="ol">B</span> palette</button>
+          <button class="opt" data-v="c"><span class="ol">C</span> robinet</button>
+          <button class="opt" data-v="d"><span class="ol">D</span> escalier</button>
+        </div>
+        <div class="fb"></div>
+      </div>
+      <div class="qc lexi" data-id="l6_2" data-type="fill" data-ans="noms composés" data-alt="nom composé|Noms composés|Nom composé">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Les noms composés</span>
+        <div class="qtxt">« Porte-clé », « couvre-lit », « tire-bouchon » sont des ________ .</div></div><span class="qpts">1 pt</span></div>
+        <div class="frow"><input class="finp" type="text" placeholder="..."><button class="cbtn">Vérifier</button></div>
+        <div class="fb"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds">
+    <div class="dlbl dp">🟡 Production écrite</div>
+    <div class="qg">
+      <div class="qc prod" data-id="p6_1" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Produire un texte descriptif — Portrait</span>
+        <div class="qtxt">Rédigez un portrait de 3 phrases d'un artiste (acteur, peintre ou poète) : physique + caractère + talent.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="Il/Elle est..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm6_1')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm6_1">✅ <strong>Modèle :</strong> « Nouaman Lahlou est un artiste marocain au regard pénétrant et au sourire chaleureux. Poète et comédien de talent, il possède une voix unique qui envoûte son auditoire. Sa sensibilité et sa créativité font de lui une figure incontournable de la scène artistique contemporaine. »</div>
+      </div>
+      <div class="qc prod" data-id="p6_2" data-type="prod">
+        <div class="qtop"><div class="qmeta"><span class="qtag">Produire un texte descriptif — Lieu</span>
+        <div class="qtxt">Décrivez en 3–4 phrases un lieu artistique (cinéma, théâtre, musée) : ambiance, couleurs, sons, émotions.</div></div><span class="qpts">1 pt</span></div>
+        <textarea class="pta" placeholder="En entrant dans ce lieu..."></textarea>
+        <button class="pmbtn" onclick="tm(this,'pm6_2')">💡 Voir un modèle</button>
+        <div class="pmbox" id="pm6_2">✅ <strong>Modèle :</strong> « En entrant dans ce théâtre, une lumière tamisée enveloppe la salle dans une atmosphère magique. Le velours rouge des sièges contraste avec l'or des ornements du plafond. On entend les murmures impatients du public qui attend le lever du rideau. Ici, le temps semble suspendu dans l'attente de l'art. »</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /u6 -->
+
+</div><!-- /uw -->
+
+<!-- ACTIONS -->
+<div class="ga">
+  <button class="gbtn go"  onclick="submitAll()">✅ Tout corriger</button>
+  <button class="gbtn rst" onclick="resetAll()">↺ Recommencer</button>
+</div>
+
+<!-- FINAL -->
+<div class="fin" id="fin">
+  <div class="finin" id="finin">
+    <div class="fbig" id="fbig"></div>
+    <div class="fmsg" id="fmsg"></div>
+    <div class="fsub" id="fsub"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wdiv"></div>
+  <div class="flogo">📐 Prof Lahcen El Madi</div>
+  <div class="fsub2">Groupe scolaire Zaafrane · Français 6 AEP · Année scolaire 2025–2026</div>
+</footer>
+
+</div><!-- /w -->
+
+<script>
+/* PARTICLES */
+(function(){
+  const c=document.getElementById('pts');
+  const cols=['#7ec8f7','#f1948a','#6bcf9b','#c39bd3','#f0b27a','#76d7c4'];
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div'); p.className='particle';
+    const sz=2+Math.random()*4;
+    p.style.cssText=`width:${sz}px;height:${sz}px;background:${cols[~~(Math.random()*cols.length)]};left:${Math.random()*100}vw;animation-duration:${9+Math.random()*12}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(p);
+  }
+})();
+
+/* REVEAL */
+const obs=new IntersectionObserver(entries=>entries.forEach((e,i)=>{
+  if(e.isIntersecting) setTimeout(()=>e.target.classList.add('vis'),i*90);
+}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+/* STATE */
+const ans={};
+const TOTAL=48;
+
+function upd(){
+  const s=Object.values(ans).filter(v=>v===true).length;
+  document.getElementById('sval').textContent=s+' / '+TOTAL;
+  document.getElementById('sfil').style.width=(s/TOTAL*100)+'%';
+}
+
+/* MCQ */
+document.querySelectorAll('.qc[data-type="mcq"] .opt').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const card=this.closest('.qc');
+    if(card.dataset.locked) return;
+    card.querySelectorAll('.opt').forEach(b=>b.classList.remove('sel'));
+    this.classList.add('sel');
+  });
+});
+
+/* FILL */
+document.querySelectorAll('.qc[data-type="fill"] .cbtn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const card=this.closest('.qc');
+    if(card.dataset.locked) return;
+    const inp=card.querySelector('.finp');
+    const v=inp.value.trim();
+    const a=card.dataset.ans;
+    const alts=(card.dataset.alt||'').split('|').filter(Boolean);
+    const ok=chk(v,a,alts);
+    inp.classList.add(ok?'cor':'wrg');
+    sfb(card,ok,a); lck(card,ok);
+    this.disabled=true; inp.disabled=true;
+    ans[card.dataset.id]=ok; upd();
+  });
+});
+
+function chk(v,a,alts){
+  const vl=v.toLowerCase(), al=a.toLowerCase();
+  if(vl===al) return true;
+  return alts.some(x=>x.toLowerCase()===vl);
+}
+function sfb(card,ok,a){
+  const fb=card.querySelector('.fb');
+  fb.className='fb show '+(ok?'ok':'ko');
+  fb.textContent=ok?'✅ Bonne réponse ! Bravo 🎉':'❌ Réponse incorrecte. La bonne réponse est : « '+a+' »';
+}
+function lck(card,ok){ card.dataset.locked='1'; card.classList.add(ok?'vok':'vko'); }
+
+/* SUBMIT ALL */
+function submitAll(){
+  document.querySelectorAll('.qc').forEach(card=>{
+    if(card.dataset.locked) return;
+    const type=card.dataset.type, a=card.dataset.ans;
+    if(type==='mcq'){
+      const sel=card.querySelector('.opt.sel');
+      const ok=sel&&sel.dataset.v===a;
+      card.querySelectorAll('.opt').forEach(b=>{
+        if(b.dataset.v===a) b.classList.add('cor');
+        else if(b.classList.contains('sel')) b.classList.add('wrg');
+        b.disabled=true;
+      });
+      const lbl=card.querySelector('.opt[data-v="'+a+'"]');
+      sfb(card,ok,lbl?lbl.textContent.trim():'—'); lck(card,ok);
+      ans[card.dataset.id]=ok;
+    } else if(type==='fill'){
+      const inp=card.querySelector('.finp');
+      const v=inp.value.trim();
+      const alts=(card.dataset.alt||'').split('|').filter(Boolean);
+      const ok=chk(v,a,alts);
+      inp.classList.add(ok?'cor':'wrg');
+      sfb(card,ok,a); lck(card,ok);
+      inp.disabled=true;
+      const b=card.querySelector('.cbtn'); if(b) b.disabled=true;
+      ans[card.dataset.id]=ok;
+    } else if(type==='prod'){
+      const ta=card.querySelector('.pta');
+      const ok=ta&&ta.value.trim().length>12;
+      lck(card,ok); ans[card.dataset.id]=ok;
+    }
+  });
+  upd(); showRes();
+}
+
+function showRes(){
+  const s=Object.values(ans).filter(v=>v===true).length;
+  const box=document.getElementById('fin');
+  const inn=document.getElementById('finin');
+  document.getElementById('fbig').textContent=s+' / '+TOTAL;
+  if(s>=40){inn.className='finin ex';document.getElementById('fmsg').textContent='Excellent ! Performance remarquable 🌟';document.getElementById('fsub').textContent='Tu maîtrises parfaitement les 6 unités des deux semestres. Félicitations !';}
+  else if(s>=24){inn.className='finin gd';document.getElementById('fmsg').textContent='Bien ! Résultat satisfaisant 👍';document.getElementById('fsub').textContent='Revois les notions où tu as fait des erreurs pour progresser encore.';}
+  else{inn.className='finin ko';document.getElementById('fmsg').textContent='À retravailler 📚';document.getElementById('fsub').textContent='Relis tes leçons attentivement et recommence. Chaque effort compte !';}
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+/* RESET */
+function resetAll(){
+  Object.keys(ans).forEach(k=>delete ans[k]);
+  document.querySelectorAll('.qc').forEach(card=>{
+    delete card.dataset.locked;
+    card.classList.remove('vok','vko');
+    card.querySelectorAll('.opt').forEach(b=>{b.classList.remove('sel','cor','wrg');b.disabled=false;});
+    const inp=card.querySelector('.finp');
+    if(inp){inp.value='';inp.className='finp';inp.disabled=false;}
+    const cb=card.querySelector('.cbtn');if(cb)cb.disabled=false;
+    const ta=card.querySelector('.pta');if(ta)ta.value='';
+    const fb=card.querySelector('.fb');if(fb)fb.className='fb';
+  });
+  document.querySelectorAll('.pmbox').forEach(m=>m.classList.remove('show'));
+  document.getElementById('sval').textContent='0 / '+TOTAL;
+  document.getElementById('sfil').style.width='0%';
+  document.getElementById('fin').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* FILTER */
+function fu(u,tabEl){
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  tabEl.classList.add('on');
+  document.querySelectorAll('.ub').forEach(b=>{
+    b.style.display=(u==='all'||b.id==='unit-'+u)?'':'none';
+  });
+}
+
+/* PROD MODEL */
+function tm(btn,id){
+  const m=document.getElementById(id);
+  m.classList.toggle('show');
+  const card=btn.closest('.qc');
+  if(!ans[card.dataset.id]) ans[card.dataset.id]='seen';
+}
+</script>
+</body>
+</html>
