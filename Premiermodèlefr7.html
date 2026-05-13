@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Français 6AEP - Exercices annuels</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇫🇷</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0b1e4a;
+  --blue: #1b51bd;
+  --blue2: #2563eb;
+  --cyan: #38bdf8;
+  --gold: #f59e0b;
+  --white: #f8faff;
+  --card: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.10);
+  --radius: 22px;
+  --green: #27ae60;
+  --red: #e74c3c;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', Arial, sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(37,99,235,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56,189,248,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(11,30,74,1) 0%, #060e24 100%);
+  pointer-events: none;
+}
+
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: .6; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { from { transform: translate(-50%,-50%) scale(.9); } to { transform: translate(-50%,-50%) scale(1.1); } }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+.wrapper { position: relative; z-index: 1; }
+
+.top-nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: min(1080px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+}
+
+.brand-link,
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.62);
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: color .2s, background .2s;
+}
+
+.nav-links a:hover {
+  color: var(--cyan);
+  background: rgba(56,189,248,0.10);
+}
+
+header {
+  min-height: 88vh;
+  padding: 94px 24px 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.3);
+  padding: 7px 22px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: .5px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  animation: fadeDown .8s ease both;
+}
+
+.badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: var(--cyan);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+.avatar-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue2), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  margin: 0 auto 30px;
+  box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5);
+  animation: fadeDown .9s .1s ease both, ringRotate 8s linear infinite;
+  position: relative;
+}
+
+@keyframes ringRotate {
+  0% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+  50% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), -4px 0 15px rgba(245,158,11,0.3); }
+  100% { box-shadow: 0 0 0 4px rgba(56,189,248,0.2), 0 0 40px rgba(37,99,235,0.5), 4px 0 15px rgba(56,189,248,0.3); }
+}
+
+header h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(34px, 5.5vw, 62px);
+  font-weight: 700;
+  line-height: 1.18;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, #fff 30%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeDown 1s .2s ease both;
+}
+
+.header-sub {
+  font-size: clamp(15px, 2.2vw, 20px);
+  color: rgba(255,255,255,0.62);
+  font-weight: 500;
+  max-width: 840px;
+  margin-bottom: 12px;
+  animation: fadeDown 1s .3s ease both;
+}
+
+.school-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 5px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 42px;
+  animation: fadeDown 1s .4s ease both;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 46px;
+  animation: fadeUp 1s .5s ease both;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  padding: 14px 26px;
+  border-radius: 14px;
+  text-align: center;
+  min-width: 112px;
+}
+
+.stat-num { font-size: 26px; font-weight: 900; color: var(--cyan); line-height: 1; }
+.stat-lbl { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; font-weight: 700; }
+
+.scroll-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.44);
+  font-size: 13px;
+  animation: fadeUp 1s .8s ease both;
+  cursor: pointer;
+}
+
+.scroll-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  animation: bounce 1.6s ease-in-out infinite;
+}
+
+.section {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 74px 24px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 30px;
+  background: var(--cyan);
+  opacity: .4;
+}
+
+.section-title {
+  font-family: 'Amiri', serif;
+  font-size: clamp(25px, 3.5vw, 40px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.54);
+  margin-bottom: 34px;
+  max-width: 740px;
+}
+
+.score-panel,
+.unit-card,
+.mission,
+.writing-card,
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.score-panel {
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  position: sticky;
+  top: 92px;
+  z-index: 4;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.score-main strong {
+  display: block;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.score-value {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 900;
+  color: var(--cyan);
+  line-height: 1;
+}
+
+.score-details,
+.mini-note {
+  color: rgba(255,255,255,0.48);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Tajawal', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+button:hover { transform: translateY(-2px); }
+button:active { transform: scale(.98); }
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  box-shadow: 0 8px 28px rgba(37,99,235,0.35);
+}
+
+.ghost-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.82);
+}
+
+.model-btn {
+  background: rgba(245,158,11,0.14);
+  border: 1px solid rgba(245,158,11,0.26);
+  color: var(--gold);
+  padding: 10px 13px;
+  font-size: 13px;
+}
+
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.unit-card {
+  padding: 22px;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.unit-card:hover,
+.writing-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56,189,248,0.26);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.24);
+}
+
+.unit-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.unit-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.20);
+  font-size: 24px;
+}
+
+.unit-semester {
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--gold);
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 999px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.unit-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+
+.unit-card p {
+  color: rgba(255,255,255,0.52);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.chip {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.missions-list {
+  display: grid;
+  gap: 20px;
+}
+
+.mission summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.mission summary::-webkit-details-marker { display: none; }
+
+.mission-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mission-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex: 0 0 auto;
+}
+
+.mission h3 {
+  font-size: 19px;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+.mission small {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mission-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.55);
+  transition: transform .25s ease, color .25s ease;
+}
+
+.mission[open] .mission-arrow {
+  transform: rotate(180deg);
+  color: var(--cyan);
+}
+
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.question {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+  transition: border-color .2s, background .2s;
+}
+
+.question.correct {
+  border-color: rgba(39,174,96,0.55);
+  background: rgba(39,174,96,0.09);
+}
+
+.question.wrong {
+  border-color: rgba(231,76,60,0.55);
+  background: rgba(231,76,60,0.09);
+}
+
+.question label,
+.prompt {
+  display: block;
+  color: var(--white);
+  font-weight: 800;
+  line-height: 1.55;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+select,
+textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--white);
+  outline: none;
+  font-family: 'Tajawal', Arial, sans-serif;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+select option {
+  color: #0b1e4a;
+  background: #f8faff;
+}
+
+select:focus,
+textarea:focus {
+  border-color: rgba(56,189,248,0.55);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.10);
+}
+
+textarea {
+  min-height: 116px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+textarea::placeholder { color: rgba(255,255,255,0.32); }
+
+.feedback {
+  min-height: 38px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.50);
+}
+
+.feedback.good { color: #8ff0b0; font-weight: 800; }
+.feedback.bad { color: #ffb4aa; font-weight: 800; }
+
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.writing-card {
+  padding: 22px 20px;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+
+.writing-card p:not(.prompt):not(.model) {
+  color: rgba(255,255,255,0.52);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.criteria {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.criteria label {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.criteria input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  accent-color: var(--cyan);
+}
+
+.model {
+  display: none;
+  margin-top: 12px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(245,158,11,0.10);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: rgba(255,255,255,0.76);
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.model.show { display: block; }
+
+.summary-card {
+  padding: 26px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(56,189,248,0.10);
+  border: 1px solid rgba(56,189,248,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.summary-text strong {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.summary-text span {
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 1px;
+}
+
+.wave-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue2), var(--cyan), var(--blue2), transparent);
+  margin: 0 auto;
+  max-width: 300px;
+  border-radius: 2px;
+  opacity: .5;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 50px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  direction: rtl;
+}
+
+.footer-logo {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.footer-sub { font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 22px; }
+.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--cyan); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media(max-width:760px) {
+  .top-nav {
+    position: static;
+    transform: none;
+    width: calc(100% - 24px);
+    margin: 12px auto 0;
+    flex-direction: column;
+  }
+
+  header {
+    min-height: auto;
+    padding: 52px 18px 44px;
+  }
+
+  .score-panel {
+    position: static;
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions button {
+    flex: 1 1 140px;
+  }
+
+  .mission summary {
+    align-items: flex-start;
+  }
+
+  .section {
+    padding: 52px 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="grid-overlay"></div>
+<div id="particles"></div>
+
+<div class="wrapper">
+  <nav class="top-nav" dir="rtl">
+    <a class="brand-link" href="index.html">📐 فضاء التمارين</a>
+    <div class="nav-links">
+      <a href="#units">الوحدات</a>
+      <a href="#missions">التمارين</a>
+      <a href="#writing">الإنتاج الكتابي</a>
+      <a href="#score">النقطة</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="header-glow"></div>
+    <div class="badge">Français 6AEP - Semestres 1 et 2</div>
+    <div class="avatar-ring">🇫🇷</div>
+    <h1>Exercices annuels de français</h1>
+    <p class="header-sub">Une page interactive couvrant les six unités: civilisations, citoyenneté, sciences, énergie, défis contemporains, art et créativité.</p>
+    <div class="school-tag">6AEP • 2025 - 2026 • Correction immédiate</div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-lbl">unités</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">36</div>
+        <div class="stat-lbl">questions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-lbl">productions</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">60</div>
+        <div class="stat-lbl">points</div>
+      </div>
+    </div>
+
+    <div class="scroll-cta" onclick="document.getElementById('score').scrollIntoView({behavior:'smooth'})">
+      <span>Commencer</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="score">
+      <div class="score-panel reveal">
+        <div class="score-main">
+          <strong>Note annuelle</strong>
+          <div class="score-value" id="scoreValue">0 / 60</div>
+          <p class="score-details" id="scoreDetails">Questions: 0 / 36 | Production écrite: 0 / 24</p>
+        </div>
+        <div class="actions">
+          <button class="primary-btn" type="button" onclick="corriger()">Corriger</button>
+          <button class="ghost-btn" type="button" onclick="reinitialiser()">Recommencer</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="units">
+      <div class="reveal">
+        <div class="section-label">Programme</div>
+        <h2 class="section-title">Les unités de l'année</h2>
+        <p class="section-desc">Chaque unité reprend les notions du tableau annuel: grammaire, conjugaison, orthographe, lexique et production écrite.</p>
+      </div>
+      <div class="units-grid reveal" id="unitsGrid"></div>
+    </section>
+
+    <section class="section" id="missions">
+      <div class="reveal">
+        <div class="section-label">Partie A</div>
+        <h2 class="section-title">Exercices avec correction automatique</h2>
+        <p class="section-desc">Ouvre les unités, choisis les réponses, puis clique sur « Corriger » pour voir les corrections.</p>
+      </div>
+      <div class="missions-list reveal" id="missionsList"></div>
+    </section>
+
+    <section class="section" id="writing">
+      <div class="reveal">
+        <div class="section-label">Partie B</div>
+        <h2 class="section-title">Production écrite avec grille de notation</h2>
+        <p class="section-desc">Écris ton texte, compare-le au modèle, puis coche les critères réussis. Chaque critère vaut 1 point.</p>
+      </div>
+      <div class="writing-grid reveal" id="writingGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="summary-card reveal">
+        <div class="summary-item">
+          <div class="summary-icon">🎯</div>
+          <div class="summary-text">
+            <strong>Objectif</strong>
+            <span>Réviser toutes les unités de français 6AEP</span>
+          </div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-icon">✅</div>
+          <div class="summary-text">
+            <strong>Correction</strong>
+            <span>Réponses et explications simples</span>
+          </div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-icon">📊</div>
+          <div class="summary-text">
+            <strong>Notation</strong>
+            <span>36 points questions + 24 points production</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wave-divider" style="margin-bottom:40px"></div>
+    <div class="footer-logo">📐 الأستاذ لحسن الماضي</div>
+    <div class="footer-sub">مجموعة مدارس الزعفران • المستوى السادس ابتدائي</div>
+    <div class="footer-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="french.html">Français modèle 1</a>
+      <a href="french-modele-2.html">Français modèle 2</a>
+      <a href="french-6aep-annee.html">Français 6AEP annuel</a>
+      <a href="math.html">الرياضيات</a>
+    </div>
+    <div class="footer-copy">تم التطوير بكل فخر للأغراض التعليمية &copy; 2026 - جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<script>
+const units = [
+  {
+    semester: 'Semestre 1',
+    icon: '🏛️',
+    title: 'Unité 1: Des civilisations universelles',
+    theme: 'Patrimoine, civilisations, voyage et description',
+    chips: ['Phrase nominale', 'Adjectif qualificatif', 'Présent', 'Imparfait', 'Accents', 'Gentilés'],
+    questions: [
+      {
+        prompt: '1. « Magnifique palais! » est une:',
+        choices: ['phrase nominale', 'phrase verbale', 'phrase interrogative'],
+        answer: 'phrase nominale',
+        correction: 'Il n’y a pas de verbe conjugué: c’est une phrase nominale.'
+      },
+      {
+        prompt: '2. Dans « L’Alhambra est célèbre », l’adjectif « célèbre » est:',
+        choices: ['épithète', 'attribut du sujet', 'complément de lieu'],
+        answer: 'attribut du sujet',
+        correction: 'Il est relié au sujet par le verbe « est »: c’est un attribut.'
+      },
+      {
+        prompt: '3. Présent: « Nous ___ un monument historique. »',
+        choices: ['visitons', 'visitions', 'visiterons'],
+        answer: 'visitons',
+        correction: 'Au présent avec « nous »: nous visitons.'
+      },
+      {
+        prompt: '4. Imparfait: « Autrefois, les artisans ___ de belles mosaïques. »',
+        choices: ['fabriquent', 'fabriquaient', 'fabriqueront'],
+        answer: 'fabriquaient',
+        correction: 'À l’imparfait avec « les artisans »: fabriquaient.'
+      },
+      {
+        prompt: '5. Quel mot contient un accent aigu?',
+        choices: ['père', 'école', 'où'],
+        answer: 'école',
+        correction: 'Dans « école », la lettre « é » porte un accent aigu.'
+      },
+      {
+        prompt: '6. Les habitants du Maroc sont:',
+        choices: ['les Marocains', 'les Marocaines seulement', 'les Maroc'],
+        answer: 'les Marocains',
+        correction: 'Le gentilé du Maroc est: Marocain / Marocaine.'
+      }
+    ]
+  },
+  {
+    semester: 'Semestre 1',
+    icon: '🤝',
+    title: 'Unité 2: La citoyenneté et le comportement civique',
+    theme: 'Solidarité, respect, charte et interview',
+    chips: ['Pronoms compléments', 'Interrogation', 'Passé composé', 'Futur simple', 'Accord sujet-verbe', 'Synonymes'],
+    questions: [
+      {
+        prompt: '1. Remplace le complément: « Je respecte les règles. »',
+        choices: ['Je les respecte.', 'Je lui respecte.', 'Je y respecte.'],
+        answer: 'Je les respecte.',
+        correction: '« Les règles » est remplacé par le pronom complément « les ».'
+      },
+      {
+        prompt: '2. Quelle phrase est interrogative?',
+        choices: ['Tu aides ton camarade.', 'Aides-tu ton camarade?', 'Tu aides ton camarade.'],
+        answer: 'Aides-tu ton camarade?',
+        correction: 'L’inversion du sujet et du verbe forme une question.'
+      },
+      {
+        prompt: '3. Passé composé: « Les élèves ___ la cour. »',
+        choices: ['ont nettoyé', 'nettoieront', 'nettoyaient'],
+        answer: 'ont nettoyé',
+        correction: 'Au passé composé: auxiliaire avoir + participe passé.'
+      },
+      {
+        prompt: '4. Futur simple: « Demain, nous ___ une charte. »',
+        choices: ['rédigeons', 'rédigerons', 'rédigions'],
+        answer: 'rédigerons',
+        correction: 'Au futur simple avec « nous »: nous rédigerons.'
+      },
+      {
+        prompt: '5. Choisis l’accord correct:',
+        choices: ['Les citoyens respecte la loi.', 'Les citoyens respectent la loi.', 'Les citoyens respectes la loi.'],
+        answer: 'Les citoyens respectent la loi.',
+        correction: 'Le sujet pluriel « Les citoyens » demande le verbe au pluriel.'
+      },
+      {
+        prompt: '6. Le synonyme de « aider » est:',
+        choices: ['soutenir', 'refuser', 'oublier'],
+        answer: 'soutenir',
+        correction: 'Aider signifie aussi soutenir.'
+      }
+    ]
+  },
+  {
+    semester: 'Semestre 1',
+    icon: '🤖',
+    title: 'Unité 3: Sciences et technologies',
+    theme: 'Robot, progrès, information et argumentation',
+    chips: ['Négation', 'Cause', 'Impératif', 'Conditionnel', 'Tout/tous', 'Antonymes'],
+    questions: [
+      {
+        prompt: '1. Mets à la négation: « Le robot fonctionne. »',
+        choices: ['Le robot ne fonctionne pas.', 'Le robot fonctionne pas.', 'Ne le robot fonctionne.'],
+        answer: 'Le robot ne fonctionne pas.',
+        correction: 'La négation correcte encadre le verbe: ne ... pas.'
+      },
+      {
+        prompt: '2. Dans « Je suis content parce que le robot aide les élèves », « parce que » exprime:',
+        choices: ['la cause', 'le lieu', 'le temps'],
+        answer: 'la cause',
+        correction: '« Parce que » introduit la cause.'
+      },
+      {
+        prompt: '3. Impératif du 1er groupe: « ___ attentivement l’expérience! »',
+        choices: ['Observe', 'Observes', 'Observer'],
+        answer: 'Observe',
+        correction: 'À l’impératif avec « tu », on écrit: observe.'
+      },
+      {
+        prompt: '4. Conditionnel: « Je ___ un robot utile. »',
+        choices: ['choisirais', 'choisirai', 'choisissais'],
+        answer: 'choisirais',
+        correction: 'Au conditionnel présent avec « je »: choisirais.'
+      },
+      {
+        prompt: '5. Complète: « ___ les machines doivent être utilisées avec prudence. »',
+        choices: ['Tout', 'Toute', 'Toutes'],
+        answer: 'Toutes',
+        correction: '« Machines » est féminin pluriel: toutes.'
+      },
+      {
+        prompt: '6. L’antonyme de « rapide » est:',
+        choices: ['lent', 'vif', 'moderne'],
+        answer: 'lent',
+        correction: 'Rapide et lent sont des antonymes.'
+      }
+    ]
+  },
+  {
+    semester: 'Semestre 2',
+    icon: '⚡',
+    title: 'Unité 4: L’énergie dans notre vie',
+    theme: 'Énergies renouvelables, économies et sensibilisation',
+    chips: ['CCL/CCT', 'Réduction', 'Conditionnel', 'Impératif', 'Pluriel -al/-ail', 'Préfixes'],
+    questions: [
+      {
+        prompt: '1. Dans « Le soir, nous économisons l’énergie à la maison », « Le soir » est:',
+        choices: ['CCT', 'CCL', 'CCM'],
+        answer: 'CCT',
+        correction: '« Le soir » indique le temps: c’est un CCT.'
+      },
+      {
+        prompt: '2. Réduis la phrase: « Les jeunes élèves responsables ferment les lumières inutiles. »',
+        choices: ['Les élèves ferment les lumières.', 'Les jeunes responsables ferment.', 'Les lumières ferment les élèves.'],
+        answer: 'Les élèves ferment les lumières.',
+        correction: 'On enlève les expansions et on garde l’essentiel.'
+      },
+      {
+        prompt: '3. Conditionnel: « Si je pouvais, je ___ moins d’électricité. »',
+        choices: ['consommerais', 'consommerai', 'consommais'],
+        answer: 'consommerais',
+        correction: 'Au conditionnel présent avec « je »: consommerais.'
+      },
+      {
+        prompt: '4. Impératif du 2e groupe: « ___ les déchets! »',
+        choices: ['Trie', 'Tris', 'Trier'],
+        answer: 'Trie',
+        correction: 'Avec un verbe du 1er groupe comme « trier », on écrit: trie.'
+      },
+      {
+        prompt: '5. Mets au pluriel: « un travail ».',
+        choices: ['des travaux', 'des travails', 'des travailes'],
+        answer: 'des travaux',
+        correction: 'Le pluriel de « travail » est « travaux ».'
+      },
+      {
+        prompt: '6. Dans « relire », le préfixe « re- » signifie:',
+        choices: ['faire encore', 'faire mal', 'faire vite'],
+        answer: 'faire encore',
+        correction: 'Le préfixe « re- » exprime la répétition.'
+      }
+    ]
+  },
+  {
+    semester: 'Semestre 2',
+    icon: '🌍',
+    title: 'Unité 5: Les défis de la vie contemporaine',
+    theme: 'Paix, famille, phénomènes sociaux et journal',
+    chips: ['CCM', 'Voix passive', 'Présent pronominal', 'Passé composé', 'Peu/peux/peut', 'Mot étiquette'],
+    questions: [
+      {
+        prompt: '1. Dans « Il parle avec courage », « avec courage » est:',
+        choices: ['CCM', 'CCT', 'CCL'],
+        answer: 'CCM',
+        correction: '« Avec courage » indique la manière: c’est un CCM.'
+      },
+      {
+        prompt: '2. Mets à la voix passive: « Les jeunes protègent la paix. »',
+        choices: ['La paix est protégée par les jeunes.', 'Les jeunes sont protégés par la paix.', 'La paix protège les jeunes.'],
+        answer: 'La paix est protégée par les jeunes.',
+        correction: 'Au présent passif: est protégée par...'
+      },
+      {
+        prompt: '3. Présent pronominal: « Nous ___ contre la violence. »',
+        choices: ['nous mobilisons', 'se mobilisons', 'nous mobilisait'],
+        answer: 'nous mobilisons',
+        correction: 'Se mobiliser au présent: nous nous mobilisons.'
+      },
+      {
+        prompt: '4. Passé composé pronominal: « Elle ___ pour aider sa famille. »',
+        choices: ['s’est organisée', 's’a organisée', 's’organise'],
+        answer: 's’est organisée',
+        correction: 'Avec un verbe pronominal, on emploie l’auxiliaire être.'
+      },
+      {
+        prompt: '5. Complète: « Tu ___ faire beaucoup avec ___ de moyens. »',
+        choices: ['peux / peu', 'peut / peux', 'peu / peut'],
+        answer: 'peux / peu',
+        correction: '« Peux » vient de pouvoir; « peu » signifie une petite quantité.'
+      },
+      {
+        prompt: '6. Le mot étiquette de « pollution, chômage, violence » est:',
+        choices: ['défis contemporains', 'sports collectifs', 'objets scolaires'],
+        answer: 'défis contemporains',
+        correction: 'Ces mots désignent des défis de la vie contemporaine.'
+      }
+    ]
+  },
+  {
+    semester: 'Semestre 2',
+    icon: '🎨',
+    title: 'Unité 6: Art et créativité',
+    theme: 'Portrait, lieu, théâtre, peinture et créativité',
+    chips: ['Comparaison', 'Discours indirect', 'Impératif', 'Imparfait', 'Mots composés', 'Mots invariables'],
+    questions: [
+      {
+        prompt: '1. Complète: « Ce tableau est ___ beau ___ l’autre. »',
+        choices: ['aussi / que', 'plus / de', 'moins / comme'],
+        answer: 'aussi / que',
+        correction: 'Pour comparer deux éléments à égalité: aussi ... que.'
+      },
+      {
+        prompt: '2. Mets au discours indirect: Il dit: « J’aime le théâtre. »',
+        choices: ['Il dit qu’il aime le théâtre.', 'Il dit il aime le théâtre.', 'Il dit que j’aime le théâtre.'],
+        answer: 'Il dit qu’il aime le théâtre.',
+        correction: 'On introduit le discours indirect par « que ».'
+      },
+      {
+        prompt: '3. Impératif pronominal: « ___ devant le tableau! »',
+        choices: ['Place-toi', 'Te place', 'Places-toi'],
+        answer: 'Place-toi',
+        correction: 'À l’impératif affirmatif: place-toi.'
+      },
+      {
+        prompt: '4. Imparfait pronominal: « Chaque dimanche, je ___ au théâtre. »',
+        choices: ['me rendais', 'me rends', 'me suis rendu'],
+        answer: 'me rendais',
+        correction: 'À l’imparfait avec « je »: je me rendais.'
+      },
+      {
+        prompt: '5. Mets au pluriel: « un chef-d’œuvre ».',
+        choices: ['des chefs-d’œuvre', 'des chef-d’œuvres', 'des chefs-d’œuvres'],
+        answer: 'des chefs-d’œuvre',
+        correction: 'Dans ce nom composé, « chef » prend la marque du pluriel.'
+      },
+      {
+        prompt: '6. Quel mot est invariable?',
+        choices: ['toujours', 'créatifs', 'belle'],
+        answer: 'toujours',
+        correction: '« Toujours » ne change pas: c’est un mot invariable.'
+      }
+    ]
+  }
+];
+
+const writings = [
+  {
+    title: '1. Texte narratif/descriptif',
+    prompt: 'Raconte une visite d’un monument ou décris un patrimoine que tu connais.',
+    placeholder: 'Écris un court texte narratif/descriptif...',
+    criteria: [
+      'J’ai présenté le lieu ou le monument.',
+      'J’ai utilisé des adjectifs qualificatifs.',
+      'J’ai organisé les idées dans un ordre clair.',
+      'J’ai respecté la ponctuation.'
+    ],
+    model: 'Pendant les vacances, j’ai visité un ancien monument avec ma famille. Le bâtiment était grand, calme et décoré de belles mosaïques. D’abord, le guide nous a expliqué son histoire. Enfin, j’ai pris des notes parce que cette visite était très intéressante.'
+  },
+  {
+    title: '2. Interview ou bande dessinée',
+    prompt: 'Complète une courte interview sur la citoyenneté et le comportement civique.',
+    placeholder: 'Question: ...\nRéponse: ...',
+    criteria: [
+      'J’ai écrit des questions claires.',
+      'Les réponses parlent du respect et de la solidarité.',
+      'J’ai utilisé une ponctuation correcte.',
+      'Le dialogue est facile à lire.'
+    ],
+    model: 'Question: Pourquoi faut-il respecter les règles de l’école? Réponse: Il faut les respecter parce qu’elles protègent tous les élèves. Question: Comment peut-on être solidaire? Réponse: On peut aider un camarade, partager le matériel et écouter les autres.'
+  },
+  {
+    title: '3. Texte informatif ou argumentatif',
+    prompt: 'Écris un texte sur les avantages ou les limites du progrès scientifique.',
+    placeholder: 'Écris ton avis avec des arguments...',
+    criteria: [
+      'J’ai donné une information ou une opinion claire.',
+      'J’ai utilisé parce que, car ou donc.',
+      'J’ai donné au moins deux arguments.',
+      'J’ai terminé par une conclusion simple.'
+    ],
+    model: 'Le progrès scientifique facilite la vie des personnes. Par exemple, les robots peuvent aider dans les usines et les hôpitaux. Cependant, il faut utiliser la technologie avec prudence. Donc, le progrès est utile quand il respecte l’être humain.'
+  },
+  {
+    title: '4. Texte explicatif et slogan',
+    prompt: 'Explique pourquoi il faut économiser l’énergie, puis écris un slogan.',
+    placeholder: 'Texte explicatif...\nSlogan...',
+    criteria: [
+      'J’ai expliqué l’importance de l’énergie.',
+      'J’ai donné des conseils pratiques.',
+      'J’ai écrit un slogan court.',
+      'J’ai utilisé un vocabulaire de sensibilisation.'
+    ],
+    model: 'L’énergie est nécessaire dans notre vie quotidienne. Il faut l’économiser parce que certaines ressources sont limitées. Nous pouvons éteindre les lampes inutiles et utiliser les appareils avec prudence. Slogan: Économise l’énergie, protège la vie!'
+  },
+  {
+    title: '5. Récit ou article de journal',
+    prompt: 'Raconte un événement ou écris un article sur un défi contemporain.',
+    placeholder: 'Titre...\nTexte...',
+    criteria: [
+      'J’ai indiqué qui, quoi, où et quand.',
+      'J’ai utilisé un style clair.',
+      'J’ai parlé d’un défi contemporain.',
+      'J’ai proposé une solution ou une idée positive.'
+    ],
+    model: 'Une campagne contre la violence. Mardi matin, les élèves de sixième année ont organisé une campagne de sensibilisation dans la cour de l’école. Ils ont présenté des affiches et des conseils pour vivre en paix. Cette activité a encouragé le respect et le dialogue.'
+  },
+  {
+    title: '6. Description: portrait ou lieu',
+    prompt: 'Décris une personne créative ou un lieu artistique.',
+    placeholder: 'Écris ta description...',
+    criteria: [
+      'J’ai présenté la personne ou le lieu.',
+      'J’ai utilisé des adjectifs précis.',
+      'J’ai ajouté des détails visuels.',
+      'J’ai exprimé une impression personnelle.'
+    ],
+    model: 'La maison de Monet est un lieu artistique magnifique. Elle est entourée d’un jardin coloré et calme. Les fleurs, les arbres et les couleurs donnent envie de peindre. Ce lieu me semble inspirant parce qu’il réunit la nature et la créativité.'
+  }
+];
+
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderUnits() {
+  document.getElementById('unitsGrid').innerHTML = units.map((unit) => `
+    <article class="unit-card">
+      <div class="unit-top">
+        <div class="unit-icon">${unit.icon}</div>
+        <span class="unit-semester">${unit.semester}</span>
+      </div>
+      <h3>${escapeHTML(unit.title)}</h3>
+      <p>${escapeHTML(unit.theme)}</p>
+      <div class="chips">
+        ${unit.chips.map((chip) => `<span class="chip">${escapeHTML(chip)}</span>`).join('')}
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderMissions() {
+  document.getElementById('missionsList').innerHTML = units.map((unit, unitIndex) => `
+    <details class="mission" ${unitIndex < 2 ? 'open' : ''}>
+      <summary>
+        <div class="mission-title">
+          <span class="mission-icon">${unit.icon}</span>
+          <div>
+            <h3>${escapeHTML(unit.title)}</h3>
+            <small>${escapeHTML(unit.semester)} - ${escapeHTML(unit.theme)}</small>
+          </div>
+        </div>
+        <span class="mission-arrow">⌄</span>
+      </summary>
+      <div class="questions-grid">
+        ${unit.questions.map((question, questionIndex) => {
+          const id = `q-${unitIndex}-${questionIndex}`;
+          return `
+            <article class="question">
+              <label for="${id}">${escapeHTML(question.prompt)}</label>
+              <select id="${id}" data-answer="${escapeHTML(question.answer)}" data-correction="${escapeHTML(question.correction)}">
+                <option value="">Choisir une réponse</option>
+                ${question.choices.map((choice) => `<option>${escapeHTML(choice)}</option>`).join('')}
+              </select>
+              <p class="feedback"></p>
+            </article>
+          `;
+        }).join('')}
+      </div>
+    </details>
+  `).join('');
+}
+
+function renderWriting() {
+  document.getElementById('writingGrid').innerHTML = writings.map((item, index) => `
+    <article class="writing-card">
+      <p class="prompt">${escapeHTML(item.title)}</p>
+      <p>${escapeHTML(item.prompt)}</p>
+      <textarea placeholder="${escapeHTML(item.placeholder)}"></textarea>
+      <div class="criteria">
+        ${item.criteria.map((criterion) => `
+          <label><input type="checkbox" data-writing-point> ${escapeHTML(criterion)}</label>
+        `).join('')}
+      </div>
+      <button class="model-btn" type="button" onclick="toggleModel('model-${index}')">Voir le modèle</button>
+      <p class="model" id="model-${index}">${escapeHTML(item.model)}</p>
+    </article>
+  `).join('');
+}
+
+function normaliser(texte) {
+  return String(texte)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[’']/g, "'")
+    .replace(/[.!?;:]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+function corriger() {
+  let pointsAuto = 0;
+  let totalAuto = 0;
+
+  document.querySelectorAll('[data-answer]').forEach((champ) => {
+    const question = champ.closest('.question');
+    const feedback = question.querySelector('.feedback');
+    const reponses = champ.dataset.answer.split('|').map(normaliser);
+    const valeur = normaliser(champ.value);
+    const point = Number(champ.dataset.points || 1);
+
+    totalAuto += point;
+    question.classList.remove('correct', 'wrong');
+    feedback.className = 'feedback';
+
+    if (!valeur) {
+      question.classList.add('wrong');
+      feedback.classList.add('bad');
+      feedback.textContent = 'Réponse manquante. Correction: ' + champ.dataset.correction;
+      return;
+    }
+
+    if (reponses.includes(valeur)) {
+      pointsAuto += point;
+      question.classList.add('correct');
+      feedback.classList.add('good');
+      feedback.textContent = 'Correct. ' + champ.dataset.correction;
+    } else {
+      question.classList.add('wrong');
+      feedback.classList.add('bad');
+      feedback.textContent = 'À revoir. Correction: ' + champ.dataset.correction;
+    }
+  });
+
+  let pointsProduction = 0;
+  let totalProduction = 0;
+
+  document.querySelectorAll('[data-writing-point]').forEach((critere) => {
+    totalProduction += 1;
+    if (critere.checked) {
+      pointsProduction += 1;
+    }
+  });
+
+  const total = totalAuto + totalProduction;
+  const points = pointsAuto + pointsProduction;
+  document.getElementById('scoreValue').textContent = points + ' / ' + total;
+  document.getElementById('scoreDetails').textContent =
+    'Questions: ' + pointsAuto + ' / ' + totalAuto +
+    ' | Production écrite: ' + pointsProduction + ' / ' + totalProduction;
+}
+
+function reinitialiser() {
+  document.querySelectorAll('select').forEach((select) => {
+    select.value = '';
+  });
+
+  document.querySelectorAll('textarea').forEach((zone) => {
+    zone.value = '';
+  });
+
+  document.querySelectorAll("input[type='checkbox']").forEach((critere) => {
+    critere.checked = false;
+  });
+
+  document.querySelectorAll('.question').forEach((question) => {
+    question.classList.remove('correct', 'wrong');
+  });
+
+  document.querySelectorAll('.feedback').forEach((feedback) => {
+    feedback.textContent = '';
+    feedback.className = 'feedback';
+  });
+
+  document.querySelectorAll('.model').forEach((model) => {
+    model.classList.remove('show');
+  });
+
+  document.getElementById('scoreValue').textContent = '0 / 60';
+  document.getElementById('scoreDetails').textContent = 'Questions: 0 / 36 | Production écrite: 0 / 24';
+}
+
+function toggleModel(id) {
+  document.getElementById(id).classList.toggle('show');
+}
+
+function createParticles() {
+  const c = document.getElementById('particles');
+  const colors = ['#38bdf8','#2563eb','#f59e0b','#a855f7','#22d3ee'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const sz = 2 + Math.random() * 4;
+    p.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}vw;
+      animation-duration:${8 + Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    c.appendChild(p);
+  }
+}
+
+function setupReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .unit-card, .mission, .writing-card').forEach(el => obs.observe(el));
+}
+
+renderUnits();
+renderMissions();
+renderWriting();
+createParticles();
+setupReveal();
+</script>
+
+</body>
+</html>
